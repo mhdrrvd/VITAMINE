@@ -1,0 +1,247 @@
+import { Ingredient, Product, PromoSlide, User } from '@/types';
+
+export const INITIAL_USERS: User[] = [
+  {
+    id: 'user-1',
+    name: 'Rian Pratama',
+    username: 'kasir1',
+    role: 'CASHIER',
+    isActive: true,
+  },
+  {
+    id: 'user-2',
+    name: 'Siti Aminah',
+    username: 'kasir2',
+    role: 'CASHIER',
+    isActive: true,
+  },
+  {
+    id: 'user-owner',
+    name: 'Hendra Wijaya',
+    username: 'owner',
+    role: 'OWNER',
+    isActive: true,
+  },
+];
+
+export const INITIAL_INGREDIENTS: Ingredient[] = [
+  {
+    id: 'ing-mangga',
+    name: 'Mangga Harum Manis',
+    unit: 'GRAM',
+    currentStock: 4500, // 4.5 kg
+    minStockAlert: 1000,
+    costPerUnit: 25, // Rp 25 / gram (Rp 25.000 / kg)
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-alpukat',
+    name: 'Alpukat Mentega',
+    unit: 'GRAM',
+    currentStock: 3200, // 3.2 kg
+    minStockAlert: 800,
+    costPerUnit: 30, // Rp 30.000 / kg
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-buahnaga',
+    name: 'Buah Naga Merah',
+    unit: 'GRAM',
+    currentStock: 2800,
+    minStockAlert: 600,
+    costPerUnit: 22,
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-jeruk',
+    name: 'Jeruk Sunkist Segar',
+    unit: 'GRAM',
+    currentStock: 5000,
+    minStockAlert: 1200,
+    costPerUnit: 28,
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-wortel',
+    name: 'Wortel Import Manis',
+    unit: 'GRAM',
+    currentStock: 2500,
+    minStockAlert: 500,
+    costPerUnit: 18,
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-tomat',
+    name: 'Tomat Segar',
+    unit: 'GRAM',
+    currentStock: 2000,
+    minStockAlert: 400,
+    costPerUnit: 15,
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-gula',
+    name: 'Gula Cair Tebu Alami',
+    unit: 'ML',
+    currentStock: 5000, // 5 Liter
+    minStockAlert: 1000,
+    costPerUnit: 12, // Rp 12 / ml
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-cup',
+    name: 'Cup Plastik 16oz',
+    unit: 'PCS',
+    currentStock: 150,
+    minStockAlert: 30,
+    costPerUnit: 650,
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-sedotan',
+    name: 'Sedotan Steril Bio',
+    unit: 'PCS',
+    currentStock: 200,
+    minStockAlert: 40,
+    costPerUnit: 120,
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'ing-tutup',
+    name: 'Tutup Cup Dome',
+    unit: 'PCS',
+    currentStock: 160,
+    minStockAlert: 30,
+    costPerUnit: 250,
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+export const INITIAL_PRODUCTS: Product[] = [
+  {
+    id: 'prod-mangga',
+    name: 'Jus Mangga Harum Manis',
+    category: 'SINGLE_FRUIT',
+    basePrice: 22000,
+    imageUrl: 'https://images.unsplash.com/photo-1553279768-865429fa0078?w=500&auto=format&fit=crop&q=80',
+    colorAccent: '#FF9800',
+    isActive: true,
+    recipe: [
+      { ingredientId: 'ing-mangga', quantityRequired: 150 },
+      { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
+      { ingredientId: 'ing-cup', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
+    ],
+  },
+  {
+    id: 'prod-alpukat',
+    name: 'Jus Alpukat Mentega',
+    category: 'SINGLE_FRUIT',
+    basePrice: 25000,
+    imageUrl: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=500&auto=format&fit=crop&q=80',
+    colorAccent: '#8BC34A',
+    isActive: true,
+    recipe: [
+      { ingredientId: 'ing-alpukat', quantityRequired: 140 },
+      { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
+      { ingredientId: 'ing-cup', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
+    ],
+  },
+  {
+    id: 'prod-buahnaga',
+    name: 'Jus Buah Naga Merah',
+    category: 'SINGLE_FRUIT',
+    basePrice: 20000,
+    imageUrl: 'https://images.unsplash.com/photo-1527324688151-0e627063f2b1?w=500&auto=format&fit=crop&q=80',
+    colorAccent: '#E91E63',
+    isActive: true,
+    recipe: [
+      { ingredientId: 'ing-buahnaga', quantityRequired: 160 },
+      { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
+      { ingredientId: 'ing-cup', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
+    ],
+  },
+  {
+    id: 'prod-jeruk',
+    name: 'Jus Sunkist Murni',
+    category: 'SINGLE_FRUIT',
+    basePrice: 20000,
+    imageUrl: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500&auto=format&fit=crop&q=80',
+    colorAccent: '#FF5722',
+    isActive: true,
+    recipe: [
+      { ingredientId: 'ing-jeruk', quantityRequired: 200 },
+      { ingredientId: 'ing-gula', quantityRequired: 25, isFlatOverhead: true },
+      { ingredientId: 'ing-cup', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
+    ],
+  },
+  {
+    id: 'prod-vita',
+    name: 'Paket VIT-A (Mata Jernih)',
+    category: 'VITAMIN_PACKAGE',
+    basePrice: 28000,
+    imageUrl: 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=500&auto=format&fit=crop&q=80',
+    colorAccent: '#FF9800',
+    isActive: true,
+    recipe: [
+      { ingredientId: 'ing-wortel', quantityRequired: 100 },
+      { ingredientId: 'ing-tomat', quantityRequired: 80 },
+      { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
+      { ingredientId: 'ing-cup', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
+    ],
+  },
+  {
+    id: 'prod-vitc',
+    name: 'Paket VIT-C (Imun Booster)',
+    category: 'VITAMIN_PACKAGE',
+    basePrice: 27000,
+    imageUrl: 'https://images.unsplash.com/photo-1546173159-315724a31696?w=500&auto=format&fit=crop&q=80',
+    colorAccent: '#F59E0B',
+    isActive: true,
+    recipe: [
+      { ingredientId: 'ing-jeruk', quantityRequired: 120 },
+      { ingredientId: 'ing-buahnaga', quantityRequired: 80 },
+      { ingredientId: 'ing-gula', quantityRequired: 25, isFlatOverhead: true },
+      { ingredientId: 'ing-cup', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
+      { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
+    ],
+  },
+];
+
+export const INITIAL_PROMOS: PromoSlide[] = [
+  {
+    id: 'promo-1',
+    title: 'Diskon 20% Paket VIT-C Imun Booster',
+    imageUrl: 'https://images.unsplash.com/photo-1546173159-315724a31696?w=1200&auto=format&fit=crop&q=80',
+    displayOrder: 1,
+    durationSeconds: 6,
+    isActive: true,
+  },
+  {
+    id: 'promo-2',
+    title: 'Segarnya Mangga Harum Manis Asli',
+    imageUrl: 'https://images.unsplash.com/photo-1553279768-865429fa0078?w=1200&auto=format&fit=crop&q=80',
+    displayOrder: 2,
+    durationSeconds: 5,
+    isActive: true,
+  },
+  {
+    id: 'promo-3',
+    title: 'Alpukat Mentega Creamy Tanpa Pemanis Buatan',
+    imageUrl: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=1200&auto=format&fit=crop&q=80',
+    displayOrder: 3,
+    durationSeconds: 5,
+    isActive: true,
+  },
+];
+
