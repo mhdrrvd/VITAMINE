@@ -15,7 +15,6 @@ import {
 
 export function SidebarPOS() {
   const {
-    currentUser,
     setIsHistoryModalOpen,
     setIsMorningStockModalOpen,
     setIsStockModalOpen,
@@ -147,22 +146,6 @@ export function SidebarPOS() {
             </span>
           </div>
         </nav>
-      </div>
-
-      {/* 3. Bottom Profile Avatar */}
-      <div className="flex flex-col items-center gap-3">
-        <div className="relative group">
-          <motion.div
-            whileHover={{ scale: 1.08 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="w-10 h-10 rounded-2xl bg-[#F1F5F3] dark:bg-slate-800 hover:bg-[#1A6B51] hover:text-white dark:hover:bg-[#00B14F] dark:hover:text-slate-950 text-[#1A6B51] dark:text-[#00B14F] border border-slate-200/80 dark:border-slate-700 flex items-center justify-center font-extrabold text-xs cursor-pointer shadow-2xs transition-all duration-300 ease-out"
-          >
-            {currentUser.name.slice(0, 2).toUpperCase()}
-          </motion.div>
-          <span className="absolute left-14 bottom-1 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg border border-[#8EB69B]/30 dark:border-slate-700">
-            {currentUser.name} ({currentUser.role})
-          </span>
-        </div>
       </div>
     </aside>
   );

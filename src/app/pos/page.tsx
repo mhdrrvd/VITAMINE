@@ -129,13 +129,13 @@ function PosContent() {
 
       {/* 2. Center Main Work Area (Fixed height, isolated menu scroll) */}
       <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
-        {/* Fixed Top Section: Header & Category Navbar (Locked, never scrolls) */}
-        <div className="shrink-0 bg-[#F8FAF9] dark:bg-[#081210] z-20 border-b border-slate-100/60 dark:border-slate-800/80 shadow-[0_2px_10px_rgba(0,0,0,0.015)] dark:shadow-none transition-colors duration-300">
-          {/* Top Header with Date, Title & Search Capsule */}
+        {/* Fixed Top Section: Floating Header & Category Navbar (Locked, never scrolls) */}
+        <div className="shrink-0 bg-transparent z-20 pb-1">
+          {/* Top Floating Header Navbar */}
           <HeaderPOS />
 
           {/* Section Heading & Category Navigation Pills Bar */}
-          <div className="px-8 pb-3.5">
+          <div className="px-8 pt-1.5 pb-2">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
                 Find The Fresh Juice
