@@ -197,13 +197,6 @@ export function CartPanel() {
             </span>
           </div>
 
-          <div className="flex justify-between text-slate-500 dark:text-slate-400 text-[11px]">
-            <span>Tax (0%)</span>
-            <span className="font-semibold text-slate-400 dark:text-slate-500 font-mono">
-              Rp 0
-            </span>
-          </div>
-
           <div className="flex justify-between items-baseline pt-1.5 border-t border-slate-100 dark:border-slate-800/80">
             <span className="font-bold text-sm text-slate-900 dark:text-white">Total</span>
             <span className="font-black text-xl text-slate-900 dark:text-white font-mono">
