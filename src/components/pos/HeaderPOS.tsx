@@ -103,9 +103,9 @@ export function HeaderPOS() {
 
   return (
     <div className="px-6 pt-5 pb-2 shrink-0 select-none">
-      {/* 1. Top Header Row: Nama Outlet, Tanggal Real-Time & Global Actions */}
+      {/* 1. Top Header Row: Nama Outlet & Tanggal Real-Time */}
       <div className="flex items-center justify-between gap-4 mb-4">
-        {/* Left: Greeting, Outlet Name & Real-time Live Clock */}
+        {/* Left: Outlet Name & Real-time Live Clock */}
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -116,16 +116,14 @@ export function HeaderPOS() {
           </button>
 
           <div>
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
-                Welcome back, {currentUser.name.split(' ')[0]}! 👋
-              </h2>
-
-              {/* Nama Outlet Badge */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 border border-[#1A6B51]/20 dark:border-[#00B14F]/30 text-xs font-bold text-[#1A6B51] dark:text-[#00B14F] shadow-2xs">
-                <Store className="w-3.5 h-3.5" />
-                <span>VITAMINE Outlet Pusat</span>
+            {/* Nama Outlet Utama */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
+                <Store className="w-4 h-4 stroke-[2.2]" />
               </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
+                VITAMINE Outlet Pusat
+              </h2>
             </div>
 
             {/* Tanggal & Waktu Real-Time */}
