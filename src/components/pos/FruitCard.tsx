@@ -70,7 +70,7 @@ export function FruitCard({ product }: FruitCardProps) {
         <h3 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white truncate" title={product.name}>
           {product.name}
         </h3>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate mt-0.5">
+        <p className="text-[10px] text-[#00E565]/90 font-medium truncate mt-0.5">
           {product.description ? product.description.split('.')[0] : 'Jus Buah Segar Alami'}
         </p>
       </div>

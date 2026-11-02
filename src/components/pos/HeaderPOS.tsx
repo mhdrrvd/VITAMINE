@@ -106,18 +106,18 @@ export function HeaderPOS() {
             </div>
 
               {/* Tanggal & Waktu Real-Time */}
-              <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium flex-wrap">
-                <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold">
-                  <Calendar className="w-3.5 h-3.5 text-[#1A6B51] dark:text-[#00B14F]" />
+              <div className="flex items-center gap-2 text-xs text-[#00E565] mt-1 font-medium flex-wrap">
+                <span className="flex items-center gap-1.5 text-[#00E565] font-semibold">
+                  <Calendar className="w-3.5 h-3.5 text-[#00E565]" />
                   {currentDate || 'Senin, 2 November 2026'}
                 </span>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span className="flex items-center gap-1.5 font-mono font-bold text-slate-800 dark:text-slate-200">
-                  <Clock className="w-3.5 h-3.5 text-[#1A6B51] dark:text-[#00B14F]" />
+                <span className="text-[#00E565]/40">•</span>
+                <span className="flex items-center gap-1.5 font-mono font-bold text-[#00E565]">
+                  <Clock className="w-3.5 h-3.5 text-[#00E565]" />
                   {currentTime || '18:00:00 WIB'}
                 </span>
-                <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold ml-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="inline-flex items-center gap-1 text-[10px] text-[#00E565] font-bold ml-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E565] animate-pulse" />
                   Live
                 </span>
               </div>
@@ -128,15 +128,15 @@ export function HeaderPOS() {
           <div className="flex items-center gap-2.5">
             {/* User Profile Card */}
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-2xs">
-              <div className="w-8 h-8 rounded-xl bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center font-bold text-xs shrink-0 border border-[#1A6B51]/20 dark:border-[#00B14F]/30">
+              <div className="w-8 h-8 rounded-xl bg-[#00E565]/15 text-[#00E565] flex items-center justify-center font-bold text-xs shrink-0 border border-[#00E565]/30">
                 {currentUser?.name ? currentUser.name.slice(0, 2).toUpperCase() : 'RP'}
               </div>
               <div className="text-left leading-tight pr-1">
                 <div className="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">
                   {currentUser?.name || 'Rian Pratama'}
                 </div>
-                <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1.5 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                <div className="text-[10px] font-medium text-[#00E565] flex items-center gap-1.5 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E565] shrink-0" />
                   <span className="truncate">{currentUser?.role === 'CASHIER' ? 'Kasir (Shift 1)' : 'Owner'}</span>
                 </div>
               </div>
@@ -150,22 +150,22 @@ export function HeaderPOS() {
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
             <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#00E565]/15 text-[#00E565] flex items-center justify-center shrink-0">
                   <DollarSign className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 truncate">
+                <span className="text-xs font-semibold text-[#00E565] truncate">
                   Total Sales
                 </span>
               </div>
               <div className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
                 Rp {totalRevenue.toLocaleString('id-ID')}
               </div>
-              <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <div className="text-[11px] font-bold text-[#00E565] flex items-center gap-1">
                 <span>↑ 18.4%</span>
-                <span className="text-slate-400 dark:text-slate-500 font-normal">from yesterday</span>
+                <span className="text-[#00E565]/80 font-normal">from yesterday</span>
               </div>
             </div>
-            <button type="button" className="text-slate-300 dark:text-slate-600 hover:text-slate-500 p-0.5">
+            <button type="button" className="text-[#00E565]/40 hover:text-[#00E565] p-0.5">
               <MoreVertical className="w-4 h-4" />
             </button>
           </div>
@@ -174,22 +174,22 @@ export function HeaderPOS() {
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
             <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#00E565]/15 text-[#00E565] flex items-center justify-center shrink-0">
                   <CupSoda className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 truncate">
+                <span className="text-xs font-semibold text-[#00E565] truncate">
                   Orders (Cup)
                 </span>
               </div>
               <div className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
                 {totalCupsSold}
               </div>
-              <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <div className="text-[11px] font-bold text-[#00E565] flex items-center gap-1">
                 <span>↑ 8.2%</span>
-                <span className="text-slate-400 dark:text-slate-500 font-normal">from yesterday</span>
+                <span className="text-[#00E565]/80 font-normal">from yesterday</span>
               </div>
             </div>
-            <button type="button" className="text-slate-300 dark:text-slate-600 hover:text-slate-500 p-0.5">
+            <button type="button" className="text-[#00E565]/40 hover:text-[#00E565] p-0.5">
               <MoreVertical className="w-4 h-4" />
             </button>
           </div>
@@ -198,22 +198,22 @@ export function HeaderPOS() {
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
             <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#00E565]/15 text-[#00E565] flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 truncate">
+                <span className="text-xs font-semibold text-[#00E565] truncate">
                   Total Customer
                 </span>
               </div>
               <div className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
                 {totalCustomers}
               </div>
-              <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <div className="text-[11px] font-bold text-[#00E565] flex items-center gap-1">
                 <span>↑ 12.5%</span>
-                <span className="text-slate-400 dark:text-slate-500 font-normal">from yesterday</span>
+                <span className="text-[#00E565]/80 font-normal">from yesterday</span>
               </div>
             </div>
-            <button type="button" className="text-slate-300 dark:text-slate-600 hover:text-slate-500 p-0.5">
+            <button type="button" className="text-[#00E565]/40 hover:text-[#00E565] p-0.5">
               <MoreVertical className="w-4 h-4" />
             </button>
           </div>
@@ -222,26 +222,26 @@ export function HeaderPOS() {
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
             <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#00E565]/15 text-[#00E565] flex items-center justify-center shrink-0">
                   <Receipt className="w-4 h-4 stroke-[2.4]" />
                 </div>
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 truncate">
+                <span className="text-xs font-semibold text-[#00E565] truncate">
                   Avg. Order Value
                 </span>
               </div>
               <div className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
                 Rp 27.042
               </div>
-              <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <div className="text-[11px] font-bold text-[#00E565] flex items-center gap-1">
                 <span>↑ 3.1%</span>
-                <span className="text-slate-400 dark:text-slate-500 font-normal">from yesterday</span>
+                <span className="text-[#00E565]/80 font-normal">from yesterday</span>
               </div>
             </div>
-            <button type="button" className="text-slate-300 dark:text-slate-600 hover:text-slate-500 p-0.5">
+            <button type="button" className="text-[#00E565]/40 hover:text-[#00E565] p-0.5">
               <MoreVertical className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
-      );
+    );
 }
