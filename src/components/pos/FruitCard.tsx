@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Product } from '@/types';
 import { usePos } from '@/context/PosContext';
-import { Heart, Clock } from 'lucide-react';
+import { Heart, Clock, Plus, ShoppingCart } from 'lucide-react';
 
 interface FruitCardProps {
   product: Product;
@@ -122,9 +122,9 @@ export function FruitCard({ product }: FruitCardProps) {
           {isOutOfStock ? (
             <span className="relative z-10 text-[11px]">Habis</span>
           ) : (
-            <span className="relative z-10 flex items-center gap-1 text-xs font-bold">
-              <span>add to cart</span>
-              <span className="text-sm font-extrabold leading-none">+</span>
+            <span className="relative z-10 flex items-center gap-1.5 py-0.5">
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+              <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
             </span>
           )}
         </button>
