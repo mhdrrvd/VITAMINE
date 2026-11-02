@@ -341,7 +341,7 @@ export function CartPanel() {
           </div>
         </div>
 
-        {/* Payments Section: Only Cash and QRIS */}
+        {/* Payments Section: Cash (Hijau Muda) and QRIS (Merah) */}
         <div>
           <h4 className="text-xs font-bold text-slate-800 tracking-wide mb-2">
             Payments
@@ -350,10 +350,11 @@ export function CartPanel() {
             <button
               type="button"
               onClick={() => setPaymentMethod('CASH')}
-              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 ${paymentMethod === 'CASH'
-                ? 'bg-[#1E293B] border-[#1E293B] text-white shadow-xs'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                }`}
+              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all duration-300 ease-out border flex items-center justify-center gap-2 cursor-pointer ${
+                paymentMethod === 'CASH'
+                  ? 'bg-[#00B14F] border-[#00B14F] text-white shadow-xs shadow-[#00B14F]/25'
+                  : 'bg-white border-slate-200 text-slate-600 hover:border-[#00B14F] hover:text-[#00B14F] hover:bg-[#00B14F]/5'
+              }`}
             >
               <Banknote className="w-4 h-4 shrink-0" />
               <span>Cash (F8)</span>
@@ -362,10 +363,11 @@ export function CartPanel() {
             <button
               type="button"
               onClick={() => setPaymentMethod('QRIS_STATIC')}
-              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 ${paymentMethod === 'QRIS_STATIC'
-                ? 'bg-[#1E293B] border-[#1E293B] text-white shadow-xs'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                }`}
+              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all duration-300 ease-out border flex items-center justify-center gap-2 cursor-pointer ${
+                paymentMethod === 'QRIS_STATIC'
+                  ? 'bg-[#D8232A] border-[#D8232A] text-white shadow-xs shadow-[#D8232A]/25'
+                  : 'bg-white border-slate-200 text-slate-600 hover:border-[#D8232A] hover:text-[#D8232A] hover:bg-[#D8232A]/5'
+              }`}
             >
               <QrCode className="w-4 h-4 shrink-0" />
               <span>QRIS (F9)</span>
@@ -377,7 +379,7 @@ export function CartPanel() {
             <motion.div
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-2.5 p-2.5 rounded-xl bg-[#F8FAF9] border border-slate-200/80 space-y-2"
+              className="mt-2.5 p-2.5 rounded-xl bg-[#00B14F]/5 border border-[#00B14F]/30 space-y-2"
             >
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-bold text-slate-600">Diterima:</span>
@@ -387,7 +389,7 @@ export function CartPanel() {
                   value={cashTendered || ''}
                   onChange={(e) => setCashTendered(Number(e.target.value))}
                   placeholder="Rp 0"
-                  className="flex-1 px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-extrabold text-slate-900 text-right focus:outline-none focus:border-[#1A6B51]"
+                  className="flex-1 px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-extrabold text-slate-900 text-right focus:outline-none focus:border-[#00B14F]"
                 />
               </div>
 
@@ -395,28 +397,28 @@ export function CartPanel() {
                 <button
                   type="button"
                   onClick={setExactCash}
-                  className="flex-1 py-1 rounded-md bg-[#EAF5EF] hover:bg-[#d5ebd8] text-[10px] font-bold text-[#1A6B51]"
+                  className="flex-1 py-1 rounded-md bg-[#00B14F]/15 hover:bg-[#00B14F]/25 text-[10px] font-bold text-[#00873C] transition-colors"
                 >
                   Uang Pas
                 </button>
                 <button
                   type="button"
                   onClick={() => addQuickCash(50000)}
-                  className="flex-1 py-1 rounded-md bg-white border border-slate-200 text-[10px] font-bold text-slate-700"
+                  className="flex-1 py-1 rounded-md bg-white border border-slate-200 hover:bg-slate-50 text-[10px] font-bold text-slate-700 transition-colors"
                 >
                   +50k
                 </button>
                 <button
                   type="button"
                   onClick={() => addQuickCash(100000)}
-                  className="flex-1 py-1 rounded-md bg-white border border-slate-200 text-[10px] font-bold text-slate-700"
+                  className="flex-1 py-1 rounded-md bg-white border border-slate-200 hover:bg-slate-50 text-[10px] font-bold text-slate-700 transition-colors"
                 >
                   +100k
                 </button>
               </div>
 
               {cashTendered >= cartTotal && cartTotal > 0 && (
-                <div className="flex justify-between text-xs pt-1 border-t border-slate-200 font-bold text-[#1A6B51]">
+                <div className="flex justify-between text-xs pt-1 border-t border-[#00B14F]/20 font-bold text-[#00873C]">
                   <span>Kembalian:</span>
                   <span className="font-mono">Rp {changeGiven.toLocaleString('id-ID')}</span>
                 </div>
@@ -429,13 +431,13 @@ export function CartPanel() {
             <motion.div
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-2.5 p-2.5 rounded-xl bg-[#EAF5EF]/70 border border-[#8EB69B]/40 flex items-center gap-2.5"
+              className="mt-2.5 p-2.5 rounded-xl bg-[#D8232A]/5 border border-[#D8232A]/30 flex items-center gap-2.5"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#1A6B51] text-white flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-[#D8232A] text-white flex items-center justify-center shrink-0 shadow-xs">
                 <QrCode className="w-4 h-4" />
               </div>
               <div className="text-[11px] leading-tight text-slate-700">
-                <p className="font-bold text-[#1A6B51]">QRIS Standar Indonesia</p>
+                <p className="font-bold text-[#D8232A]">QRIS Standar Indonesia</p>
                 <span className="text-slate-500">Scan barcode QRIS statis di meja kasir</span>
               </div>
             </motion.div>
