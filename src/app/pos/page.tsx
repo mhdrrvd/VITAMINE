@@ -129,13 +129,13 @@ function PosContent() {
 
       {/* 2. Center Main Work Area (Fixed height, isolated menu scroll) */}
       <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
-        {/* Fixed Top Section: Floating Header & Category Navbar (Locked, never scrolls) */}
-        <div className="shrink-0 bg-transparent z-20 pb-1">
-          {/* Top Floating Header Navbar */}
+        {/* Fixed Top Section: Header & Category Navbar (Locked, never scrolls) */}
+        <div className="shrink-0 bg-transparent z-20 border-b border-slate-100/60 dark:border-slate-800/80 shadow-[0_2px_10px_rgba(0,0,0,0.015)] dark:shadow-none transition-colors duration-300">
+          {/* Top Header Navbar */}
           <HeaderPOS />
 
           {/* Section Heading & Category Navigation Pills Bar */}
-          <div className="pl-4 pr-6 pt-1.5 pb-2">
+          <div className="px-8 pb-3.5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
                 Find The Fresh Juice
@@ -173,7 +173,7 @@ function PosContent() {
         </div>
 
         {/* Scrollable Menu Catalog Area (The ONLY part that scrolls!) */}
-        <main className="flex-1 overflow-y-auto pl-4 pr-6 pt-10 pb-20 no-scrollbar">
+        <main className="flex-1 overflow-y-auto px-8 pt-10 pb-20 no-scrollbar">
           {filteredProducts.length === 0 ? (
             <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs">
               <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
