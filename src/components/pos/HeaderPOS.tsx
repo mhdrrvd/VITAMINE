@@ -146,38 +146,23 @@ export function HeaderPOS() {
             </div>
           </div>
 
-          {/* Right: Search, Notification & Dark Mode */}
+          {/* Right: User Login & Dark Mode */}
           <div className="flex items-center gap-2.5">
-            {/* Search Input with ⌘K / F2 */}
-            <div className="relative hidden sm:block">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                id="pos-search-input"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search anything..."
-                className="w-44 sm:w-52 lg:w-60 xl:w-68 pl-9 pr-10 py-2 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51] dark:focus:border-[#00B14F] shadow-2xs transition-all"
-              />
-              <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-slate-400 bg-slate-100 dark:bg-slate-800 rounded">
-                ⌘K
-              </kbd>
+            {/* User Profile Card */}
+            <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+              <div className="w-8 h-8 rounded-xl bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center font-bold text-xs shrink-0 border border-[#1A6B51]/20 dark:border-[#00B14F]/30">
+                {currentUser?.name ? currentUser.name.slice(0, 2).toUpperCase() : 'RP'}
+              </div>
+              <div className="text-left leading-tight pr-1">
+                <div className="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">
+                  {currentUser?.name || 'Rian Pratama'}
+                </div>
+                <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1.5 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span className="truncate">{currentUser?.role === 'CASHIER' ? 'Kasir (Shift 1)' : 'Owner'}</span>
+                </div>
+              </div>
             </div>
-
-            {/* Notifications Bell */}
-            <button
-              type="button"
-              onClick={() => setIsStockModalOpen(true)}
-              className="relative w-9 h-9 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-[#1A6B51] dark:hover:text-[#00B14F] flex items-center justify-center transition-all cursor-pointer shadow-2xs"
-              title="Pemberitahuan Stok"
-            >
-              <Bell className="w-4 h-4" />
-              {lowStockCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#1A6B51] dark:bg-[#00B14F] text-white text-[9px] font-black flex items-center justify-center shadow-xs">
-                  {lowStockCount}
-                </span>
-              )}
-            </button>
 
             {/* Toggle Dark Mode */}
             <button
