@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { usePos } from '@/context/PosContext';
 import {
   LayoutGrid,
@@ -8,7 +9,6 @@ import {
   PackagePlus,
   Layers,
   RotateCcw,
-  ShoppingBag,
   Headphones,
   ChevronDown,
 } from 'lucide-react';
@@ -26,9 +26,17 @@ export function SidebarPOS() {
     <aside className="w-56 lg:w-60 h-screen bg-[#1A6B51] dark:bg-[#0E3D2E] text-white flex flex-col justify-between p-4.5 shrink-0 select-none z-30 transition-colors duration-300 shadow-xl shadow-[#1A6B51]/15">
       {/* 1. Brand Logo Header */}
       <div>
-        <div className="flex items-center gap-2.5 px-2.5 py-2 mb-6">
-          <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-xs flex items-center justify-center border border-white/20 shadow-xs">
-            <ShoppingBag className="w-5 h-5 text-white stroke-[2.2]" />
+        <div className="flex items-center gap-2.5 px-2 py-2 mb-6">
+          <div className="relative w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm shadow-black/15 shrink-0 border border-white/20 overflow-hidden">
+            <Image
+              src="/images/logo-vm-brand.png"
+              alt="VITAMINE Logo"
+              width={36}
+              height={16}
+              className="w-full h-auto object-contain"
+              priority
+              unoptimized
+            />
           </div>
           <div className="leading-tight">
             <h1 className="text-lg font-black tracking-tight text-white font-display">
