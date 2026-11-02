@@ -82,6 +82,8 @@ interface PosContextType {
   setIsReturnStockModalOpen: (open: boolean) => void;
   isCashOpnameModalOpen: boolean;
   setIsCashOpnameModalOpen: (open: boolean) => void;
+  isPaymentModalOpen: boolean;
+  setIsPaymentModalOpen: (open: boolean) => void;
   selectedProductForModifier: Product | null;
   setSelectedProductForModifier: (prod: Product | null) => void;
 
@@ -166,6 +168,7 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   const [isMorningStockModalOpen, setIsMorningStockModalOpen] = useState(false);
   const [isReturnStockModalOpen, setIsReturnStockModalOpen] = useState(false);
   const [isCashOpnameModalOpen, setIsCashOpnameModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedProductForModifier, setSelectedProductForModifier] = useState<Product | null>(null);
 
   // Search & Filter
@@ -502,6 +505,8 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
         setIsReturnStockModalOpen,
         isCashOpnameModalOpen,
         setIsCashOpnameModalOpen,
+        isPaymentModalOpen,
+        setIsPaymentModalOpen,
         selectedProductForModifier,
         setSelectedProductForModifier,
         searchQuery,

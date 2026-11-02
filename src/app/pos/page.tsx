@@ -14,6 +14,7 @@ import { CashOpnameModal } from '@/components/pos/CashOpnameModal';
 import { ShiftOpenModal } from '@/components/pos/ShiftOpenModal';
 import { HistoryModal } from '@/components/pos/HistoryModal';
 import { OrderQueueModal } from '@/components/pos/OrderQueueModal';
+import { PaymentModal } from '@/components/pos/PaymentModal';
 import { ReceiptPrintView } from '@/components/pos/ReceiptPrintView';
 import { LayoutGrid } from 'lucide-react';
 
@@ -34,8 +35,9 @@ function PosContent() {
     setSelectedCategory,
     searchQuery,
     setIsStockModalOpen,
+    isPaymentModalOpen,
+    setIsPaymentModalOpen,
     setPaymentMethod,
-    processCheckout,
     cart,
     paymentMethod,
     cashTendered,
@@ -85,42 +87,33 @@ function PosContent() {
         setIsStockModalOpen(true);
       }
 
-      // F8: Select Cash & Focus Input
-      if (e.key === 'F8') {
+      // F8: Select Cash & Open Payment Modal
+      if (e.key === 'F8' && cart.length > 0) {
         e.preventDefault();
         setPaymentMethod('CASH');
-        const cashInput = document.getElementById('cash-tendered-input') as HTMLInputElement | null;
-        if (cashInput) {
-          cashInput.focus();
-          cashInput.select();
-        }
+        setIsPaymentModalOpen(true);
       }
 
-      // F9: Select QRIS
-      if (e.key === 'F9') {
+      // F9: Select QRIS & Open Payment Modal
+      if (e.key === 'F9' && cart.length > 0) {
         e.preventDefault();
         setPaymentMethod('QRIS_STATIC');
+        setIsPaymentModalOpen(true);
       }
 
-      // Enter: Checkout if ready
-      if (e.key === 'Enter' && cart.length > 0) {
+      // Enter: Open Payment Modal if cart > 0 (when modal is not open)
+      if (e.key === 'Enter' && cart.length > 0 && !isPaymentModalOpen) {
         const activeTag = document.activeElement?.tagName.toLowerCase();
         if (activeTag !== 'textarea') {
-          if (paymentMethod !== 'CASH' || cashTendered >= cartTotal) {
-            e.preventDefault();
-            processCheckout().then((order) => {
-              if (order) {
-                setTimeout(() => window.print(), 200);
-              }
-            });
-          }
+          e.preventDefault();
+          setIsPaymentModalOpen(true);
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [cart, paymentMethod, cashTendered, cartTotal, setIsStockModalOpen, setPaymentMethod, processCheckout]);
+  }, [cart, isPaymentModalOpen, setIsStockModalOpen, setIsPaymentModalOpen, setPaymentMethod]);
 
   return (
     <div className="h-screen w-screen overflow-hidden flex bg-[#F3F6F5] dark:bg-[#081210] font-sans select-none transition-colors duration-300 pl-24">
@@ -188,6 +181,7 @@ function PosContent() {
       </div>
 
       {/* Modals & Hardware Views */}
+      <PaymentModal />
       <HistoryModal />
       <OrderQueueModal />
       <ModifierModal />
