@@ -34,6 +34,7 @@ export function FruitCard({ product }: FruitCardProps) {
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
             className="object-cover"
+            unoptimized
           />
         </div>
       </div>
