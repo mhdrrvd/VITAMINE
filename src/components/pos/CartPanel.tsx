@@ -264,7 +264,7 @@ export function CartPanel() {
               <button
                 type="button"
                 onClick={() => setCashTendered(20000)}
-                className={`py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                className={`py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
                   cashTendered === 20000
                     ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
                     : 'bg-white dark:bg-[#132824] text-[#00E565] border-slate-200 dark:border-slate-800 hover:border-[#00B14F] hover:bg-slate-50 dark:hover:bg-slate-800/60'
@@ -275,7 +275,7 @@ export function CartPanel() {
               <button
                 type="button"
                 onClick={() => setCashTendered(50000)}
-                className={`py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                className={`py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
                   cashTendered === 50000
                     ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
                     : 'bg-white dark:bg-[#132824] text-[#00E565] border-slate-200 dark:border-slate-800 hover:border-[#00B14F] hover:bg-slate-50 dark:hover:bg-slate-800/60'
@@ -286,7 +286,7 @@ export function CartPanel() {
               <button
                 type="button"
                 onClick={() => setCashTendered(100000)}
-                className={`py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                className={`py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
                   cashTendered === 100000
                     ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
                     : 'bg-white dark:bg-[#132824] text-[#00E565] border-slate-200 dark:border-slate-800 hover:border-[#00B14F] hover:bg-slate-50 dark:hover:bg-slate-800/60'
@@ -328,7 +328,7 @@ export function CartPanel() {
                 : 'bg-[#1A6B51] hover:bg-[#14533F] dark:bg-[#00B14F] dark:hover:bg-[#009440] text-white shadow-[#1A6B51]/20 dark:shadow-[#00B14F]/20 hover:shadow-lg'
             }`}
           >
-            <span>Pay Rp {cartTotal.toLocaleString('id-ID')}</span>
+            <span>Pay <span className="font-mono">Rp {cartTotal.toLocaleString('id-ID')}</span></span>
             <kbd className="px-1.5 py-0.5 bg-black/20 rounded text-[9px] font-mono text-white/90">
               Enter
             </kbd>
