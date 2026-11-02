@@ -133,47 +133,61 @@ export function CartPanel() {
                 </div>
 
                 <div className="grid grid-cols-3 gap-1.5">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={() => setDeliveryPlatform('GOFOOD')}
-                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border ${
+                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${
                       deliveryPlatform === 'GOFOOD'
-                        ? 'bg-rose-50 text-rose-700 border-rose-300 ring-1 ring-rose-300'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                        ? 'bg-[#005C2B] text-white border-[#005C2B] shadow-xs'
+                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#005C2B]/10 hover:border-[#005C2B] hover:text-[#005C2B]'
                     }`}
                   >
                     GoFood
-                  </button>
-                  <button
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={() => setDeliveryPlatform('GRABFOOD')}
-                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border ${
+                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${
                       deliveryPlatform === 'GRABFOOD'
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-300 ring-1 ring-emerald-300'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                        ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
+                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#00B14F]/10 hover:border-[#00B14F] hover:text-[#00B14F]'
                     }`}
                   >
                     GrabFood
-                  </button>
-                  <button
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={() => setDeliveryPlatform('SHOPEEFOOD')}
-                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border ${
+                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${
                       deliveryPlatform === 'SHOPEEFOOD'
-                        ? 'bg-orange-50 text-orange-700 border-orange-300 ring-1 ring-orange-300'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                        ? 'bg-[#EE4D2D] text-white border-[#EE4D2D] shadow-xs'
+                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#EE4D2D]/10 hover:border-[#EE4D2D] hover:text-[#EE4D2D]'
                     }`}
                   >
                     ShopeeFood
-                  </button>
+                  </motion.button>
                 </div>
 
                 <input
                   type="text"
                   value={deliveryRefNumber}
                   onChange={(e) => setDeliveryRefNumber(e.target.value)}
-                  placeholder="No. Pesanan / Driver PIN (misal: GF-4829)..."
-                  className="w-full bg-white px-2.5 py-1.5 rounded-lg text-xs border border-slate-200 focus:outline-none focus:border-[#1A6B51]"
+                  placeholder={`No. Pesanan ${deliveryPlatform === 'GOFOOD' ? 'GoFood (e.g. GF-4829)' : deliveryPlatform === 'GRABFOOD' ? 'GrabFood (e.g. GR-2810)' : 'ShopeeFood (e.g. SF-9021)'}...`}
+                  className={`w-full bg-white px-2.5 py-1.5 rounded-lg text-xs border border-slate-200 focus:outline-none transition-colors ${
+                    deliveryPlatform === 'GOFOOD'
+                      ? 'focus:border-[#005C2B]'
+                      : deliveryPlatform === 'GRABFOOD'
+                      ? 'focus:border-[#00B14F]'
+                      : 'focus:border-[#EE4D2D]'
+                  }`}
                 />
               </motion.div>
             )}
