@@ -164,7 +164,7 @@ export function HeaderPOS() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search anything..."
-                className="w-56 lg:w-68 pl-9 pr-10 py-2 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51] dark:focus:border-[#00B14F] shadow-2xs transition-all"
+                className="w-44 sm:w-52 lg:w-60 xl:w-68 pl-9 pr-10 py-2 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51] dark:focus:border-[#00B14F] shadow-2xs transition-all"
               />
               <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-slate-400 bg-slate-100 dark:bg-slate-800 rounded">
                 ⌘K
