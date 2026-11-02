@@ -7,10 +7,10 @@ import {
   Bell,
   Sun,
   Moon,
-  TrendingUp,
   DollarSign,
   CupSoda,
   Clock,
+  Calendar,
   Store,
   Receipt,
   MoreVertical,
@@ -28,9 +28,40 @@ export function HeaderPOS() {
   } = usePos();
 
   const [isDark, setIsDark] = useState(true);
+  const [currentDate, setCurrentDate] = useState('');
+  const [currentTime, setCurrentTime] = useState('');
 
+  // 1. Realtime Date & Clock (Ticking every second)
   useEffect(() => {
-    // Default mode: Dark mode (kecuali user pernah memilih 'light')
+    const updateTime = () => {
+      const now = new Date();
+      const dateFormatted = new Intl.DateTimeFormat('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }).format(now);
+
+      const timeFormatted = now
+        .toLocaleTimeString('id-ID', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        })
+        .replace(/\./g, ':');
+
+      setCurrentDate(dateFormatted);
+      setCurrentTime(`${timeFormatted} WIB`);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // 2. Dark mode initialization
+  useEffect(() => {
     const savedTheme = localStorage.getItem('vitamine-theme');
     const shouldBeDark = savedTheme ? savedTheme === 'dark' : true;
 
@@ -72,9 +103,9 @@ export function HeaderPOS() {
 
   return (
     <div className="px-6 pt-5 pb-2 shrink-0 select-none">
-      {/* 1. Top Header Row: Greeting & Global Actions (Exact Reference Layout) */}
+      {/* 1. Top Header Row: Nama Outlet, Tanggal Real-Time & Global Actions */}
       <div className="flex items-center justify-between gap-4 mb-4">
-        {/* Left: Greeting */}
+        {/* Left: Greeting, Outlet Name & Real-time Live Clock */}
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -83,13 +114,36 @@ export function HeaderPOS() {
           >
             <Menu className="w-4 h-4" />
           </button>
+
           <div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
-              Welcome back, {currentUser.name.split(' ')[0]}! 👋
-            </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
-              Here&apos;s what&apos;s happening with your store today.
-            </p>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
+                Welcome back, {currentUser.name.split(' ')[0]}! 👋
+              </h2>
+
+              {/* Nama Outlet Badge */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 border border-[#1A6B51]/20 dark:border-[#00B14F]/30 text-xs font-bold text-[#1A6B51] dark:text-[#00B14F] shadow-2xs">
+                <Store className="w-3.5 h-3.5" />
+                <span>VITAMINE Outlet Pusat</span>
+              </div>
+            </div>
+
+            {/* Tanggal & Waktu Real-Time */}
+            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium flex-wrap">
+              <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold">
+                <Calendar className="w-3.5 h-3.5 text-[#1A6B51] dark:text-[#00B14F]" />
+                {currentDate || 'Senin, 2 November 2026'}
+              </span>
+              <span className="text-slate-300 dark:text-slate-600">•</span>
+              <span className="flex items-center gap-1.5 font-mono font-bold text-slate-800 dark:text-slate-200">
+                <Clock className="w-3.5 h-3.5 text-[#1A6B51] dark:text-[#00B14F]" />
+                {currentTime || '18:00:00 WIB'}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold ml-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live
+              </span>
+            </div>
           </div>
         </div>
 
@@ -142,7 +196,7 @@ export function HeaderPOS() {
         </div>
       </div>
 
-      {/* 2. Four KPI Metric Cards (Exact Reference 4-Card Row) */}
+      {/* 2. Four KPI Metric Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {/* KPI 1: Total Sales */}
         <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
@@ -192,7 +246,7 @@ export function HeaderPOS() {
           </button>
         </div>
 
-        {/* KPI 3: Peak Hours (Jam Ramai) */}
+        {/* KPI 3: Peak Hours */}
         <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
           <div className="space-y-1.5 min-w-0">
             <div className="flex items-center gap-2">
