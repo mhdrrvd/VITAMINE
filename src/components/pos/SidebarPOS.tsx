@@ -51,7 +51,7 @@ export function SidebarPOS() {
             >
               <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
             </motion.div>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
               Cashier
             </span>
           </div>
@@ -68,7 +68,7 @@ export function SidebarPOS() {
             >
               <History className="w-5 h-5 stroke-[1.8]" />
             </motion.button>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
               History
             </span>
           </div>
@@ -85,8 +85,8 @@ export function SidebarPOS() {
             >
               <PackagePlus className="w-5 h-5 stroke-[1.8]" />
             </motion.button>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
-              Order (Ambil Bahan Pagi)
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
+              Order
             </span>
           </div>
 
@@ -102,7 +102,7 @@ export function SidebarPOS() {
             >
               <Layers className="w-5 h-5 stroke-[1.8]" />
             </motion.button>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
               Inventory
             </span>
           </div>
@@ -119,8 +119,8 @@ export function SidebarPOS() {
             >
               <RotateCcw className="w-5 h-5 stroke-[1.8]" />
             </motion.button>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
-              Return (Waste & Sisa)
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
+              Return
             </span>
           </div>
 
@@ -136,7 +136,7 @@ export function SidebarPOS() {
             >
               <Clock className="w-5 h-5 stroke-[1.8]" />
             </motion.button>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
               Opname
             </span>
           </div>
@@ -153,7 +153,7 @@ export function SidebarPOS() {
           >
             {currentUser.name.slice(0, 2).toUpperCase()}
           </motion.div>
-          <span className="absolute left-14 bottom-1 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+          <span className="absolute left-14 bottom-1 bg-[#1A6B51] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30">
             {currentUser.name} ({currentUser.role})
           </span>
         </div>

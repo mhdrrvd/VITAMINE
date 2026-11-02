@@ -139,7 +139,7 @@ function PosContent() {
             <button
               type="button"
               onClick={() => setSelectedCategory('ALL')}
-              className="text-xs font-bold text-[#1A6B51] hover:underline cursor-pointer"
+              className="px-3 py-1 rounded-lg text-xs font-bold text-[#1A6B51] hover:bg-[#1A6B51] hover:text-white transition-all duration-300 ease-out cursor-pointer"
             >
               View All
             </button>
@@ -154,10 +154,10 @@ function PosContent() {
                   key={cat.id}
                   type="button"
                   onClick={() => setSelectedCategory(cat.id as any)}
-                  className={`px-5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap select-none ${
+                  className={`px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
                     isActive
-                      ? 'bg-[#1A6B51] text-white shadow-xs'
-                      : 'bg-[#F1F5F3] hover:bg-[#e6ece8] text-slate-600'
+                      ? 'bg-[#1A6B51] text-white shadow-md shadow-[#1A6B51]/20'
+                      : 'bg-[#F1F5F3] text-slate-600 hover:bg-[#1A6B51] hover:text-white'
                   }`}
                 >
                   {cat.label}

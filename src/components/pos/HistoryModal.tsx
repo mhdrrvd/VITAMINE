@@ -159,10 +159,10 @@ export function HistoryModal() {
             <button
               type="button"
               onClick={() => setFilterType('ALL')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ease-out ${
                 filterType === 'ALL'
                   ? 'bg-[#1A6B51] text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'bg-slate-100 text-slate-600 hover:bg-[#1A6B51] hover:text-white'
               }`}
             >
               Semua ({recentOrders.length})
@@ -171,10 +171,10 @@ export function HistoryModal() {
             <button
               type="button"
               onClick={() => setFilterType('PICK_UP')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ease-out flex items-center gap-1.5 ${
                 filterType === 'PICK_UP'
                   ? 'bg-[#1A6B51] text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'bg-slate-100 text-slate-600 hover:bg-[#1A6B51] hover:text-white'
               }`}
             >
               <Store className="w-3.5 h-3.5" />
@@ -184,10 +184,10 @@ export function HistoryModal() {
             <button
               type="button"
               onClick={() => setFilterType('DELIVERY')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ease-out flex items-center gap-1.5 ${
                 filterType === 'DELIVERY'
                   ? 'bg-[#1A6B51] text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'bg-slate-100 text-slate-600 hover:bg-[#1A6B51] hover:text-white'
               }`}
             >
               <Bike className="w-3.5 h-3.5" />

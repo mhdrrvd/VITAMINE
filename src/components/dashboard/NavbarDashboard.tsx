@@ -52,10 +52,10 @@ export function NavbarDashboard({
           <button
             type="button"
             onClick={() => setActiveTab('ANALYTICS')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-300 ease-out ${
               activeTab === 'ANALYTICS'
-                ? 'bg-orange-500 text-white shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#1A6B51] text-white shadow-xs'
+                : 'text-slate-400 hover:bg-[#1A6B51] hover:text-white'
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
@@ -65,10 +65,10 @@ export function NavbarDashboard({
           <button
             type="button"
             onClick={() => setActiveTab('PROMO')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-300 ease-out ${
               activeTab === 'PROMO'
-                ? 'bg-orange-500 text-white shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#1A6B51] text-white shadow-xs'
+                : 'text-slate-400 hover:bg-[#1A6B51] hover:text-white'
             }`}
           >
             <ImageIcon className="w-3.5 h-3.5" />
@@ -78,17 +78,15 @@ export function NavbarDashboard({
           <button
             type="button"
             onClick={() => setActiveTab('BOM')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-300 ease-out ${
               activeTab === 'BOM'
-                ? 'bg-orange-500 text-white shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#1A6B51] text-white shadow-xs'
+                : 'text-slate-400 hover:bg-[#1A6B51] hover:text-white'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Resep BOM</span>
           </button>
-
-
         </nav>
       </div>
 
