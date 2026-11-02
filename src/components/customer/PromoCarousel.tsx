@@ -165,3 +165,4 @@ export function PromoCarousel({ promos, isCompact = false }: PromoCarouselProps)
     </div>
   );
 }
+

@@ -79,3 +79,4 @@ export function CompletionView({ order, onDone }: CompletionViewProps) {
     </div>
   );
 }
+
