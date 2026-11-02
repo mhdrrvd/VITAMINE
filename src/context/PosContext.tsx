@@ -45,7 +45,7 @@ interface PosContextType {
 
   // Cart & Transaction
   cart: CartItem[];
-  addToCart: (product: Product, options: CustomOptions) => void;
+  addToCart: (product: Product, options: CustomOptions, quantity?: number) => void;
   removeFromCart: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, delta: number) => void;
   clearCart: () => void;
@@ -205,13 +205,14 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   const cartTotal = cart.reduce((sum, item) => sum + item.subtotal, 0);
   const changeGiven = paymentMethod === 'CASH' && cashTendered >= cartTotal ? cashTendered - cartTotal : 0;
 
-  // Add to Cart with Recipe Verification
-  const addToCart = (product: Product, options: CustomOptions) => {
+  // Add to Cart with Recipe Verification & Quantity Support
+  const addToCart = (product: Product, options: CustomOptions, qtyToAdd: number = 1) => {
+    const qty = Math.max(1, qtyToAdd);
     const capacity = getCupCapacity(product);
     const existingInCart = cart.filter((i) => i.productId === product.id).reduce((sum, i) => sum + i.quantity, 0);
 
-    if (capacity <= existingInCart) {
-      alert(`Stok bahan baku untuk ${product.name} tidak mencukupi untuk menambah porsi!`);
+    if (capacity < existingInCart + qty) {
+      alert(`Stok bahan baku untuk ${product.name} tidak mencukupi untuk menambah ${qty} porsi! (Sisa kapasitas: ${Math.max(0, capacity - existingInCart)} cup)`);
       return;
     }
 
@@ -230,7 +231,7 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
 
     if (existingItemIndex > -1) {
       const updated = [...cart];
-      updated[existingItemIndex].quantity += 1;
+      updated[existingItemIndex].quantity += qty;
       updated[existingItemIndex].subtotal = updated[existingItemIndex].quantity * updated[existingItemIndex].unitPrice;
       setCart(updated);
     } else {
@@ -239,8 +240,8 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
         productId: product.id,
         name: product.name,
         unitPrice,
-        quantity: 1,
-        subtotal: unitPrice,
+        quantity: qty,
+        subtotal: unitPrice * qty,
         options,
         imageUrl: product.imageUrl,
       };
