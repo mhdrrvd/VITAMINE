@@ -35,10 +35,6 @@ export function CartPanel() {
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [orderNote, setOrderNote] = useState('');
 
-  const addQuickCash = (amount: number) => {
-    setCashTendered(cashTendered + amount);
-  };
-
   const setExactCash = () => {
     setCashTendered(cartTotal);
   };
@@ -262,47 +258,72 @@ export function CartPanel() {
           </button>
         </div>
 
-        {/* Cash Tendered & Quick Cash */}
+        {/* Cash Tendered & Quick Nominal Buttons */}
         {paymentMethod === 'CASH' && (
-          <div className="p-2 rounded-xl bg-[#00B14F]/5 border border-[#00B14F]/25 space-y-1.5">
+          <div className="p-2.5 rounded-2xl bg-[#00B14F]/5 border border-[#00B14F]/25 space-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold text-slate-600">Diterima:</span>
-              <input
-                id="cash-tendered-input"
-                type="number"
-                value={cashTendered || ''}
-                onChange={(e) => setCashTendered(Number(e.target.value))}
-                placeholder="Rp 0"
-                className="flex-1 px-2 py-0.5 bg-white border border-slate-200 rounded text-xs font-extrabold text-slate-900 text-right focus:outline-none"
-              />
+              <span className="text-xs font-bold text-slate-700">Diterima:</span>
+              <div className="relative flex-1 flex items-center">
+                <input
+                  id="cash-tendered-input"
+                  type="number"
+                  value={cashTendered || ''}
+                  onChange={(e) => setCashTendered(Number(e.target.value))}
+                  placeholder="Rp 0"
+                  className="w-full pl-2.5 pr-14 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-black text-slate-900 text-right focus:outline-none focus:border-[#00B14F] shadow-2xs font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={setExactCash}
+                  title="Bayar dengan uang pas"
+                  className="absolute right-1.5 px-2 py-0.5 rounded-lg bg-[#00B14F]/15 hover:bg-[#00B14F] text-[#00873C] hover:text-white text-[10px] font-black transition-colors cursor-pointer"
+                >
+                  PAS
+                </button>
+              </div>
             </div>
-            <div className="flex gap-1">
+
+            {/* Nominal Buttons: 20k, 50k, 100k (Otomatis Mengisi Nominal) */}
+            <div className="grid grid-cols-3 gap-1.5">
               <button
                 type="button"
-                onClick={setExactCash}
-                className="flex-1 py-0.5 rounded bg-[#00B14F]/15 text-[9px] font-bold text-[#00873C] cursor-pointer"
+                onClick={() => setCashTendered(20000)}
+                className={`py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  cashTendered === 20000
+                    ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-[#00B14F] hover:bg-slate-50'
+                }`}
               >
-                Uang Pas
+                20k
               </button>
               <button
                 type="button"
-                onClick={() => addQuickCash(50000)}
-                className="flex-1 py-0.5 rounded bg-white border border-slate-200 text-[9px] font-bold text-slate-700 cursor-pointer"
+                onClick={() => setCashTendered(50000)}
+                className={`py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  cashTendered === 50000
+                    ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-[#00B14F] hover:bg-slate-50'
+                }`}
               >
-                +50k
+                50k
               </button>
               <button
                 type="button"
-                onClick={() => addQuickCash(100000)}
-                className="flex-1 py-0.5 rounded bg-white border border-slate-200 text-[9px] font-bold text-slate-700 cursor-pointer"
+                onClick={() => setCashTendered(100000)}
+                className={`py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  cashTendered === 100000
+                    ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-[#00B14F] hover:bg-slate-50'
+                }`}
               >
-                +100k
+                100k
               </button>
             </div>
+
             {cashTendered >= cartTotal && cartTotal > 0 && (
-              <div className="flex justify-between text-[11px] font-bold text-[#00873C] pt-0.5">
+              <div className="flex justify-between items-center text-xs font-bold text-[#00873C] pt-1 border-t border-[#00B14F]/15">
                 <span>Kembalian:</span>
-                <span className="font-mono">Rp {changeGiven.toLocaleString('id-ID')}</span>
+                <span className="font-mono text-sm font-black">Rp {changeGiven.toLocaleString('id-ID')}</span>
               </div>
             )}
           </div>
