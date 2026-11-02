@@ -19,16 +19,11 @@ export function FruitCard({ product }: FruitCardProps) {
 
   return (
     <div
-      className={`relative flex flex-col justify-between pt-16 pb-5 px-5 rounded-3xl bg-white dark:bg-[#0F1E1B] border transition-colors duration-300 select-none ${
+      className={`relative flex flex-col justify-between pt-16 pb-5 px-5 rounded-3xl bg-white dark:bg-[#0F1E1B] border transition-colors duration-300 select-none cursor-default ${
         isOutOfStock
-          ? 'opacity-60 border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 cursor-not-allowed grayscale'
-          : 'border-slate-100 dark:border-slate-800/90 hover:border-[#8EB69B]/60 dark:hover:border-[#00B14F]/50 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.25)] hover:shadow-lg hover:shadow-[#1A6B51]/8 dark:hover:shadow-[#00B14F]/5 cursor-pointer'
+          ? 'opacity-60 border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 grayscale'
+          : 'border-slate-100 dark:border-slate-800/90 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.25)]'
       }`}
-      onClick={() => {
-        if (!isOutOfStock) {
-          setSelectedProductForModifier(product);
-        }
-      }}
     >
       {/* 1. Floating Top Circular Product Dish/Cup Image (Exact reference layout) */}
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 sm:w-26 sm:h-26 rounded-full overflow-hidden bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 shadow-[0_6px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.35)] flex items-center justify-center p-1 z-10 transition-colors duration-300">
@@ -110,7 +105,7 @@ export function FruitCard({ product }: FruitCardProps) {
           className={`relative overflow-hidden group/btn px-3.5 py-1.5 rounded-xl font-bold transition-all shadow-xs flex items-center justify-center gap-1 select-none ${
             isOutOfStock
               ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none'
-              : 'bg-gradient-to-r from-[#1A6B51] via-[#207c5e] to-[#1A6B51] dark:from-[#00B14F] dark:via-[#148e47] dark:to-[#00B14F] hover:brightness-110 text-white shadow-sm shadow-[#1A6B51]/20 dark:shadow-[#00B14F]/20 hover:shadow-md hover:shadow-[#1A6B51]/30 active:scale-95'
+              : 'bg-gradient-to-r from-[#1A6B51] via-[#207c5e] to-[#1A6B51] dark:from-[#00B14F] dark:via-[#148e47] dark:to-[#00B14F] hover:brightness-110 text-white shadow-sm shadow-[#1A6B51]/20 dark:shadow-[#00B14F]/20 hover:shadow-md hover:shadow-[#1A6B51]/30 active:scale-95 cursor-pointer'
           }`}
           title={isOutOfStock ? 'Bahan baku habis' : 'Tambah ke pesanan'}
         >
