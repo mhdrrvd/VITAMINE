@@ -14,7 +14,6 @@ import { CashOpnameModal } from '@/components/pos/CashOpnameModal';
 import { ShiftOpenModal } from '@/components/pos/ShiftOpenModal';
 import { HistoryModal } from '@/components/pos/HistoryModal';
 import { OrderQueueModal } from '@/components/pos/OrderQueueModal';
-import { PaymentModal } from '@/components/pos/PaymentModal';
 import { ReceiptPrintView } from '@/components/pos/ReceiptPrintView';
 import { LayoutGrid } from 'lucide-react';
 
@@ -35,9 +34,8 @@ function PosContent() {
     setSelectedCategory,
     searchQuery,
     setIsStockModalOpen,
-    isPaymentModalOpen,
-    setIsPaymentModalOpen,
     setPaymentMethod,
+    processCheckout,
     cart,
     paymentMethod,
     cashTendered,
@@ -87,101 +85,106 @@ function PosContent() {
         setIsStockModalOpen(true);
       }
 
-      // F8: Select Cash & Open Payment Modal
-      if (e.key === 'F8' && cart.length > 0) {
+      // F8: Select Cash & Focus Input
+      if (e.key === 'F8') {
         e.preventDefault();
         setPaymentMethod('CASH');
-        setIsPaymentModalOpen(true);
+        const cashInput = document.getElementById('cash-tendered-input') as HTMLInputElement | null;
+        if (cashInput) {
+          cashInput.focus();
+          cashInput.select();
+        }
       }
 
-      // F9: Select QRIS & Open Payment Modal
-      if (e.key === 'F9' && cart.length > 0) {
+      // F9: Select QRIS
+      if (e.key === 'F9') {
         e.preventDefault();
         setPaymentMethod('QRIS_STATIC');
-        setIsPaymentModalOpen(true);
       }
 
-      // Enter: Open Payment Modal if cart > 0 (when modal is not open)
-      if (e.key === 'Enter' && cart.length > 0 && !isPaymentModalOpen) {
+      // Enter: Checkout if ready
+      if (e.key === 'Enter' && cart.length > 0) {
         const activeTag = document.activeElement?.tagName.toLowerCase();
         if (activeTag !== 'textarea') {
-          e.preventDefault();
-          setIsPaymentModalOpen(true);
+          if (paymentMethod !== 'CASH' || cashTendered >= cartTotal) {
+            e.preventDefault();
+            processCheckout().then((order) => {
+              if (order) {
+                setTimeout(() => window.print(), 200);
+              }
+            });
+          }
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [cart, isPaymentModalOpen, setIsStockModalOpen, setIsPaymentModalOpen, setPaymentMethod]);
+  }, [cart, paymentMethod, cashTendered, cartTotal, setIsStockModalOpen, setPaymentMethod, processCheckout]);
 
   return (
     <div className="h-screen w-screen overflow-hidden flex bg-[#F3F6F5] dark:bg-[#081210] font-sans select-none transition-colors duration-300 pl-24">
       {/* Floating Navbar di Samping Kiri (Hanya Sebesar Tombol) */}
       <SidebarPOS />
 
-      {/* 2. Main Work Area */}
+      {/* 2. Main Center Work Area (Header & Menu Catalog) */}
       <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
         {/* Top Header: Greeting, Search, Bell, Darkmode & 4 KPI Metric Cards */}
         <HeaderPOS />
 
-        {/* Bottom Working Area: Split Left "Current Sale" & Right "Menu Catalog" */}
-        <div className="flex-1 flex overflow-hidden px-6 pb-6 pt-2 gap-5 min-h-0">
-          {/* Left Column: Current Sale (Cart Panel Sesuai Referensi Gambar) */}
-          <div className="w-[360px] lg:w-[380px] xl:w-[410px] shrink-0 h-full flex flex-col overflow-hidden">
-            <CartPanel />
-          </div>
-
-          {/* Right Column: Menu Catalog (Kategori & Grid Produk) */}
-          <div className="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
-            {/* Category Navigation Pills Bar & Grid Layout Toggle */}
-            <div className="flex items-center justify-between pb-3 shrink-0">
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-                {CATEGORIES.map((cat) => {
-                  const isActive = selectedCategory === cat.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      onClick={() => setSelectedCategory(cat.id as any)}
-                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                        isActive
-                          ? 'bg-[#1A6B51] dark:bg-[#00B14F] text-white shadow-xs'
-                          : 'bg-white dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80'
-                      }`}
-                    >
-                      {cat.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="p-2 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-[#1A6B51] dark:text-[#00B14F] shadow-2xs shrink-0">
-                <LayoutGrid className="w-4 h-4 stroke-[2.2]" />
-              </div>
+        {/* Menu Catalog (Kategori & Grid Produk) */}
+        <div className="flex-1 flex flex-col overflow-hidden px-6 pb-6 pt-1 min-h-0">
+          {/* Category Navigation Pills Bar & Grid Layout Toggle */}
+          <div className="flex items-center justify-between pb-3 shrink-0">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+              {CATEGORIES.map((cat) => {
+                const isActive = selectedCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat.id as any)}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      isActive
+                        ? 'bg-[#1A6B51] dark:bg-[#00B14F] text-white shadow-xs'
+                        : 'bg-white dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Scrollable Product Cards Grid (4 Kolom Sesuai Referensi Gambar) */}
-            <main className="flex-1 overflow-y-auto no-scrollbar pr-1 pb-6">
-              {filteredProducts.length === 0 ? (
-                <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs">
-                  <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5">
-                  {filteredProducts.map((product) => (
-                    <FruitCard key={product.id} product={product} />
-                  ))}
-                </div>
-              )}
-            </main>
+            <div className="p-2 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-[#1A6B51] dark:text-[#00B14F] shadow-2xs shrink-0">
+              <LayoutGrid className="w-4 h-4 stroke-[2.2]" />
+            </div>
           </div>
+
+          {/* Scrollable Product Cards Grid (Lebar & Leluasa) */}
+          <main className="flex-1 overflow-y-auto no-scrollbar pr-1 pb-6">
+            {filteredProducts.length === 0 ? (
+              <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs">
+                <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3.5">
+                {filteredProducts.map((product) => (
+                  <FruitCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+          </main>
         </div>
       </div>
 
+      {/* 3. Right Column: Cart Panel (Full ke Atas, Full Height h-screen di Sebelah Kanan) */}
+      <div className="w-[370px] lg:w-[400px] xl:w-[430px] shrink-0 h-screen flex flex-col overflow-hidden border-l border-slate-200/80 dark:border-slate-800 bg-white shadow-2xl z-20">
+        <CartPanel />
+      </div>
+
       {/* Modals & Hardware Views */}
-      <PaymentModal />
       <HistoryModal />
       <OrderQueueModal />
       <ModifierModal />
