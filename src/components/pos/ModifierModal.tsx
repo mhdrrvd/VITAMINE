@@ -16,7 +16,6 @@ export function ModifierModal() {
   const [sugarLevel, setSugarLevel] = useState<'100%' | '50%' | '0%'>('100%');
   const [iceLevel, setIceLevel] = useState<'NORMAL' | 'LESS' | 'NO_ICE'>('NORMAL');
 
-  // Reset choices on open
   useEffect(() => {
     if (selectedProductForModifier) {
       setSize('REGULAR');
@@ -25,7 +24,6 @@ export function ModifierModal() {
     }
   }, [selectedProductForModifier]);
 
-  // Keyboard shortcut: Enter to confirm, Esc to close
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedProductForModifier) return;
@@ -58,12 +56,12 @@ export function ModifierModal() {
   const finalPrice = selectedProductForModifier.basePrice + extraPrice;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#051F20]/60 backdrop-blur-xs animate-in fade-in duration-150 select-none">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-modal border border-slate-200 overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-[#F4F7F5]">
           <div>
-            <h2 className="font-extrabold text-slate-900 text-lg">
+            <h2 className="font-extrabold text-[#051F20] text-lg font-display">
               Kustomisasi Racikan Jus
             </h2>
             <p className="text-xs text-slate-500 font-medium">
@@ -83,34 +81,34 @@ export function ModifierModal() {
           {/* 1. Ukuran Cup */}
           <div>
             <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2 flex items-center gap-1.5">
-              <CupSoda className="w-3.5 h-3.5 text-orange-500" />
+              <CupSoda className="w-3.5 h-3.5 text-[#235347]" />
               Ukuran Cup
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setSize('REGULAR')}
-                className={`px-4 py-2.5 rounded-xl border text-sm font-bold flex flex-col items-center justify-center transition-all ${
+                className={`px-4 py-2.5 rounded-xl border text-xs font-bold flex flex-col items-center justify-center transition-all ${
                   size === 'REGULAR'
-                    ? 'border-orange-500 bg-orange-50 text-orange-600 ring-2 ring-orange-500/20'
+                    ? 'border-[#235347] bg-[#DAF1DE] text-[#163832] ring-2 ring-[#235347]/20'
                     : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
                 }`}
               >
                 <span>Regular (16 oz)</span>
-                <span className="text-[11px] font-medium opacity-80">Standar</span>
+                <span className="text-[10px] font-medium opacity-80">Standar</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setSize('LARGE')}
-                className={`px-4 py-2.5 rounded-xl border text-sm font-bold flex flex-col items-center justify-center transition-all ${
+                className={`px-4 py-2.5 rounded-xl border text-xs font-bold flex flex-col items-center justify-center transition-all ${
                   size === 'LARGE'
-                    ? 'border-orange-500 bg-orange-50 text-orange-600 ring-2 ring-orange-500/20'
+                    ? 'border-[#235347] bg-[#DAF1DE] text-[#163832] ring-2 ring-[#235347]/20'
                     : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
                 }`}
               >
                 <span>Large (22 oz)</span>
-                <span className="text-[11px] font-semibold text-orange-600">+Rp 5.000</span>
+                <span className="text-[10px] font-semibold text-[#235347]">+Rp 5.000</span>
               </button>
             </div>
           </div>
@@ -129,7 +127,7 @@ export function ModifierModal() {
                   onClick={() => setSugarLevel(lvl)}
                   className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all ${
                     sugarLevel === lvl
-                      ? 'border-orange-500 bg-orange-50 text-orange-600 ring-2 ring-orange-500/20'
+                      ? 'border-[#235347] bg-[#DAF1DE] text-[#163832] ring-2 ring-[#235347]/20'
                       : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
                   }`}
                 >
@@ -159,7 +157,7 @@ export function ModifierModal() {
                   onClick={() => setIceLevel(lvl.id)}
                   className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all ${
                     iceLevel === lvl.id
-                      ? 'border-blue-500 bg-blue-50 text-blue-600 ring-2 ring-blue-500/20'
+                      ? 'border-[#235347] bg-[#DAF1DE] text-[#163832] ring-2 ring-[#235347]/20'
                       : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
                   }`}
                 >
@@ -171,10 +169,10 @@ export function ModifierModal() {
         </div>
 
         {/* Action Bottom */}
-        <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#F4F7F5] border-t border-slate-100 flex items-center justify-between">
           <div>
-            <span className="text-[11px] text-slate-400 font-medium block">Total Item</span>
-            <span className="text-xl font-extrabold text-orange-600">
+            <span className="text-[11px] text-slate-500 font-medium block">Total Item</span>
+            <span className="text-xl font-extrabold text-[#051F20] font-mono">
               Rp {finalPrice.toLocaleString('id-ID')}
             </span>
           </div>
@@ -190,7 +188,7 @@ export function ModifierModal() {
             <button
               type="button"
               onClick={handleConfirm}
-              className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition-all"
+              className="px-5 py-2.5 rounded-xl bg-[#235347] hover:bg-[#163832] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition-all"
             >
               <Check className="w-4 h-4 stroke-[3]" />
               <span>Tambah (Enter)</span>
@@ -201,4 +199,3 @@ export function ModifierModal() {
     </div>
   );
 }
-

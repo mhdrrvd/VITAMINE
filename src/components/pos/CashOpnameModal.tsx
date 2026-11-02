@@ -51,7 +51,6 @@ export function CashOpnameModal() {
     }));
   };
 
-  // Calculations
   const totalPhysicalCash = DENOMINATIONS.reduce((sum, denom) => {
     return sum + denom.nominal * (counts[denom.nominal] || 0);
   }, 0);
@@ -78,16 +77,16 @@ export function CashOpnameModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#051F20]/60 backdrop-blur-xs animate-in fade-in duration-150 select-none">
       <div className="w-full max-w-3xl bg-white rounded-3xl shadow-modal border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-[#F4F7F5]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-[#DAF1DE] text-[#235347] flex items-center justify-center">
               <Calculator className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="font-extrabold text-slate-900 text-base">
+              <h2 className="font-extrabold text-[#051F20] text-base font-display">
                 Serah Terima Shift & Cash Opname
               </h2>
               <p className="text-xs text-slate-500 font-medium">
@@ -109,7 +108,7 @@ export function CashOpnameModal() {
           {/* Left: Denomination Counter Table */}
           <div className="md:col-span-7 space-y-3">
             <h3 className="font-extrabold text-xs text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-              <Coins className="w-4 h-4 text-amber-500" />
+              <Coins className="w-4 h-4 text-[#235347]" />
               Perhitungan Fisik Uang Kas Laci
             </h3>
 
@@ -121,9 +120,9 @@ export function CashOpnameModal() {
                 return (
                   <div
                     key={denom.nominal}
-                    className="p-2.5 px-3 flex items-center justify-between gap-2 hover:bg-slate-50 transition-colors"
+                    className="p-2.5 px-3 flex items-center justify-between gap-2 hover:bg-[#F4F7F5] transition-colors"
                   >
-                    <span className="text-xs font-bold text-slate-800 flex-1">
+                    <span className="text-xs font-bold text-[#051F20] flex-1">
                       {denom.label}
                     </span>
 
@@ -133,7 +132,7 @@ export function CashOpnameModal() {
                         placeholder="0"
                         value={count || ''}
                         onChange={(e) => handleCountChange(denom.nominal, Number(e.target.value))}
-                        className="w-16 px-2 py-1 bg-white border border-slate-300 focus:border-orange-500 rounded-lg text-xs font-bold text-center text-slate-900 focus:outline-none"
+                        className="w-16 px-2 py-1 bg-white border border-slate-300 focus:border-[#235347] rounded-lg text-xs font-bold text-center text-[#051F20] focus:outline-none"
                       />
                       <span className="text-xs font-mono font-semibold text-slate-500 w-24 text-right">
                         Rp {subtotal.toLocaleString('id-ID')}
@@ -146,7 +145,7 @@ export function CashOpnameModal() {
           </div>
 
           {/* Right: Summary & Discrepancy */}
-          <div className="md:col-span-5 flex flex-col justify-between space-y-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+          <div className="md:col-span-5 flex flex-col justify-between space-y-4 bg-[#F4F7F5] p-4 rounded-2xl border border-slate-200">
             <div className="space-y-3">
               <h3 className="font-extrabold text-xs text-slate-600 uppercase tracking-wider">
                 Rekonsiliasi Kas Laci
@@ -155,19 +154,19 @@ export function CashOpnameModal() {
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between text-slate-600">
                   <span>Modal Kas Awal:</span>
-                  <span className="font-mono font-semibold text-slate-900">
+                  <span className="font-mono font-semibold text-[#051F20]">
                     Rp {currentShift.startingCash.toLocaleString('id-ID')}
                   </span>
                 </div>
                 <div className="flex justify-between text-slate-600">
                   <span>Total Kas Sistem:</span>
-                  <span className="font-mono font-semibold text-slate-900">
+                  <span className="font-mono font-semibold text-[#051F20]">
                     Rp {expectedCash.toLocaleString('id-ID')}
                   </span>
                 </div>
                 <div className="flex justify-between text-slate-600 pt-2 border-t border-slate-200">
                   <span>Fisik Dihitung:</span>
-                  <span className="font-mono font-extrabold text-sm text-slate-900">
+                  <span className="font-mono font-extrabold text-sm text-[#051F20]">
                     Rp {totalPhysicalCash.toLocaleString('id-ID')}
                   </span>
                 </div>
@@ -177,7 +176,7 @@ export function CashOpnameModal() {
               <div
                 className={`p-3 rounded-xl border flex flex-col gap-1 ${
                   discrepancy === 0
-                    ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                    ? 'bg-[#DAF1DE] border-[#8EB69B] text-[#163832]'
                     : discrepancy < 0
                     ? 'bg-rose-50 border-rose-200 text-rose-800'
                     : 'bg-blue-50 border-blue-200 text-blue-800'
@@ -186,7 +185,7 @@ export function CashOpnameModal() {
                 <div className="flex items-center justify-between font-bold text-xs">
                   <span>Status Selisih:</span>
                   {discrepancy === 0 ? (
-                    <span className="inline-flex items-center gap-1 text-emerald-700 font-extrabold">
+                    <span className="inline-flex items-center gap-1 text-[#235347] font-extrabold">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       PAS (BALANCE)
                     </span>
@@ -215,7 +214,7 @@ export function CashOpnameModal() {
                   onChange={(e) => setNote(e.target.value)}
                   placeholder="Contoh: Uang fisik sesuai dengan penjualan kasir shift pagi."
                   rows={2}
-                  className="w-full p-2 bg-white border border-slate-300 focus:border-orange-500 rounded-xl text-xs text-slate-800 focus:outline-none resize-none"
+                  className="w-full p-2 bg-white border border-slate-300 focus:border-[#235347] rounded-xl text-xs text-slate-800 focus:outline-none resize-none"
                 />
               </div>
             </div>
@@ -223,7 +222,7 @@ export function CashOpnameModal() {
             <button
               type="button"
               onClick={handleFinalize}
-              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm transition-all"
+              className="w-full py-3 px-4 rounded-xl bg-[#235347] hover:bg-[#163832] text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm transition-all"
             >
               <Printer className="w-4 h-4" />
               <span>FINALISASI & TUTUP SHIFT</span>
@@ -234,4 +233,3 @@ export function CashOpnameModal() {
     </div>
   );
 }
-

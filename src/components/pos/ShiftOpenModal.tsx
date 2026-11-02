@@ -19,14 +19,14 @@ export function ShiftOpenModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#051F20]/80 backdrop-blur-md animate-in fade-in duration-200 select-none">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-modal border border-slate-200 overflow-hidden p-6 sm:p-8 text-center space-y-6">
-        <div className="w-16 h-16 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center mx-auto shadow-xs">
+        <div className="w-16 h-16 rounded-2xl bg-[#DAF1DE] text-[#235347] flex items-center justify-center mx-auto shadow-xs">
           <Lock className="w-8 h-8 stroke-[2.5]" />
         </div>
 
         <div>
-          <h2 className="text-2xl font-extrabold text-slate-900 font-display">
+          <h2 className="text-2xl font-extrabold text-[#051F20] font-display">
             Buka Shift Kasir Baru
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -34,14 +34,14 @@ export function ShiftOpenModal() {
           </p>
         </div>
 
-        <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left space-y-2">
+        <div className="bg-[#F4F7F5] p-4 rounded-2xl border border-slate-200 text-left space-y-2">
           <div className="flex justify-between text-xs text-slate-500 font-medium">
             <span>Petugas Kasir:</span>
-            <span className="font-bold text-slate-900">{currentUser.name}</span>
+            <span className="font-bold text-[#051F20]">{currentUser.name}</span>
           </div>
           <div className="flex justify-between text-xs text-slate-500 font-medium">
             <span>Waktu Buka:</span>
-            <span className="font-bold text-slate-900">
+            <span className="font-bold text-[#051F20]">
               {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
             </span>
           </div>
@@ -58,7 +58,7 @@ export function ShiftOpenModal() {
                 type="number"
                 value={startingCash}
                 onChange={(e) => setStartingCash(Number(e.target.value))}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 focus:border-orange-500 rounded-xl text-base font-extrabold text-slate-900 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 focus:border-[#235347] rounded-xl text-base font-extrabold text-[#051F20] focus:outline-none"
               />
             </div>
           </div>
@@ -80,7 +80,7 @@ export function ShiftOpenModal() {
         <button
           type="button"
           onClick={handleOpen}
-          className="w-full py-3.5 px-4 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-glow-citrus transition-all"
+          className="w-full py-3.5 px-4 rounded-2xl bg-[#235347] hover:bg-[#163832] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm transition-all"
         >
           <Play className="w-4 h-4 fill-white" />
           <span>MULAI BUKA SHIFT & MASUK POS</span>
@@ -89,4 +89,3 @@ export function ShiftOpenModal() {
     </div>
   );
 }
-
