@@ -27,7 +27,7 @@ export function FruitCard({ product }: FruitCardProps) {
     >
       {/* 1. Floating Top Circular Product Dish/Cup Image (Exact reference layout) */}
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 sm:w-26 sm:h-26 rounded-full overflow-hidden bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 shadow-[0_6px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.35)] flex items-center justify-center p-1 z-10 transition-colors duration-300">
-        <div className="relative w-full h-full rounded-full overflow-hidden bg-[#F4F7F5] dark:bg-slate-800">
+        <div className="relative w-full h-full rounded-full overflow-hidden bg-[#383B40] dark:bg-[#25282B]">
           <Image
             src={product.imageUrl}
             alt={product.name}
