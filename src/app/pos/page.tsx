@@ -179,8 +179,8 @@ function PosContent() {
         </div>
       </div>
 
-      {/* 3. Right Column: Cart Panel (Full ke Atas, Full Height h-screen di Sebelah Kanan) */}
-      <div className="w-[370px] lg:w-[400px] xl:w-[430px] shrink-0 h-screen flex flex-col overflow-hidden border-l border-slate-200/80 dark:border-slate-800 bg-white shadow-2xl z-20">
+      {/* 3. Right Column: Cart Panel (Perkecil 15%, Full Height h-screen) */}
+      <div className="w-[315px] lg:w-[340px] xl:w-[365px] shrink-0 h-screen flex flex-col overflow-hidden border-l border-slate-200/80 dark:border-slate-800 bg-white shadow-2xl z-20">
         <CartPanel />
       </div>
 

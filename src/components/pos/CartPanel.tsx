@@ -52,7 +52,7 @@ export function CartPanel() {
   };
 
   return (
-    <aside className="w-full h-full bg-white text-slate-900 p-5 lg:p-6 select-none flex flex-col justify-between overflow-hidden">
+    <aside className="w-full h-full bg-white text-slate-900 p-4 lg:p-4.5 select-none flex flex-col justify-between overflow-hidden">
       {/* 1. Header: "Current Sale" (Sesuai Referensi Gambar) */}
       <div className="shrink-0 pb-3 border-b border-slate-100">
         <div className="flex items-center justify-between">
