@@ -103,3 +103,4 @@ VITAMINE/
 - [DESIGN_BRIEF.md](file:///d:/MRIOR/VITAMINE/DESIGN_BRIEF.md)
 
 &copy; 2026 VITAMINE Juice Bar. All rights reserved.
+
