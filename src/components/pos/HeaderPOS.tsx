@@ -39,15 +39,14 @@ export function HeaderPOS() {
 
   return (
     <header className="px-8 pt-7 pb-4 flex items-center justify-between gap-6 bg-transparent select-none">
-      {/* 1. Left: Date & Restaurant Title with Enlarged VM Logo */}
+      {/* 1. Left: Date & Restaurant Title with VM Logo */}
       <div className="flex items-center gap-3.5">
-        <div className="relative w-16 h-12 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center p-1.5 shrink-0">
+        <div className="relative w-16 h-11 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center p-1.5 shrink-0 overflow-hidden">
           <Image
             src="/images/logo-vm.png"
             alt="VITAMINE Logo"
-            width={60}
-            height={26}
-            className="object-contain scale-105"
+            fill
+            className="object-contain p-0.5"
             priority
           />
         </div>

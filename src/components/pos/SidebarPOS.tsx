@@ -31,16 +31,15 @@ export function SidebarPOS() {
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="w-16 h-12 rounded-2xl bg-white flex items-center justify-center shadow-xs cursor-pointer border border-[#8EB69B]/40 overflow-hidden px-1 py-1"
+          className="w-16 h-11 rounded-2xl bg-white flex items-center justify-center shadow-xs cursor-pointer border border-[#8EB69B]/40 overflow-hidden p-1.5"
           title="VITAMINE Juice Bar"
         >
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full h-full">
             <Image
               src="/images/logo-vm.png"
               alt="VITAMINE VM Logo"
-              width={64}
-              height={28}
-              className="object-contain scale-110"
+              fill
+              className="object-contain"
               priority
             />
           </div>
