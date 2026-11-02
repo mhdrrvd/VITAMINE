@@ -123,27 +123,27 @@ function PosContent() {
   }, [cart, paymentMethod, cashTendered, cartTotal, setIsStockModalOpen, setPaymentMethod, processCheckout]);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#F8FAF9] flex font-sans select-none">
+    <div className="h-screen w-screen overflow-hidden bg-[#F8FAF9] dark:bg-[#081210] flex font-sans select-none transition-colors duration-300">
       {/* 1. Left Slim Icon Sidebar Rail (Locked, never moves) */}
       <SidebarPOS />
 
       {/* 2. Center Main Work Area (Fixed height, isolated menu scroll) */}
       <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
         {/* Fixed Top Section: Header & Category Navbar (Locked, never scrolls) */}
-        <div className="shrink-0 bg-[#F8FAF9] z-20 border-b border-slate-100/60 shadow-[0_2px_10px_rgba(0,0,0,0.015)]">
+        <div className="shrink-0 bg-[#F8FAF9] dark:bg-[#081210] z-20 border-b border-slate-100/60 dark:border-slate-800/80 shadow-[0_2px_10px_rgba(0,0,0,0.015)] dark:shadow-none transition-colors duration-300">
           {/* Top Header with Date, Title & Search Capsule */}
           <HeaderPOS />
 
           {/* Section Heading & Category Navigation Pills Bar */}
           <div className="px-8 pb-3.5">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xl font-extrabold text-slate-900 tracking-tight font-display">
+              <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
                 Find The Fresh Juice
               </h2>
               <button
                 type="button"
                 onClick={() => setSelectedCategory('ALL')}
-                className="px-3 py-1 rounded-lg text-xs font-bold text-[#1A6B51] hover:bg-[#1A6B51] hover:text-white transition-all duration-300 ease-out cursor-pointer"
+                className="px-3 py-1 rounded-lg text-xs font-bold text-[#1A6B51] dark:text-[#00B14F] hover:bg-[#1A6B51] hover:text-white dark:hover:bg-[#00B14F] dark:hover:text-slate-950 transition-all duration-300 ease-out cursor-pointer"
               >
                 View All
               </button>
@@ -160,8 +160,8 @@ function PosContent() {
                     onClick={() => setSelectedCategory(cat.id as any)}
                     className={`px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
                       isActive
-                        ? 'bg-[#1A6B51] text-white shadow-md shadow-[#1A6B51]/20'
-                        : 'bg-[#F1F5F3] text-slate-600 hover:bg-[#1A6B51] hover:text-white'
+                        ? 'bg-[#1A6B51] text-white shadow-md shadow-[#1A6B51]/20 dark:bg-[#00B14F] dark:text-slate-950 dark:shadow-[#00B14F]/20'
+                        : 'bg-[#F1F5F3] dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-transparent dark:border-slate-800 hover:bg-[#1A6B51] hover:text-white dark:hover:bg-[#00B14F] dark:hover:text-slate-950'
                     }`}
                   >
                     {cat.label}
@@ -175,9 +175,9 @@ function PosContent() {
         {/* Scrollable Menu Catalog Area (The ONLY part that scrolls!) */}
         <main className="flex-1 overflow-y-auto px-8 pt-10 pb-20 no-scrollbar">
           {filteredProducts.length === 0 ? (
-            <div className="py-20 text-center text-slate-400 bg-white rounded-3xl border border-slate-100 shadow-xs">
-              <p className="font-bold text-slate-700">Tidak ada menu yang sesuai</p>
-              <p className="text-xs text-slate-400 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
+            <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs">
+              <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-16 pt-6">

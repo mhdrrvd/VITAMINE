@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --font-jakarta: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -12,6 +13,12 @@ body {
   color: #051F20;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #081210;
+  color: #F1F5F3;
 }
 
 /* Custom Scrollbar */

@@ -2,28 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
-import {
-  Search,
-  SlidersHorizontal,
-  Printer,
-  Bell,
-  Sparkles,
-} from 'lucide-react';
+import { Printer, Bell, Sun, Moon } from 'lucide-react';
 
 export function HeaderPOS() {
   const {
-    currentUser,
-    searchQuery,
-    setSearchQuery,
     ingredients,
     setIsStockModalOpen,
   } = usePos();
 
-  const [dateStr, setDateStr] = useState('June 15, 2023');
+  const [dateStr, setDateStr] = useState('');
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
+    // 1. Date format
     const today = new Date();
     const formatted = new Intl.DateTimeFormat('en-US', {
       month: 'long',
@@ -31,17 +23,41 @@ export function HeaderPOS() {
       year: 'numeric',
     }).format(today);
     setDateStr(formatted);
+
+    // 2. Dark mode initialization
+    const savedTheme = localStorage.getItem('vitamine-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+    setIsDark(shouldBeDark);
+    if (shouldBeDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, []);
+
+  const toggleDarkMode = () => {
+    const nextDark = !isDark;
+    setIsDark(nextDark);
+    if (nextDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('vitamine-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('vitamine-theme', 'light');
+    }
+  };
 
   const lowStockCount = ingredients.filter(
     (ing) => ing.currentStock <= ing.minStockAlert
   ).length;
 
   return (
-    <header className="px-8 pt-7 pb-4 flex items-center justify-between gap-6 bg-transparent select-none">
+    <header className="px-8 pt-7 pb-4 flex items-center justify-between gap-6 bg-transparent select-none transition-colors duration-300">
       {/* 1. Left: Date & Restaurant Title with VM Logo */}
       <div className="flex items-center gap-3.5">
-        <div className="relative w-16 h-11 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center p-1.5 shrink-0 overflow-hidden">
+        <div className="relative w-16 h-11 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-2xs flex items-center justify-center p-1.5 shrink-0 overflow-hidden transition-colors duration-300">
           <Image
             src="/images/logo-vm.png"
             alt="VITAMINE Logo"
@@ -51,52 +67,47 @@ export function HeaderPOS() {
           />
         </div>
         <div>
-          <span className="text-xs font-semibold text-slate-400 tracking-wide block">
-            {dateStr}
+          <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-wide block transition-colors duration-300">
+            {dateStr || 'Today'}
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-display mt-0.5">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display mt-0.5 transition-colors duration-300">
             VITAMINE Juice Bar
           </h1>
         </div>
       </div>
 
-      {/* 2. Right: Search Here Capsule & Filter + Hardware pill */}
+      {/* 2. Right: Hanya Logo Printer & Statusnya + Toggle Dark Mode Simple */}
       <div className="flex items-center gap-3">
-        {/* Rounded Search Bar Capsule with Search + Filter icon */}
-        <div className="relative w-72 sm:w-80 group">
-          <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 group-focus-within:text-[#1A6B51] transition-colors" />
-          <input
-            id="pos-search-input"
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Here"
-            className="w-full pl-10 pr-11 py-2.5 bg-white border border-slate-200/90 rounded-full text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51] focus:ring-2 focus:ring-[#1A6B51]/10 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
-          />
-          <button
-            type="button"
-            onClick={() => setIsStockModalOpen(true)}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#1A6B51] transition-colors"
-            title="Filter / Cek Stok (F4)"
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-          </button>
+        {/* Hardware Status: Printer 58mm */}
+        <div className="flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-200 shadow-2xs transition-colors duration-300">
+          <Printer className="w-4 h-4 text-[#1A6B51] dark:text-[#00B14F]" />
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="text-[11px] font-mono tracking-tight font-medium">58mm Printer Ready</span>
         </div>
 
-        {/* Hardware Status: Printer 58mm */}
-        <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-white border border-slate-200/80 text-slate-600 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
-          <Printer className="w-3.5 h-3.5 text-[#1A6B51]" />
-          <span className="text-[11px] font-mono">58mm Printer Ready</span>
-        </div>
+        {/* Simple Dark Mode Toggle Button */}
+        <button
+          type="button"
+          onClick={toggleDarkMode}
+          className="w-10 h-10 rounded-full bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-amber-400 hover:text-[#1A6B51] dark:hover:text-amber-300 hover:border-[#1A6B51]/30 dark:hover:border-amber-400/30 shadow-2xs flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
+          title={isDark ? 'Mode Terang (Light Mode)' : 'Mode Gelap (Dark Mode)'}
+          aria-label="Toggle Dark Mode"
+        >
+          {isDark ? (
+            <Sun className="w-4 h-4 stroke-[2.2] text-amber-400" />
+          ) : (
+            <Moon className="w-4 h-4 stroke-[2.2] text-slate-600" />
+          )}
+        </button>
 
         {lowStockCount > 0 && (
           <button
             type="button"
             onClick={() => setIsStockModalOpen(true)}
-            className="px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold flex items-center gap-1.5 animate-pulse"
-            title="Bahan Hampir Habis"
+            className="px-3 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center gap-1.5 animate-pulse transition-colors"
+            title="Bahan Baku Menipis"
           >
-            <Bell className="w-3 h-3 text-amber-600" />
+            <Bell className="w-3 h-3 text-amber-600 dark:text-amber-400" />
             <span className="text-[11px]">{lowStockCount} alert</span>
           </button>
         )}
