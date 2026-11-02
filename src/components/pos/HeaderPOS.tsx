@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { usePos } from '@/context/PosContext';
 import {
   Search,
@@ -118,21 +117,10 @@ export function HeaderPOS() {
           <div>
             {/* Nama Outlet Utama */}
             <div className="flex items-center gap-2.5">
-                <div className="relative w-9 h-8 sm:w-10 sm:h-8.5 rounded-xl bg-white border border-slate-200/80 dark:border-white/15 flex items-center justify-center p-1 shadow-2xs shrink-0 overflow-hidden">
-                  <Image
-                    src="/images/logo-vm-brand.png"
-                    alt="VM Logo"
-                    width={34}
-                    height={16}
-                    className="w-full h-auto object-contain"
-                    priority
-                    unoptimized
-                  />
-                </div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Indomaret Mabar
               </h2>
-              </div>
+            </div>
 
               {/* Tanggal & Waktu Real-Time */}
               <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium flex-wrap">
