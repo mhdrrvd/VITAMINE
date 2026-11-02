@@ -16,6 +16,7 @@ import {
   ShoppingBag,
   Bike,
   Store,
+  MoreVertical,
 } from 'lucide-react';
 
 export function CartPanel() {
@@ -33,7 +34,7 @@ export function CartPanel() {
     processCheckout,
   } = usePos();
 
-  // Order Type: Only Pick Up & Delivery (GoFood / GrabFood)
+  // Order Type: Pick Up & Delivery (GoFood / GrabFood)
   const [orderType, setOrderType] = useState<OrderType>('PICK_UP');
   const [deliveryPlatform, setDeliveryPlatform] = useState<DeliveryPlatform>('GOFOOD');
   const [deliveryRefNumber, setDeliveryRefNumber] = useState('');
@@ -64,237 +65,221 @@ export function CartPanel() {
   };
 
   return (
-    <aside className="w-full lg:w-[350px] xl:w-[370px] bg-white text-slate-900 border-l border-slate-200/90 flex flex-col justify-between p-6 select-none shrink-0 h-screen overflow-hidden sticky top-0 z-30 shadow-[-2px_0_12px_rgba(0,0,0,0.03)] transition-colors duration-300">
-      {/* 1. Header: "My Order" & Close/Clear button (Selalu Mode Putih Bersih) */}
-      <div>
-        <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 transition-colors duration-300">
+    <aside className="w-full h-full bg-white text-slate-900 border border-slate-200/80 rounded-3xl p-5 select-none flex flex-col justify-between overflow-hidden shadow-xs">
+      {/* 1. Header: "Current Sale" (Sesuai Referensi Gambar) */}
+      <div className="shrink-0">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
           <div>
-            <h2 className="font-extrabold text-xl text-slate-900 font-display tracking-tight">
-              My Order
-            </h2>
+            <h3 className="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight font-display">
+              Current Sale
+            </h3>
             <span className="text-[11px] text-slate-400 font-medium">
-              {cart.length > 0 ? `${cart.length} item dipilih` : 'Belum ada pesanan'}
+              {cart.length > 0 ? `${cart.length} item dipilih` : 'Belum ada item'}
             </span>
           </div>
 
-          {cart.length > 0 && (
+          <div className="flex items-center gap-1">
+            {cart.length > 0 && (
+              <button
+                type="button"
+                onClick={clearCart}
+                className="w-7 h-7 rounded-lg border border-slate-200 hover:border-rose-300 text-slate-400 hover:text-rose-500 flex items-center justify-center transition-colors cursor-pointer"
+                title="Hapus Semua Item"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
             <button
               type="button"
-              onClick={clearCart}
-              className="w-8 h-8 rounded-full border border-slate-200 hover:border-rose-300 text-slate-400 hover:text-rose-500 flex items-center justify-center transition-colors cursor-pointer"
-              title="Clear Order"
+              className="text-slate-400 hover:text-slate-600 p-1"
+              title="Menu Opsi"
             >
-              <X className="w-4 h-4" />
+              <MoreVertical className="w-4 h-4" />
             </button>
-          )}
+          </div>
         </div>
 
-        {/* 2. Order Type Switcher: Only Pick Up & Delivery (GoFood / GrabFood) */}
-        <div className="mt-3.5 space-y-2">
-          <div className="grid grid-cols-2 gap-2 w-full">
+        {/* 2. Order Type Switcher: Pick Up & Delivery */}
+        <div className="mt-3 space-y-2">
+          <div className="grid grid-cols-2 gap-1.5 w-full">
             <button
               type="button"
               onClick={() => setOrderType('PICK_UP')}
-              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
+              className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
                 orderType === 'PICK_UP'
                   ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
-                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
             >
-              <Store className="w-4 h-4 shrink-0" />
+              <Store className="w-3.5 h-3.5 shrink-0" />
               <span>Pick Up</span>
             </button>
 
             <button
               type="button"
               onClick={() => setOrderType('DELIVERY')}
-              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
+              className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
                 orderType === 'DELIVERY'
                   ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
-                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
             >
-              <Bike className="w-4 h-4 shrink-0" />
+              <Bike className="w-3.5 h-3.5 shrink-0" />
               <span>Delivery</span>
             </button>
           </div>
 
-          {/* Sub-selector for Delivery Platform (GoFood / GrabFood / ShopeeFood) */}
+          {/* Sub-selector for Delivery Platform */}
           <AnimatePresence>
             {orderType === 'DELIVERY' && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="p-2.5 rounded-xl bg-[#F8FAF9] border border-slate-200/80 space-y-2 overflow-hidden"
+                className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 overflow-hidden"
               >
-                <div className="flex items-center justify-between text-[11px] font-bold text-slate-500">
-                  <span>Platform Aplikasi:</span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-1.5">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                <div className="grid grid-cols-3 gap-1">
+                  <button
                     type="button"
                     onClick={() => setDeliveryPlatform('GOFOOD')}
-                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
+                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
                       deliveryPlatform === 'GOFOOD'
-                        ? 'bg-[#005C2B] text-white border-[#005C2B] shadow-xs'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#005C2B]/10 hover:border-[#005C2B] hover:text-[#005C2B]'
+                        ? 'bg-[#005C2B] text-white border-[#005C2B]'
+                        : 'bg-white text-slate-600 border-slate-200'
                     }`}
                   >
                     GoFood
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                  </button>
+                  <button
                     type="button"
                     onClick={() => setDeliveryPlatform('GRABFOOD')}
-                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
+                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
                       deliveryPlatform === 'GRABFOOD'
-                        ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#00B14F]/10 hover:border-[#00B14F] hover:text-[#00B14F]'
+                        ? 'bg-[#00B14F] text-white border-[#00B14F]'
+                        : 'bg-white text-slate-600 border-slate-200'
                     }`}
                   >
                     GrabFood
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                  </button>
+                  <button
                     type="button"
                     onClick={() => setDeliveryPlatform('SHOPEEFOOD')}
-                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
+                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
                       deliveryPlatform === 'SHOPEEFOOD'
-                        ? 'bg-[#EE4D2D] text-white border-[#EE4D2D] shadow-xs'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#EE4D2D]/10 hover:border-[#EE4D2D] hover:text-[#EE4D2D]'
+                        ? 'bg-[#EE4D2D] text-white border-[#EE4D2D]'
+                        : 'bg-white text-slate-600 border-slate-200'
                     }`}
                   >
-                    ShopeeFood
-                  </motion.button>
+                    Shopee
+                  </button>
                 </div>
-
                 <input
                   type="text"
                   value={deliveryRefNumber}
                   onChange={(e) => setDeliveryRefNumber(e.target.value)}
-                  placeholder={`No. Pesanan ${deliveryPlatform === 'GOFOOD' ? 'GoFood (e.g. GF-4829)' : deliveryPlatform === 'GRABFOOD' ? 'GrabFood (e.g. GR-2810)' : 'ShopeeFood (e.g. SF-9021)'}...`}
-                  className={`w-full bg-white px-2.5 py-1.5 rounded-lg text-xs border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-colors ${
-                    deliveryPlatform === 'GOFOOD'
-                      ? 'focus:border-[#005C2B]'
-                      : deliveryPlatform === 'GRABFOOD'
-                        ? 'focus:border-[#00B14F]'
-                        : 'focus:border-[#EE4D2D]'
-                  }`}
+                  placeholder={`No. Order ${deliveryPlatform}...`}
+                  className="w-full bg-white px-2 py-1 rounded-lg text-[11px] border border-slate-200 text-slate-800 placeholder:text-slate-400 focus:outline-none"
                 />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
+      </div>
 
-        {/* 3. Items List with Stepper [ + 01 - ] */}
-        <div className="max-h-[36vh] xl:max-h-[42vh] overflow-y-auto pr-1 mt-3 space-y-2.5 no-scrollbar">
-          {cart.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 flex flex-col items-center">
-              <motion.div
-                animate={{ y: [0, -4, 0] }}
-                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                className="w-12 h-12 rounded-full bg-[#F8FAF9] flex items-center justify-center mb-2.5 text-slate-300 border border-slate-100"
-              >
-                <ShoppingBag className="w-5 h-5 stroke-[1.8]" />
-              </motion.div>
-              <p className="text-xs font-bold text-slate-600">No items selected</p>
-              <p className="text-[11px] text-slate-400 mt-1 max-w-[200px]">
-                Pilih menu jus di sebelah kiri untuk menambahkan pesanan.
-              </p>
+      {/* 3. Items List with Stepper [ -  1  + ] (Exact Reference Layout) */}
+      <div className="flex-1 overflow-y-auto no-scrollbar my-2.5 space-y-2 pr-1 min-h-0">
+        {cart.length === 0 ? (
+          <div className="h-full flex flex-col items-center justify-center text-center text-slate-400 py-8">
+            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mb-2 text-slate-300">
+              <ShoppingBag className="w-5 h-5 stroke-[1.8]" />
             </div>
-          ) : (
-            <AnimatePresence initial={false}>
-              {cart.map((item) => (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.18 }}
-                  className="p-3 rounded-2xl bg-white border border-slate-100 hover:border-slate-200 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between gap-3 group transition-colors duration-300"
+            <p className="text-xs font-bold text-slate-600">No items in sale</p>
+            <p className="text-[10px] text-slate-400 mt-0.5 max-w-[170px]">
+              Klik tombol + pada menu jus untuk menambahkan pesanan.
+            </p>
+          </div>
+        ) : (
+          <AnimatePresence initial={false}>
+            {cart.map((item) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.16 }}
+                className="p-2.5 rounded-2xl bg-white border border-slate-100 hover:border-slate-200 shadow-2xs flex items-center justify-between gap-2.5"
+              >
+                {/* Square Product Image Thumbnail (Reference Style) */}
+                <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-50 border border-slate-100 shrink-0">
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.name}
+                    fill
+                    sizes="40px"
+                    className="object-contain p-1"
+                    unoptimized
+                  />
+                </div>
+
+                {/* Name & Unit Price */}
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-bold text-xs text-slate-900 truncate">
+                    {item.name}
+                  </h4>
+                  <div className="text-[10px] text-slate-400 font-mono">
+                    Rp {item.unitPrice.toLocaleString('id-ID')}
+                  </div>
+                </div>
+
+                {/* Stepper Capsule: [ -  1  + ] */}
+                <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-lg border border-slate-200 bg-slate-50 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => updateQuantity(item.id, -1)}
+                    className="w-4 h-4 flex items-center justify-center text-slate-500 hover:text-rose-600 transition-colors cursor-pointer"
+                  >
+                    <Minus className="w-2.5 h-2.5 stroke-[2.8]" />
+                  </button>
+                  <span className="font-bold text-xs text-slate-800 w-3.5 text-center font-mono">
+                    {item.quantity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => updateQuantity(item.id, 1)}
+                    className="w-4 h-4 flex items-center justify-center text-slate-500 hover:text-[#1A6B51] transition-colors cursor-pointer"
+                  >
+                    <Plus className="w-2.5 h-2.5 stroke-[2.8]" />
+                  </button>
+                </div>
+
+                {/* Line Subtotal */}
+                <span className="font-extrabold text-xs text-slate-900 font-mono shrink-0 w-16 text-right">
+                  Rp {(item.unitPrice * item.quantity).toLocaleString('id-ID')}
+                </span>
+
+                {/* Trash Delete Icon */}
+                <button
+                  type="button"
+                  onClick={() => removeFromCart(item.id)}
+                  className="text-slate-300 hover:text-rose-500 transition-colors p-1 cursor-pointer shrink-0"
+                  title="Hapus"
                 >
-                  {/* Round Cutout Thumbnail */}
-                  <div className="relative w-11 h-11 rounded-full overflow-hidden bg-[#F8FAF9] shrink-0 border border-slate-100 shadow-2xs">
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.name}
-                      fill
-                      sizes="44px"
-                      className="object-cover"
-                      unoptimized
-                    />
-                  </div>
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        )}
+      </div>
 
-                  {/* Title & Details */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-1">
-                      <h4 className="font-bold text-xs text-slate-900 truncate">
-                        {item.name}
-                      </h4>
-                      <button
-                        type="button"
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-slate-300 hover:text-rose-500 transition-colors p-0.5 cursor-pointer"
-                        title="Remove"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
-                    </div>
-
-                    <p className="text-[10px] text-slate-400">
-                      {item.options.size === 'LARGE' ? 'Large 22oz' : 'Regular 16oz'}
-                      {item.options.sugarLevel !== '100%' && ` &bull; ${item.options.sugarLevel} sugar`}
-                    </p>
-
-                    <span className="font-extrabold text-xs text-[#1A6B51] font-mono block mt-0.5">
-                      Rp {item.unitPrice.toLocaleString('id-ID')}
-                    </span>
-                  </div>
-
-                  {/* Stepper capsule: [ +  01  - ] */}
-                  <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg border border-slate-200 bg-white shadow-2xs shrink-0">
-                    <motion.button
-                      whileTap={{ scale: 0.8 }}
-                      type="button"
-                      onClick={() => updateQuantity(item.id, 1)}
-                      className="text-slate-500 hover:text-[#1A6B51] transition-colors cursor-pointer"
-                      title="Add"
-                    >
-                      <Plus className="w-3 h-3 stroke-[2.5]" />
-                    </motion.button>
-                    <span className="font-bold text-xs text-slate-800 w-4 text-center font-mono">
-                      {String(item.quantity).padStart(2, '0')}
-                    </span>
-                    <motion.button
-                      whileTap={{ scale: 0.8 }}
-                      type="button"
-                      onClick={() => updateQuantity(item.id, -1)}
-                      className="text-slate-500 hover:text-rose-600 transition-colors cursor-pointer"
-                      title="Minus"
-                    >
-                      <Minus className="w-3 h-3 stroke-[2.5]" />
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          )}
-        </div>
-
+      {/* 4. Bottom Financials & Action Buttons (Sesuai Referensi Gambar) */}
+      <div className="pt-3 border-t border-slate-100 space-y-2.5 shrink-0">
         {/* Add Note Button */}
         <button
           type="button"
           onClick={() => setShowNoteModal(!showNoteModal)}
-          className="w-full mt-3 py-1.5 px-3 rounded-lg border border-dashed border-slate-200 hover:border-[#1A6B51] text-slate-400 hover:text-[#1A6B51] text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          className="w-full py-1 px-2.5 rounded-lg border border-dashed border-slate-200 hover:border-[#1A6B51] text-slate-400 hover:text-[#1A6B51] text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
         >
           <FileText className="w-3 h-3" />
           <span>{orderNote ? `Note: ${orderNote}` : '+ Add Note'}</span>
@@ -306,167 +291,147 @@ export function CartPanel() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-2 p-2 bg-[#F8FAF9] rounded-xl border border-slate-200 overflow-hidden"
+              className="p-1.5 bg-slate-50 rounded-xl border border-slate-200 overflow-hidden"
             >
               <input
                 type="text"
                 value={orderNote}
                 onChange={(e) => setOrderNote(e.target.value)}
-                placeholder="Catatan pesanan (misal: pisahkan es)..."
-                className="w-full bg-white p-2 rounded-lg text-xs border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51]"
+                placeholder="Catatan pesanan..."
+                className="w-full bg-white px-2 py-1 rounded-lg text-xs border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51]"
               />
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
 
-      {/* 4. Bottom Financials & Payments */}
-      <div className="pt-3.5 border-t border-slate-100 space-y-3.5 transition-colors duration-300">
-        {/* Items & Total Breakdown */}
+        {/* Financial Breakdown */}
         <div className="space-y-1 text-xs">
-          <div className="flex justify-between text-slate-500">
-            <span>Items</span>
-            <span className="font-bold text-[#1A6B51] font-mono">
+          <div className="flex justify-between text-slate-500 text-[11px]">
+            <span>Subtotal</span>
+            <span className="font-bold text-slate-800 font-mono">
               Rp {cartTotal.toLocaleString('id-ID')}
             </span>
           </div>
 
-          <div className="flex justify-between text-slate-500">
-            <span>Discount</span>
-            <span className="font-semibold text-rose-500 font-mono">
-              -Rp 0
+          <div className="flex justify-between text-slate-500 text-[11px]">
+            <span>Tax (0%)</span>
+            <span className="font-semibold text-slate-400 font-mono">
+              Rp 0
             </span>
           </div>
 
           <div className="flex justify-between items-baseline pt-1.5 border-t border-slate-100">
-            <span className="font-bold text-sm text-slate-900">Total Amount</span>
-            <span className="font-black text-xl text-[#1A6B51] font-mono">
+            <span className="font-bold text-sm text-slate-900">Total</span>
+            <span className="font-black text-xl text-slate-900 font-mono">
               Rp {cartTotal.toLocaleString('id-ID')}
             </span>
           </div>
         </div>
 
-        {/* Payments Section: Cash (Hijau Muda) and QRIS (Merah) */}
-        <div>
-          <h4 className="text-xs font-bold text-slate-800 tracking-wide mb-2">
-            Payments
-          </h4>
-          <div className="grid grid-cols-2 gap-2 w-full">
-            <button
-              type="button"
-              onClick={() => setPaymentMethod('CASH')}
-              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all duration-300 ease-out border flex items-center justify-center gap-2 cursor-pointer ${
-                paymentMethod === 'CASH'
-                  ? 'bg-[#00B14F] border-[#00B14F] text-white shadow-xs shadow-[#00B14F]/25'
-                  : 'bg-white border-slate-200 text-slate-600 hover:border-[#00B14F] hover:text-[#00B14F] hover:bg-[#00B14F]/5'
-              }`}
-            >
-              <Banknote className="w-4 h-4 shrink-0" />
-              <span>Cash (F8)</span>
-            </button>
+        {/* Payment Selector: Cash (F8) & QRIS (F9) */}
+        <div className="grid grid-cols-2 gap-2 pt-1">
+          <button
+            type="button"
+            onClick={() => setPaymentMethod('CASH')}
+            className={`py-1.5 px-2 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-1.5 cursor-pointer ${
+              paymentMethod === 'CASH'
+                ? 'bg-[#00B14F] border-[#00B14F] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-[#00B14F]'
+            }`}
+          >
+            <Banknote className="w-3.5 h-3.5" />
+            <span>Cash (F8)</span>
+          </button>
 
-            <button
-              type="button"
-              onClick={() => setPaymentMethod('QRIS_STATIC')}
-              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all duration-300 ease-out border flex items-center justify-center gap-2 cursor-pointer ${
-                paymentMethod === 'QRIS_STATIC'
-                  ? 'bg-[#D8232A] border-[#D8232A] text-white shadow-xs shadow-[#D8232A]/25'
-                  : 'bg-white border-slate-200 text-slate-600 hover:border-[#D8232A] hover:text-[#D8232A] hover:bg-[#D8232A]/5'
-              }`}
-            >
-              <QrCode className="w-4 h-4 shrink-0" />
-              <span>QRIS (F9)</span>
-            </button>
-          </div>
-
-          {/* If Cash selected */}
-          {paymentMethod === 'CASH' && (
-            <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-2.5 p-2.5 rounded-xl bg-[#00B14F]/5 border border-[#00B14F]/30 space-y-2"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-bold text-slate-600">Diterima:</span>
-                <input
-                  id="cash-tendered-input"
-                  type="number"
-                  value={cashTendered || ''}
-                  onChange={(e) => setCashTendered(Number(e.target.value))}
-                  placeholder="Rp 0"
-                  className="flex-1 px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-extrabold text-slate-900 text-right focus:outline-none focus:border-[#00B14F]"
-                />
-              </div>
-
-              <div className="flex gap-1.5">
-                <button
-                  type="button"
-                  onClick={setExactCash}
-                  className="flex-1 py-1 rounded-md bg-[#00B14F]/15 hover:bg-[#00B14F]/25 text-[10px] font-bold text-[#00873C] transition-colors cursor-pointer"
-                >
-                  Uang Pas
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addQuickCash(50000)}
-                  className="flex-1 py-1 rounded-md bg-white border border-slate-200 hover:bg-slate-50 text-[10px] font-bold text-slate-700 transition-colors cursor-pointer"
-                >
-                  +50k
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addQuickCash(100000)}
-                  className="flex-1 py-1 rounded-md bg-white border border-slate-200 hover:bg-slate-50 text-[10px] font-bold text-slate-700 transition-colors cursor-pointer"
-                >
-                  +100k
-                </button>
-              </div>
-
-              {cashTendered >= cartTotal && cartTotal > 0 && (
-                <div className="flex justify-between text-xs pt-1 border-t border-[#00B14F]/20 font-bold text-[#00873C]">
-                  <span>Kembalian:</span>
-                  <span className="font-mono">Rp {changeGiven.toLocaleString('id-ID')}</span>
-                </div>
-              )}
-            </motion.div>
-          )}
-
-          {/* If QRIS selected */}
-          {paymentMethod === 'QRIS_STATIC' && (
-            <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-2.5 p-2.5 rounded-xl bg-[#D8232A]/5 border border-[#D8232A]/30 flex items-center gap-2.5"
-            >
-              <div className="w-8 h-8 rounded-lg bg-[#D8232A] text-white flex items-center justify-center shrink-0 shadow-xs">
-                <QrCode className="w-4 h-4" />
-              </div>
-              <div className="text-[11px] leading-tight text-slate-700">
-                <p className="font-bold text-[#D8232A]">QRIS Standar Indonesia</p>
-                <span className="text-slate-500">Scan barcode QRIS statis di meja kasir</span>
-              </div>
-            </motion.div>
-          )}
+          <button
+            type="button"
+            onClick={() => setPaymentMethod('QRIS_STATIC')}
+            className={`py-1.5 px-2 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-1.5 cursor-pointer ${
+              paymentMethod === 'QRIS_STATIC'
+                ? 'bg-[#D8232A] border-[#D8232A] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-[#D8232A]'
+            }`}
+          >
+            <QrCode className="w-3.5 h-3.5" />
+            <span>QRIS (F9)</span>
+          </button>
         </div>
 
-        {/* Big Checkout CTA Button */}
-        <motion.button
-          whileHover={cart.length > 0 ? { scale: 1.015 } : undefined}
-          whileTap={cart.length > 0 ? { scale: 0.985 } : undefined}
-          type="button"
-          onClick={handleCheckoutClick}
-          disabled={cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)}
-          className={`w-full py-3.5 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer ${
-            cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
-              ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-              : 'bg-[#1A6B51] hover:bg-[#14533F] text-white shadow-[#1A6B51]/20 hover:shadow-lg'
-          }`}
-        >
-          <span>Checkout</span>
-          <kbd className="px-1.5 py-0.5 bg-black/20 rounded text-[10px] font-mono text-white/90">
-            Enter
-          </kbd>
-        </motion.button>
+        {/* Cash Tendered & Quick Cash */}
+        {paymentMethod === 'CASH' && (
+          <div className="p-2 rounded-xl bg-[#00B14F]/5 border border-[#00B14F]/25 space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold text-slate-600">Diterima:</span>
+              <input
+                id="cash-tendered-input"
+                type="number"
+                value={cashTendered || ''}
+                onChange={(e) => setCashTendered(Number(e.target.value))}
+                placeholder="Rp 0"
+                className="flex-1 px-2 py-0.5 bg-white border border-slate-200 rounded text-xs font-extrabold text-slate-900 text-right focus:outline-none"
+              />
+            </div>
+            <div className="flex gap-1">
+              <button
+                type="button"
+                onClick={setExactCash}
+                className="flex-1 py-0.5 rounded bg-[#00B14F]/15 text-[9px] font-bold text-[#00873C] cursor-pointer"
+              >
+                Uang Pas
+              </button>
+              <button
+                type="button"
+                onClick={() => addQuickCash(50000)}
+                className="flex-1 py-0.5 rounded bg-white border border-slate-200 text-[9px] font-bold text-slate-700 cursor-pointer"
+              >
+                +50k
+              </button>
+              <button
+                type="button"
+                onClick={() => addQuickCash(100000)}
+                className="flex-1 py-0.5 rounded bg-white border border-slate-200 text-[9px] font-bold text-slate-700 cursor-pointer"
+              >
+                +100k
+              </button>
+            </div>
+            {cashTendered >= cartTotal && cartTotal > 0 && (
+              <div className="flex justify-between text-[11px] font-bold text-[#00873C] pt-0.5">
+                <span>Kembalian:</span>
+                <span className="font-mono">Rp {changeGiven.toLocaleString('id-ID')}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Action Buttons: [Clear Cart] & [Pay Rp ... (Enter)] */}
+        <div className="flex items-center gap-2 pt-1">
+          <button
+            type="button"
+            onClick={clearCart}
+            disabled={cart.length === 0}
+            className="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          >
+            Clear Cart
+          </button>
+
+          <motion.button
+            whileHover={cart.length > 0 ? { scale: 1.01 } : undefined}
+            whileTap={cart.length > 0 ? { scale: 0.99 } : undefined}
+            type="button"
+            onClick={handleCheckoutClick}
+            disabled={cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)}
+            className={`flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer ${
+              cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
+                ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                : 'bg-[#1A6B51] hover:bg-[#14533F] text-white shadow-[#1A6B51]/20 hover:shadow-lg'
+            }`}
+          >
+            <span>Pay Rp {cartTotal.toLocaleString('id-ID')}</span>
+            <kbd className="px-1.5 py-0.5 bg-black/20 rounded text-[9px] font-mono text-white/90">
+              Enter
+            </kbd>
+          </motion.button>
+        </div>
       </div>
     </aside>
   );

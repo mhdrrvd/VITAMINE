@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { PosProvider, usePos } from '@/context/PosContext';
 import { SidebarPOS } from '@/components/pos/SidebarPOS';
 import { HeaderPOS } from '@/components/pos/HeaderPOS';
@@ -16,6 +15,7 @@ import { ShiftOpenModal } from '@/components/pos/ShiftOpenModal';
 import { HistoryModal } from '@/components/pos/HistoryModal';
 import { OrderQueueModal } from '@/components/pos/OrderQueueModal';
 import { ReceiptPrintView } from '@/components/pos/ReceiptPrintView';
+import { LayoutGrid } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'ALL', label: 'All' },
@@ -69,8 +69,8 @@ function PosContent() {
   // Global Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // F2: Focus Search
-      if (e.key === 'F2') {
+      // ⌘K or F2: Focus Search
+      if (e.key === 'F2' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) {
         e.preventDefault();
         const searchInput = document.getElementById('pos-search-input') as HTMLInputElement | null;
         if (searchInput) {
@@ -123,61 +123,71 @@ function PosContent() {
   }, [cart, paymentMethod, cashTendered, cartTotal, setIsStockModalOpen, setPaymentMethod, processCheckout]);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#F8FAF9] dark:bg-[#081210] flex font-sans select-none transition-colors duration-300">
-      {/* 1. Left Slim Icon Sidebar Rail (Locked, never moves) */}
+    <div className="h-screen w-screen overflow-hidden flex bg-[#F3F6F5] dark:bg-[#081210] font-sans select-none transition-colors duration-300">
+      {/* 1. Left: Full Teal Sidebar (Sesuai Referensi Gambar) */}
       <SidebarPOS />
 
-      {/* 2. Center Main Work Area (Fixed height, isolated menu scroll) */}
+      {/* 2. Main Work Area */}
       <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
-        {/* Fixed Top Section: Dashboard Penjualan & Kategori (Locked, tidak pernah ikut terscroll) */}
-        <div className="shrink-0 bg-transparent z-20 border-b border-slate-200/70 dark:border-slate-800/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] dark:shadow-none transition-colors duration-300">
-          <HeaderPOS />
+        {/* Top Header: Greeting, Search, Bell, Darkmode & 4 KPI Metric Cards */}
+        <HeaderPOS />
 
-          {/* Category Navigation Pills Bar (Terkunci permanen di atas dengan padding bawah yang lega) */}
-          <div className="px-8 pb-5 pt-1">
-            <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar">
-              {CATEGORIES.map((cat) => {
-                const isActive = selectedCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => setSelectedCategory(cat.id as any)}
-                    className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
-                      isActive
-                        ? 'bg-[#FF7A00] text-white shadow-md shadow-[#FF7A00]/25 dark:bg-[#FF7A00] dark:text-white dark:shadow-[#FF7A00]/25 scale-[1.02]'
-                        : 'bg-white dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 shadow-2xs hover:bg-[#FF7A00] hover:text-white dark:hover:bg-[#FF7A00] dark:hover:text-white hover:shadow-md hover:shadow-[#FF7A00]/25'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
+        {/* Bottom Working Area: Split Left "Current Sale" & Right "Menu Catalog" */}
+        <div className="flex-1 flex overflow-hidden px-6 pb-6 pt-2 gap-5 min-h-0">
+          {/* Left Column: Current Sale (Cart Panel Sesuai Referensi Gambar) */}
+          <div className="w-[360px] lg:w-[380px] xl:w-[410px] shrink-0 h-full flex flex-col overflow-hidden">
+            <CartPanel />
+          </div>
+
+          {/* Right Column: Menu Catalog (Kategori & Grid Produk) */}
+          <div className="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+            {/* Category Navigation Pills Bar & Grid Layout Toggle */}
+            <div className="flex items-center justify-between pb-3 shrink-0">
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+                {CATEGORIES.map((cat) => {
+                  const isActive = selectedCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.id as any)}
+                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                        isActive
+                          ? 'bg-[#1A6B51] dark:bg-[#00B14F] text-white shadow-xs'
+                          : 'bg-white dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="p-2 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-[#1A6B51] dark:text-[#00B14F] shadow-2xs shrink-0">
+                <LayoutGrid className="w-4 h-4 stroke-[2.2]" />
+              </div>
             </div>
+
+            {/* Scrollable Product Cards Grid (4 Kolom Sesuai Referensi Gambar) */}
+            <main className="flex-1 overflow-y-auto no-scrollbar pr-1 pb-6">
+              {filteredProducts.length === 0 ? (
+                <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs">
+                  <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5">
+                  {filteredProducts.map((product) => (
+                    <FruitCard key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
+            </main>
           </div>
         </div>
-
-        {/* Scrollable Menu Catalog Area (Jarak lega antara kategori dan card menu) */}
-        <main className="flex-1 overflow-y-auto px-8 pt-16 pb-24 no-scrollbar">
-          {filteredProducts.length === 0 ? (
-            <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs">
-              <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-16">
-              {filteredProducts.map((product) => (
-                <FruitCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-        </main>
       </div>
 
-      {/* 3. Right: "My Order" Cart Panel (Locked to screen, never moves) */}
-      <CartPanel />
-
-      {/* Modals & Hardware views */}
+      {/* Modals & Hardware Views */}
       <HistoryModal />
       <OrderQueueModal />
       <ModifierModal />

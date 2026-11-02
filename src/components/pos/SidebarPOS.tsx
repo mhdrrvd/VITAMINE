@@ -1,130 +1,154 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import {
-  LayoutGrid,
+  LayoutDashboard,
+  ShoppingBag,
   History,
-  PackagePlus,
   Layers,
+  PackagePlus,
   RotateCcw,
   Clock,
+  Clock4,
+  Headphones,
+  ChevronDown,
+  Sparkles,
 } from 'lucide-react';
 
 export function SidebarPOS() {
   const {
+    currentUser,
     setIsHistoryModalOpen,
     setIsMorningStockModalOpen,
     setIsStockModalOpen,
     setIsReturnStockModalOpen,
     setIsCashOpnameModalOpen,
+    setIsOrderModalOpen,
   } = usePos();
 
   return (
-    <aside className="my-auto ml-5 w-16 sm:w-17 h-fit rounded-full sm:rounded-3xl bg-white/95 dark:bg-[#0F1E1B]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] flex flex-col items-center py-3.5 px-2 shrink-0 select-none z-30 transition-all duration-300">
-      {/* Floating Vertical Island Dock: Hanya seluas tombol navbar & berada di tengah vertikal */}
-      <nav className="flex flex-col items-center gap-2.5 w-full">
-        {/* 1. Cashier */}
-        <div className="relative group">
-          <motion.div
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="w-11 h-11 rounded-2xl bg-[#1A6B51] dark:bg-[#00B14F] text-white dark:text-slate-950 flex items-center justify-center shadow-md shadow-[#1A6B51]/25 dark:shadow-[#00B14F]/25 cursor-pointer"
-          >
-            <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
-          </motion.div>
-          <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30 dark:border-slate-700">
-            Cashier
-          </span>
+    <aside className="w-56 lg:w-60 h-screen bg-[#1A6B51] dark:bg-[#0E3D2E] text-white flex flex-col justify-between p-4.5 shrink-0 select-none z-30 transition-colors duration-300 shadow-xl shadow-[#1A6B51]/15">
+      {/* 1. Brand Logo Header */}
+      <div>
+        <div className="flex items-center gap-2.5 px-2.5 py-2 mb-6">
+          <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-xs flex items-center justify-center border border-white/20 shadow-xs">
+            <ShoppingBag className="w-5 h-5 text-white stroke-[2.2]" />
+          </div>
+          <div className="leading-tight">
+            <h1 className="text-lg font-black tracking-tight text-white font-display">
+              VITAMINE
+            </h1>
+            <span className="text-[10px] font-semibold text-white/70 tracking-wider uppercase block">
+              Smart POS
+            </span>
+          </div>
         </div>
 
-        {/* 2. History */}
-        <div className="relative group">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+        {/* 2. Navigation Menu Links */}
+        <nav className="space-y-1">
+          {/* Active: Dashboard / POS */}
+          <button
+            type="button"
+            className="w-full bg-white text-[#1A6B51] font-bold rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs shadow-sm transition-all"
+          >
+            <LayoutDashboard className="w-4 h-4 stroke-[2.4]" />
+            <span>Dashboard</span>
+          </button>
+
+          {/* Sales / Order Queue */}
+          <button
+            type="button"
+            onClick={() => setIsOrderModalOpen(true)}
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
+          >
+            <Clock4 className="w-4 h-4 stroke-[2]" />
+            <span>Antrian Pesanan</span>
+          </button>
+
+          {/* History */}
+          <button
             type="button"
             onClick={() => setIsHistoryModalOpen(true)}
-            className="w-11 h-11 rounded-2xl text-slate-400 dark:text-slate-500 hover:text-white hover:bg-[#1A6B51] dark:hover:bg-[#00B14F] dark:hover:text-slate-950 hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
-            <History className="w-5 h-5 stroke-[1.8]" />
-          </motion.button>
-          <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30 dark:border-slate-700">
-            History
-          </span>
-        </div>
+            <History className="w-4 h-4 stroke-[2]" />
+            <span>Riwayat Transaksi</span>
+          </button>
 
-        {/* 3. Order (Ambil Bahan Baku di Gudang Setiap Pagi) */}
-        <div className="relative group">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            type="button"
-            onClick={() => setIsMorningStockModalOpen(true)}
-            className="w-11 h-11 rounded-2xl text-slate-400 dark:text-slate-500 hover:text-white hover:bg-[#1A6B51] dark:hover:bg-[#00B14F] dark:hover:text-slate-950 hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
-          >
-            <PackagePlus className="w-5 h-5 stroke-[1.8]" />
-          </motion.button>
-          <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30 dark:border-slate-700">
-            Order
-          </span>
-        </div>
-
-        {/* 4. Inventory */}
-        <div className="relative group">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+          {/* Products & Inventory */}
+          <button
             type="button"
             onClick={() => setIsStockModalOpen(true)}
-            className="w-11 h-11 rounded-2xl text-slate-400 dark:text-slate-500 hover:text-white hover:bg-[#1A6B51] dark:hover:bg-[#00B14F] dark:hover:text-slate-950 hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
-            <Layers className="w-5 h-5 stroke-[1.8]" />
-          </motion.button>
-          <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30 dark:border-slate-700">
-            Inventory
-          </span>
-        </div>
+            <Layers className="w-4 h-4 stroke-[2]" />
+            <span>Inventori Bahan</span>
+          </button>
 
-        {/* 5. Return */}
-        <div className="relative group">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+          {/* Morning Stock In */}
+          <button
+            type="button"
+            onClick={() => setIsMorningStockModalOpen(true)}
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
+          >
+            <PackagePlus className="w-4 h-4 stroke-[2]" />
+            <span>Stok Pagi Gudang</span>
+          </button>
+
+          {/* Return */}
+          <button
             type="button"
             onClick={() => setIsReturnStockModalOpen(true)}
-            className="w-11 h-11 rounded-2xl text-slate-400 dark:text-slate-500 hover:text-white hover:bg-[#1A6B51] dark:hover:bg-[#00B14F] dark:hover:text-slate-950 hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
-            <RotateCcw className="w-5 h-5 stroke-[1.8]" />
-          </motion.button>
-          <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30 dark:border-slate-700">
-            Return
-          </span>
-        </div>
+            <RotateCcw className="w-4 h-4 stroke-[2]" />
+            <span>Retur Bahan</span>
+          </button>
 
-        {/* 6. Opname */}
-        <div className="relative group">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+          {/* Cash Opname */}
+          <button
             type="button"
             onClick={() => setIsCashOpnameModalOpen(true)}
-            className="w-11 h-11 rounded-2xl text-slate-400 dark:text-slate-500 hover:text-white hover:bg-[#1A6B51] dark:hover:bg-[#00B14F] dark:hover:text-slate-950 hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
-            <Clock className="w-5 h-5 stroke-[1.8]" />
-          </motion.button>
-          <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#1A6B51] dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap z-50 shadow-lg shadow-[#1A6B51]/25 border border-[#8EB69B]/30 dark:border-slate-700">
-            Opname
-          </span>
+            <Clock className="w-4 h-4 stroke-[2]" />
+            <span>Cash Opname Shift</span>
+          </button>
+        </nav>
+      </div>
+
+      {/* 3. Bottom: Need Help Card & User Profile */}
+      <div className="space-y-3">
+        {/* Need Help Card (Exact reference style) */}
+        <div className="p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs flex items-center gap-3 cursor-pointer hover:bg-white/15 transition-all">
+          <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+            <Headphones className="w-4 h-4 text-white" />
+          </div>
+          <div className="leading-tight min-w-0">
+            <h4 className="text-xs font-bold text-white truncate">Need Help?</h4>
+            <span className="text-[10px] text-white/70 truncate block">Hubungi support</span>
+          </div>
         </div>
-      </nav>
+
+        {/* User Profile Capsule (Exact reference style) */}
+        <div className="pt-2 border-t border-white/15 flex items-center justify-between px-1">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-xl bg-white text-[#1A6B51] font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+              {currentUser.name.slice(0, 2).toUpperCase()}
+            </div>
+            <div className="leading-tight min-w-0">
+              <p className="text-xs font-bold text-white truncate">{currentUser.name}</p>
+              <span className="text-[10px] text-white/70 capitalize block">
+                {currentUser.role.toLowerCase()}
+              </span>
+            </div>
+          </div>
+          <ChevronDown className="w-4 h-4 text-white/60 shrink-0" />
+        </div>
+      </div>
     </aside>
   );
 }
