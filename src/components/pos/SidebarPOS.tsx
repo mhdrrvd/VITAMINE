@@ -22,9 +22,9 @@ export function SidebarPOS() {
   } = usePos();
 
   return (
-    <aside className="my-5 ml-5 w-18 h-[calc(100vh-2.5rem)] rounded-3xl bg-white/95 dark:bg-[#0F1E1B]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.25)] flex flex-col items-center py-6 shrink-0 select-none z-30 transition-all duration-300">
-      {/* Slim Vertical Navigation Rail: Cashier, History, Order, Inventory, Return, Opname (Logo dihapus sesuai permintaan) */}
-      <nav className="flex flex-col items-center gap-3.5 w-full px-2">
+    <aside className="my-auto ml-5 w-16 sm:w-17 h-fit rounded-full sm:rounded-3xl bg-white/95 dark:bg-[#0F1E1B]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] flex flex-col items-center py-3.5 px-2 shrink-0 select-none z-30 transition-all duration-300">
+      {/* Floating Vertical Island Dock: Hanya seluas tombol navbar & berada di tengah vertikal */}
+      <nav className="flex flex-col items-center gap-2.5 w-full">
         {/* 1. Cashier */}
         <div className="relative group">
           <motion.div
