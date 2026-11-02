@@ -8,6 +8,7 @@ import {
   PackagePlus,
   Layers,
   RotateCcw,
+  Calculator,
 } from 'lucide-react';
 
 export function SidebarPOS() {
@@ -16,6 +17,7 @@ export function SidebarPOS() {
     setIsMorningStockModalOpen,
     setIsStockModalOpen,
     setIsReturnStockModalOpen,
+    setIsCashOpnameModalOpen,
   } = usePos();
 
   return (
@@ -85,6 +87,19 @@ export function SidebarPOS() {
         <RotateCcw className="w-5 h-5 stroke-[2]" />
         <span className="absolute left-full ml-4 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md">
           Return Stock
+        </span>
+      </button>
+
+      {/* 6. Cash Opname */}
+      <button
+        type="button"
+        onClick={() => setIsCashOpnameModalOpen(true)}
+        title="Cash Opname"
+        className="relative group w-12 h-12 rounded-2xl text-white/85 hover:text-white hover:bg-white/15 p-3 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer"
+      >
+        <Calculator className="w-5 h-5 stroke-[2]" />
+        <span className="absolute left-full ml-4 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md">
+          Cash Opname
         </span>
       </button>
     </nav>
