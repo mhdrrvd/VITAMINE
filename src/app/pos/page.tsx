@@ -129,28 +129,35 @@ function PosContent() {
 
       {/* 2. Center Main Work Area (Fixed height, isolated menu scroll) */}
       <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
-        {/* Fixed Top Section: Header & Category Navbar (Locked, never scrolls) */}
-        <div className="shrink-0 bg-transparent z-20 border-b border-slate-100/60 dark:border-slate-800/80 shadow-[0_2px_10px_rgba(0,0,0,0.015)] dark:shadow-none transition-colors duration-300">
-          {/* Top Header Navbar */}
+        {/* Fixed Top Section: Dashboard Penjualan (Header yang lebih leluasa dan besar) */}
+        <div className="shrink-0 bg-transparent z-20 border-b border-slate-200/70 dark:border-slate-800/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] dark:shadow-none transition-colors duration-300">
           <HeaderPOS />
+        </div>
 
-          {/* Section Heading & Category Navigation Pills Bar */}
-          <div className="px-8 pb-3.5">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
-                Find The Fresh Juice
-              </h2>
+        {/* Scrollable Menu Catalog Area (The ONLY part that scrolls!) */}
+        <main className="flex-1 overflow-y-auto px-8 pt-7 pb-20 no-scrollbar">
+          {/* Section Heading & Category Navigation Pills Bar (Dipindahkan ke dalam section menu) */}
+          <div className="mb-7">
+            <div className="flex items-center justify-between mb-3.5">
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
+                  Find The Fresh Juice
+                </h2>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+                  Pilih menu jus segar & racikan buah kaya vitamin
+                </p>
+              </div>
               <button
                 type="button"
                 onClick={() => setSelectedCategory('ALL')}
-                className="px-3 py-1 rounded-lg text-xs font-bold text-[#1A6B51] dark:text-[#00B14F] hover:bg-[#FF7A00] hover:text-white dark:hover:bg-[#FF7A00] dark:hover:text-white transition-all duration-300 ease-out cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-[#1A6B51] dark:text-[#00B14F] hover:bg-[#FF7A00] hover:text-white dark:hover:bg-[#FF7A00] dark:hover:text-white transition-all duration-300 ease-out cursor-pointer shadow-2xs"
               >
                 View All
               </button>
             </div>
 
             {/* Category Navigation Pills Bar */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+            <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1">
               {CATEGORIES.map((cat) => {
                 const isActive = selectedCategory === cat.id;
                 return (
@@ -158,10 +165,10 @@ function PosContent() {
                     key={cat.id}
                     type="button"
                     onClick={() => setSelectedCategory(cat.id as any)}
-                    className={`px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
+                    className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
                       isActive
-                        ? 'bg-[#FF7A00] text-white shadow-md shadow-[#FF7A00]/25 dark:bg-[#FF7A00] dark:text-white dark:shadow-[#FF7A00]/25'
-                        : 'bg-[#F1F5F3] dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-transparent dark:border-slate-800 hover:bg-[#FF7A00] hover:text-white dark:hover:bg-[#FF7A00] dark:hover:text-white hover:shadow-md hover:shadow-[#FF7A00]/25'
+                        ? 'bg-[#FF7A00] text-white shadow-md shadow-[#FF7A00]/25 dark:bg-[#FF7A00] dark:text-white dark:shadow-[#FF7A00]/25 scale-[1.02]'
+                        : 'bg-white dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 shadow-2xs hover:bg-[#FF7A00] hover:text-white dark:hover:bg-[#FF7A00] dark:hover:text-white hover:shadow-md hover:shadow-[#FF7A00]/25'
                     }`}
                   >
                     {cat.label}
@@ -170,17 +177,14 @@ function PosContent() {
               })}
             </div>
           </div>
-        </div>
 
-        {/* Scrollable Menu Catalog Area (The ONLY part that scrolls!) */}
-        <main className="flex-1 overflow-y-auto px-8 pt-10 pb-20 no-scrollbar">
           {filteredProducts.length === 0 ? (
             <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs">
               <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-16 pt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-16 pt-2">
               {filteredProducts.map((product) => (
                 <FruitCard key={product.id} product={product} />
               ))}

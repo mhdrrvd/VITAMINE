@@ -68,68 +68,68 @@ export function HeaderPOS() {
   const totalRevenue = 3840000 + additionalRevenue;
   const totalCupsSold = 142 + additionalCups;
 
-  // Kalkulasi koordinat mini sparkline (width: 110, height: 26)
-  const chartW = 110;
-  const chartH = 26;
+  // Kalkulasi koordinat sparkline dashboard yang lebih lega (width: 130, height: 32)
+  const chartW = 130;
+  const chartH = 32;
   const maxRev = Math.max(...HOURLY_SALES.map((d) => d.revenue));
   const pts = HOURLY_SALES.map((d, i) => {
     const x = (i / (HOURLY_SALES.length - 1)) * chartW;
-    const y = chartH - (d.revenue / maxRev) * (chartH - 6) - 2;
+    const y = chartH - (d.revenue / maxRev) * (chartH - 8) - 4;
     return { x: Number(x.toFixed(1)), y: Number(y.toFixed(1)), ...d };
   });
   const lineD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
   const areaD = `${lineD} L ${chartW} ${chartH} L 0 ${chartH} Z`;
 
   return (
-    <header className="px-8 pt-5 pb-3 flex items-center justify-between gap-4 bg-transparent select-none transition-colors duration-300">
-      {/* 1. Kiri: Indikator Dashboard Penjualan (Total Omset, Cup Terjual, Grafik Penjualan / Jam) */}
-      <div className="flex items-center gap-2.5 lg:gap-3 flex-wrap">
+    <header className="px-8 py-4 sm:py-5 flex items-center justify-between gap-4 bg-transparent select-none transition-colors duration-300">
+      {/* 1. Kiri: Indikator Dashboard Penjualan (Tampil Lebih Besar & Terbuka) */}
+      <div className="flex items-center gap-3 lg:gap-4 flex-wrap">
         {/* KPI 1: Total Omset */}
-        <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs transition-all">
-          <div className="w-7 h-7 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
-            <TrendingUp className="w-4 h-4 stroke-[2.2]" />
+        <div className="flex items-center gap-3.5 px-4.5 py-2.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-all">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
+            <TrendingUp className="w-5 h-5 stroke-[2.2]" />
           </div>
           <div className="leading-tight">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 Total Omset
               </span>
-              <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1 rounded">
-                +18%
+              <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded-md">
+                +18.4%
               </span>
             </div>
-            <span className="text-sm font-extrabold text-slate-900 dark:text-white font-mono">
+            <span className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
               Rp {totalRevenue.toLocaleString('id-ID')}
             </span>
           </div>
         </div>
 
         {/* KPI 2: Cup Terjual */}
-        <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs transition-all">
-          <div className="w-7 h-7 rounded-xl bg-orange-50 dark:bg-orange-950/60 text-[#FF7A00] flex items-center justify-center shrink-0">
-            <CupSoda className="w-4 h-4 stroke-[2.2]" />
+        <div className="flex items-center gap-3.5 px-4.5 py-2.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-all">
+          <div className="w-10 h-10 rounded-xl bg-[#FF7A00]/10 dark:bg-[#FF7A00]/20 text-[#FF7A00] flex items-center justify-center shrink-0">
+            <CupSoda className="w-5 h-5 stroke-[2.2]" />
           </div>
           <div className="leading-tight">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 Cup Terjual
               </span>
-              <span className="text-[9px] font-bold text-[#FF7A00] bg-orange-50 dark:bg-orange-950/60 px-1 rounded">
+              <span className="text-[10px] font-bold text-[#FF7A00] bg-orange-50 dark:bg-orange-950/60 px-1.5 py-0.5 rounded-md">
                 Hari ini
               </span>
             </div>
-            <span className="text-sm font-extrabold text-slate-900 dark:text-white font-mono">
-              {totalCupsSold} <span className="text-xs font-semibold text-slate-500">Cup</span>
+            <span className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
+              {totalCupsSold} <span className="text-xs font-semibold text-slate-400">Cup</span>
             </span>
           </div>
         </div>
 
-        {/* KPI 3: Grafik Penjualan Per Jam (Interactive Sparkline with Hover Tooltip) */}
-        <div className="relative group hidden sm:flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs cursor-pointer hover:border-[#1A6B51]/30 dark:hover:border-[#00B14F]/30 transition-all">
+        {/* KPI 3: Grafik Penjualan Per Jam (Sparkline Lebih Besar & Jelas) */}
+        <div className="relative group hidden sm:flex items-center gap-4 px-4.5 py-2.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-all cursor-pointer">
           <div className="leading-tight">
-            <div className="flex items-center gap-1">
-              <Clock className="w-3 h-3 text-[#1A6B51] dark:text-[#00B14F]" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <Clock className="w-3.5 h-3.5 text-[#1A6B51] dark:text-[#00B14F]" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 Penjualan / Jam
               </span>
             </div>
@@ -138,33 +138,33 @@ export function HeaderPOS() {
             </span>
           </div>
 
-          <div className="relative w-[110px] h-[26px] flex items-center">
-            <svg className="w-[110px] h-[26px] overflow-visible" viewBox="0 0 110 26">
+          <div className="relative w-[130px] h-[32px] flex items-center">
+            <svg className="w-[130px] h-[32px] overflow-visible" viewBox="0 0 130 32">
               <defs>
-                <linearGradient id="headerHourlyGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#1A6B51" stopOpacity="0.35" />
+                <linearGradient id="headerHourlyGradLg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#1A6B51" stopOpacity="0.4" />
                   <stop offset="100%" stopColor="#1A6B51" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
-              <path d={areaD} fill="url(#headerHourlyGrad)" />
+              <path d={areaD} fill="url(#headerHourlyGradLg)" />
               <path
                 d={lineD}
                 fill="none"
                 stroke="#1A6B51"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="dark:stroke-[#00B14F]"
               />
               {/* Highlight Peak Dot 12:00 (index 2) */}
-              <circle cx={pts[2].x} cy={pts[2].y} r="2.5" fill="#FF7A00" />
+              <circle cx={pts[2].x} cy={pts[2].y} r="3" fill="#FF7A00" />
               {/* Highlight Peak Dot 18:00 (index 5) */}
-              <circle cx={pts[5].x} cy={pts[5].y} r="2.5" fill="#1A6B51" className="dark:fill-[#00B14F]" />
+              <circle cx={pts[5].x} cy={pts[5].y} r="3" fill="#1A6B51" className="dark:fill-[#00B14F]" />
             </svg>
           </div>
 
           {/* Hover Tooltip: Breakdown Jam Ramai */}
-          <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50">
+          <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-68 p-3.5 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50">
             <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-100 dark:border-slate-800">
               <span className="text-xs font-bold text-slate-800 dark:text-white">
                 Tren Jam Ramai (Peak Hours)
@@ -175,14 +175,14 @@ export function HeaderPOS() {
               {HOURLY_SALES.map((h) => (
                 <div
                   key={h.hour}
-                  className={`p-1 rounded-lg ${
+                  className={`p-1.5 rounded-lg ${
                     h.hour === '12:00' || h.hour === '18:00'
                       ? 'bg-orange-50 dark:bg-orange-950/40 text-[#FF7A00] font-bold border border-orange-200 dark:border-orange-800/40'
                       : 'bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-400'
                   }`}
                 >
-                  <div className="text-[9px]">{h.hour}</div>
-                  <div className="text-[10px] font-mono leading-tight">
+                  <div className="text-[10px]">{h.hour}</div>
+                  <div className="text-[11px] font-mono leading-tight font-bold">
                     {Math.round(h.revenue / 1000)}k
                   </div>
                 </div>
@@ -198,23 +198,23 @@ export function HeaderPOS() {
         <button
           type="button"
           onClick={toggleDarkMode}
-          className="w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-amber-400 hover:text-[#1A6B51] dark:hover:text-amber-300 hover:border-[#1A6B51]/30 dark:hover:border-amber-400/30 shadow-2xs flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
+          className="w-10 h-10 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-amber-400 hover:text-[#1A6B51] dark:hover:text-amber-300 hover:border-[#1A6B51]/30 dark:hover:border-amber-400/30 shadow-xs flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
           title={isDark ? 'Mode Terang (Light Mode)' : 'Mode Gelap (Dark Mode)'}
           aria-label="Toggle Dark Mode"
         >
           {isDark ? (
-            <Sun className="w-4 h-4 stroke-[2.2] text-amber-400" />
+            <Sun className="w-4.5 h-4.5 stroke-[2.2] text-amber-400" />
           ) : (
-            <Moon className="w-4 h-4 stroke-[2.2] text-slate-600" />
+            <Moon className="w-4.5 h-4.5 stroke-[2.2] text-slate-600" />
           )}
         </button>
 
         {/* Profil User */}
         <div
-          className="flex items-center gap-2 pl-1 pr-3.5 py-1 rounded-full bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs select-none transition-all duration-300 hover:border-[#1A6B51]/30 dark:hover:border-[#00B14F]/30"
+          className="flex items-center gap-2.5 pl-1.5 pr-3.5 py-1.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs select-none transition-all duration-300 hover:border-[#1A6B51]/30 dark:hover:border-[#00B14F]/30"
           title={`Kasir Aktif: ${currentUser.name} (${currentUser.role})`}
         >
-          <div className="w-7 h-7 rounded-full bg-[#1A6B51] dark:bg-[#00B14F] text-white dark:text-slate-950 font-extrabold text-[11px] flex items-center justify-center shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-[#1A6B51] dark:bg-[#00B14F] text-white dark:text-slate-950 font-black text-xs flex items-center justify-center shadow-xs">
             {currentUser.name.slice(0, 2).toUpperCase()}
           </div>
           <div className="text-left leading-tight hidden md:block">
@@ -231,10 +231,10 @@ export function HeaderPOS() {
           <button
             type="button"
             onClick={() => setIsStockModalOpen(true)}
-            className="px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center gap-1.5 animate-pulse transition-colors cursor-pointer"
+            className="px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center gap-1.5 animate-pulse transition-colors cursor-pointer"
             title="Bahan Baku Menipis"
           >
-            <Bell className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+            <Bell className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span className="text-[11px]">{lowStockCount} alert</span>
           </button>
         )}
