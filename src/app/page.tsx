@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ShoppingBag, Monitor, BarChart3, Clock, CheckCircle2 } from 'lucide-react';
+import { ShoppingBag, BarChart3, Clock, CheckCircle2 } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -14,51 +14,37 @@ export default function HomePage() {
           Segar, Presisi & Terintegrasi
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-          Sistem kasir pintar berbasis resep bahan mentah buah (BOM), rekonsiliasi cash opname pergantian shift, dan display promo monitor pelanggan.
+          Sistem kasir pintar berbasis resep bahan mentah buah (BOM), rekonsiliasi cash opname pergantian shift, dan cetak struk thermal 58mm.
         </p>
 
         {/* Status verification cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 text-left max-w-2xl mx-auto">
           <Link
             href="/pos"
-            className="group p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-orange-500 transition-all"
+            className="group p-6 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#1A6B51] transition-all"
           >
-            <div className="w-12 h-12 rounded-xl bg-orange-500 text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <ShoppingBag className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-2xl bg-[#EAF5EF] text-[#1A6B51] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <ShoppingBag className="w-6 h-6 stroke-[2.2]" />
             </div>
             <h2 className="text-xl font-bold text-slate-900 mb-1">Terminal Kasir (POS)</h2>
             <p className="text-sm text-slate-500 mb-4">
-              Katalog kartu buah visual, fast keyboard checkout (F2, F4, F8, Enter), dan cetak struk 58mm.
+              Katalog jus minimalis, fast keyboard checkout (F2, F4, F8, F9, Enter), dan cetak struk thermal 58mm.
             </p>
-            <span className="text-sm font-semibold text-orange-600 group-hover:underline">Buka Meja Kasir &rarr;</span>
-          </Link>
-
-          <Link
-            href="/customer-display"
-            className="group p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition-all"
-          >
-            <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Monitor className="w-6 h-6" />
-            </div>
-            <h2 className="text-xl font-bold text-slate-900 mb-1">Customer Display</h2>
-            <p className="text-sm text-slate-500 mb-4">
-              Layar monitor kedua (menghadap pelanggan) menampilkan promo slider interaktif dan split cart preview.
-            </p>
-            <span className="text-sm font-semibold text-emerald-600 group-hover:underline">Buka Display Pelanggan &rarr;</span>
+            <span className="text-sm font-semibold text-[#1A6B51] group-hover:underline">Buka Meja Kasir &rarr;</span>
           </Link>
 
           <Link
             href="/dashboard"
-            className="group p-6 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-sm hover:shadow-md hover:border-slate-700 transition-all"
+            className="group p-6 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-sm hover:shadow-md hover:border-slate-700 transition-all"
           >
-            <div className="w-12 h-12 rounded-xl bg-slate-800 text-orange-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <BarChart3 className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-2xl bg-slate-800 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <BarChart3 className="w-6 h-6 stroke-[2.2]" />
             </div>
             <h2 className="text-xl font-bold text-white mb-1">Dashboard Owner</h2>
             <p className="text-sm text-slate-400 mb-4">
-              Analitik omzet live, rasio retur/waste bahan, rekapitulasi audit kasir, dan pengaturan promo GUI.
+              Analitik omzet live, rasio retur/waste bahan, rekapitulasi audit kasir, dan master resep BOM.
             </p>
-            <span className="text-sm font-semibold text-orange-400 group-hover:underline">Masuk Dashboard &rarr;</span>
+            <span className="text-sm font-semibold text-emerald-400 group-hover:underline">Masuk Dashboard &rarr;</span>
           </Link>
         </div>
 
@@ -77,7 +63,7 @@ export default function HomePage() {
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>BroadcastChannel Dual-Screen Sync</span>
+            <span>Real-time BOM Stock Deduction</span>
           </div>
         </div>
       </div>

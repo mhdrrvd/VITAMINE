@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { PromoSlide } from '@/types';
 import { INITIAL_PROMOS } from '@/lib/mock-data';
-import { DisplayBroadcastManager } from '@/lib/broadcast';
 import {
   Image as ImageIcon,
   Plus,
@@ -93,20 +92,11 @@ export function PromoManagerSection() {
     setIsAdding(false);
   };
 
-  // Push updates to Customer Display via BroadcastChannel
-  const pushToDisplay = () => {
+  // Save updates to localStorage
+  const savePromos = () => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('vitamine_promos', JSON.stringify(promos));
     }
-
-    const bm = new DisplayBroadcastManager();
-    bm.sendMessage({
-      type: 'PROMO_UPDATED',
-      promos,
-      timestamp: Date.now(),
-    });
-    bm.close();
-
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 3000);
   };
@@ -118,10 +108,10 @@ export function PromoManagerSection() {
         <div>
           <h2 className="text-xl font-extrabold text-white font-display flex items-center gap-2">
             <Tv className="w-5 h-5 text-orange-400" />
-            <span>GUI Manajemen Promo Slider Monitor Pelanggan</span>
+            <span>GUI Manajemen Promo & Banner Outlet</span>
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Ubah urutan, durasi tayang, atau upload banner promosi yang langsung ter-push ke monitor kasir kedua.
+            Ubah urutan, durasi tayang, atau kelola materi promosi jus outlet Anda.
           </p>
         </div>
 
@@ -137,18 +127,18 @@ export function PromoManagerSection() {
 
           <button
             type="button"
-            onClick={pushToDisplay}
+            onClick={savePromos}
             className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-extrabold flex items-center gap-2 shadow-glow-citrus transition-all active:scale-95"
           >
             {isSaved ? (
               <>
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Tersinkron ke Layar!</span>
+                <span>Tersimpan!</span>
               </>
             ) : (
               <>
                 <Sparkles className="w-4 h-4" />
-                <span>Simpan & Terapkan</span>
+                <span>Simpan Perubahan</span>
               </>
             )}
           </button>

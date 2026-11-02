@@ -9,7 +9,6 @@ import {
   ScrollText,
   Layers,
   ShoppingBag,
-  Monitor,
   Calendar,
   LogOut,
 } from 'lucide-react';
@@ -133,15 +132,7 @@ export function NavbarDashboard({
             <span className="hidden lg:inline">Kasir POS</span>
           </Link>
 
-          <Link
-            href="/customer-display"
-            target="_blank"
-            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-colors"
-            title="Buka Layar Monitor Pelanggan di Tab Baru"
-          >
-            <Monitor className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden lg:inline">Display</span>
-          </Link>
+
         </div>
       </div>
     </header>

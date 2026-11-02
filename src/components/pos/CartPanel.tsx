@@ -442,7 +442,7 @@ export function CartPanel() {
               </div>
               <div className="text-[11px] leading-tight text-slate-700">
                 <p className="font-bold text-[#1A6B51]">QRIS Standar Indonesia</p>
-                <span className="text-slate-500">Scan barcode pada layar customer</span>
+                <span className="text-slate-500">Scan barcode QRIS statis di meja kasir</span>
               </div>
             </motion.div>
           )}

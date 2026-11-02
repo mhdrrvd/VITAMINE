@@ -20,7 +20,6 @@ import {
   INITIAL_INGREDIENTS,
   INITIAL_PRODUCTS,
 } from '@/lib/mock-data';
-import { DisplayBroadcastManager } from '@/lib/broadcast';
 import { ThermalPrinter58mm } from '@/lib/printer-escpos';
 
 interface PosContextType {
@@ -152,17 +151,6 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
 
-  // Broadcast synchronizer
-  const [broadcaster, setBroadcaster] = useState<DisplayBroadcastManager | null>(null);
-
-  useEffect(() => {
-    const bm = new DisplayBroadcastManager();
-    setBroadcaster(bm);
-    return () => {
-      bm.close();
-    };
-  }, []);
-
   // Save state to local storage
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -174,26 +162,6 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
       }
     }
   }, [ingredients, currentShift]);
-
-  // Sync Cart to Customer Display
-  useEffect(() => {
-    if (broadcaster) {
-      const subtotal = cart.reduce((sum, item) => sum + item.subtotal, 0);
-      const change = cashTendered >= subtotal ? cashTendered - subtotal : 0;
-      broadcaster.sendMessage({
-        type: cart.length > 0 ? 'CART_UPDATED' : 'DISPLAY_IDLE',
-        cart: {
-          items: cart,
-          subtotal,
-          totalAmount: subtotal,
-          paymentMethod,
-          cashTendered,
-          changeGiven: change,
-        },
-        timestamp: Date.now(),
-      });
-    }
-  }, [cart, cashTendered, paymentMethod, broadcaster]);
 
   // Calculate Cup Capacity per Product based on BOM
   const getCupCapacity = useCallback(
@@ -433,16 +401,7 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
     setRecentOrders([newOrder, ...recentOrders]);
     setLastOrder(newOrder);
 
-    // 4. Send Message to Customer Display
-    if (broadcaster) {
-      broadcaster.sendMessage({
-        type: 'TRANSACTION_COMPLETED',
-        order: newOrder,
-        timestamp: Date.now(),
-      });
-    }
-
-    // 5. Direct ESC/POS Print (or browser print trigger)
+    // 4. Direct ESC/POS Print (or browser print trigger)
     try {
       await ThermalPrinter58mm.printDirectSerial(newOrder);
     } catch (e) {

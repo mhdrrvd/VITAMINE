@@ -14,7 +14,6 @@ import {
   RotateCcw,
   Calculator,
   Compass,
-  Monitor,
   Settings,
   HelpCircle,
 } from 'lucide-react';
@@ -121,21 +120,6 @@ export function SidebarPOS() {
             </span>
           </div>
 
-          {/* Customer Display */}
-          <div className="relative group">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/customer-display"
-                target="_blank"
-                className="w-11 h-11 rounded-2xl text-slate-400 hover:text-[#1A6B51] hover:bg-[#EAF5EF] flex items-center justify-center transition-colors block"
-              >
-                <Monitor className="w-5 h-5 stroke-[1.8]" />
-              </Link>
-            </motion.div>
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 shadow-md">
-              Layar Pelanggan
-            </span>
-          </div>
 
           {/* Owner Dashboard */}
           <div className="relative group">

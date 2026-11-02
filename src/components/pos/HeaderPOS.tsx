@@ -7,7 +7,6 @@ import {
   Search,
   SlidersHorizontal,
   Printer,
-  Monitor,
   Bell,
   Sparkles,
 } from 'lucide-react';
@@ -72,13 +71,10 @@ export function HeaderPOS() {
           </button>
         </div>
 
-        {/* Hardware Status & Alerts */}
-        <div className="hidden xl:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-white border border-slate-200/80 text-slate-600 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+        {/* Hardware Status: Printer 58mm */}
+        <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-white border border-slate-200/80 text-slate-600 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
           <Printer className="w-3.5 h-3.5 text-[#1A6B51]" />
-          <span className="text-[11px] font-mono">58mm USB</span>
-          <span className="text-slate-300">|</span>
-          <Monitor className="w-3.5 h-3.5 text-[#1A6B51]" />
-          <span className="text-[11px] font-mono">Dual-OK</span>
+          <span className="text-[11px] font-mono">58mm Printer Ready</span>
         </div>
 
         {lowStockCount > 0 && (
