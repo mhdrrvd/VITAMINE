@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { usePos } from '@/context/PosContext';
 import { TrendingUp, CupSoda, Clock, Sun, Moon, Bell } from 'lucide-react';
 
@@ -25,21 +24,10 @@ export function HeaderPOS() {
     recentOrders,
   } = usePos();
 
-  const [dateStr, setDateStr] = useState('');
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // 1. Date format
-    const today = new Date();
-    const formatted = new Intl.DateTimeFormat('id-ID', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    }).format(today);
-    setDateStr(formatted);
-
-    // 2. Dark mode initialization
+    // Dark mode initialization
     const savedTheme = localStorage.getItem('vitamine-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
@@ -94,30 +82,8 @@ export function HeaderPOS() {
 
   return (
     <header className="px-8 pt-5 pb-3 flex items-center justify-between gap-4 bg-transparent select-none transition-colors duration-300">
-      {/* 1. Kiri: Logo VM, Tanggal & Judul Dashboard Penjualan */}
-      <div className="flex items-center gap-3">
-        <div className="relative w-11 h-10 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-2xs flex items-center justify-center p-1.5 shrink-0 overflow-hidden">
-          <Image
-            src="/images/logo-vm.png"
-            alt="VM Logo"
-            width={38}
-            height={32}
-            className="object-contain"
-            priority
-          />
-        </div>
-        <div className="flex flex-col justify-center">
-          <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wide block transition-colors duration-300">
-            {dateStr || 'Hari Ini'}
-          </span>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
-            Dashboard Penjualan
-          </h1>
-        </div>
-      </div>
-
-      {/* 2. Tengah: Total Omset, Cup Terjual, dan Grafik Penjualan Per Jam */}
-      <div className="hidden md:flex items-center gap-2.5 lg:gap-3">
+      {/* 1. Kiri: Indikator Dashboard Penjualan (Total Omset, Cup Terjual, Grafik Penjualan / Jam) */}
+      <div className="flex items-center gap-2.5 lg:gap-3 flex-wrap">
         {/* KPI 1: Total Omset */}
         <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs transition-all">
           <div className="w-7 h-7 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
@@ -159,7 +125,7 @@ export function HeaderPOS() {
         </div>
 
         {/* KPI 3: Grafik Penjualan Per Jam (Interactive Sparkline with Hover Tooltip) */}
-        <div className="relative group hidden lg:flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs cursor-pointer hover:border-[#1A6B51]/30 dark:hover:border-[#00B14F]/30 transition-all">
+        <div className="relative group hidden sm:flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-2xs cursor-pointer hover:border-[#1A6B51]/30 dark:hover:border-[#00B14F]/30 transition-all">
           <div className="leading-tight">
             <div className="flex items-center gap-1">
               <Clock className="w-3 h-3 text-[#1A6B51] dark:text-[#00B14F]" />
@@ -226,8 +192,8 @@ export function HeaderPOS() {
         </div>
       </div>
 
-      {/* 3. Kanan: Toggle Darkmode & User Profile (Status print dihapus sesuai permintaan) */}
-      <div className="flex items-center gap-3">
+      {/* 2. Kanan: Toggle Darkmode & User Profile */}
+      <div className="flex items-center gap-3 shrink-0">
         {/* Toggle Dark Mode Button */}
         <button
           type="button"
