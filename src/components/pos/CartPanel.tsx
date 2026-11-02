@@ -6,9 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import { OrderType } from '@/types';
 import {
-  Plus,
-  Minus,
-  Trash2,
   X,
   FileText,
   Banknote,
@@ -22,7 +19,6 @@ export function CartPanel() {
     cart,
     cartTotal,
     removeFromCart,
-    updateQuantity,
     clearCart,
     paymentMethod,
     setPaymentMethod,
@@ -109,9 +105,9 @@ export function CartPanel() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.16 }}
-                className="p-2.5 rounded-2xl bg-white border border-slate-100 hover:border-slate-200 shadow-2xs flex items-center justify-between gap-2.5"
+                className="p-2 rounded-xl bg-white border border-slate-100 hover:border-slate-200 shadow-2xs flex items-center justify-between gap-2.5"
               >
-                {/* Square Product Image Thumbnail (Reference Style) */}
+                {/* Square Product Image Thumbnail with Quantity Badge */}
                 <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-50 border border-slate-100 shrink-0">
                   <Image
                     src={item.imageUrl}
@@ -121,52 +117,40 @@ export function CartPanel() {
                     className="object-contain p-1"
                     unoptimized
                   />
+                  {/* Quantity Badge on Thumbnail if > 1 */}
+                  {item.quantity > 1 && (
+                    <span className="absolute top-0.5 right-0.5 px-1 py-0.2 bg-[#1A6B51] text-white text-[8px] font-black rounded-md leading-none shadow-xs">
+                      {item.quantity}x
+                    </span>
+                  )}
                 </div>
 
-                {/* Name & Unit Price */}
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-xs text-slate-900 truncate">
-                    {item.name}
-                  </h4>
-                  <div className="text-[10px] text-slate-400 font-mono">
-                    Rp {item.unitPrice.toLocaleString('id-ID')}
+                {/* Full Product Name & Customization Options (Teks Lebih Panjang & Jelas) */}
+                <div className="flex-1 min-w-0 pr-1">
+                  <div className="flex items-center gap-1.5">
+                    {item.quantity === 1 ? (
+                      <span className="text-[11px] font-bold text-slate-400 font-mono shrink-0">1x</span>
+                    ) : (
+                      <span className="text-xs font-black text-[#1A6B51] font-mono shrink-0">{item.quantity}x</span>
+                    )}
+                    <h4 className="font-bold text-xs text-slate-900 leading-snug line-clamp-2">
+                      {item.name}
+                    </h4>
+                  </div>
+                  {/* Customization Details */}
+                  <div className="text-[10px] text-slate-400 font-medium truncate mt-0.5">
+                    {item.options.size === 'LARGE' ? 'Large' : 'Regular'} • Gula {item.options.sugarLevel} • {item.options.iceLevel === 'NORMAL' ? 'Normal Ice' : item.options.iceLevel === 'LESS' ? 'Less Ice' : 'No Ice'}
                   </div>
                 </div>
 
-                {/* Stepper Capsule: [ -  1  + ] */}
-                <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-lg border border-slate-200 bg-slate-50 shrink-0">
-                  <button
-                    type="button"
-                    onClick={() => updateQuantity(item.id, -1)}
-                    className="w-4 h-4 flex items-center justify-center text-slate-500 hover:text-rose-600 transition-colors cursor-pointer"
-                  >
-                    <Minus className="w-2.5 h-2.5 stroke-[2.8]" />
-                  </button>
-                  <span className="font-bold text-xs text-slate-800 w-3.5 text-center font-mono">
-                    {item.quantity}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => updateQuantity(item.id, 1)}
-                    className="w-4 h-4 flex items-center justify-center text-slate-500 hover:text-[#1A6B51] transition-colors cursor-pointer"
-                  >
-                    <Plus className="w-2.5 h-2.5 stroke-[2.8]" />
-                  </button>
-                </div>
-
-                {/* Line Subtotal */}
-                <span className="font-extrabold text-xs text-slate-900 font-mono shrink-0 w-16 text-right">
-                  Rp {(item.unitPrice * item.quantity).toLocaleString('id-ID')}
-                </span>
-
-                {/* Trash Delete Icon */}
+                {/* Remove Action Button */}
                 <button
                   type="button"
                   onClick={() => removeFromCart(item.id)}
-                  className="text-slate-300 hover:text-rose-500 transition-colors p-1 cursor-pointer shrink-0"
-                  title="Hapus"
+                  className="w-7 h-7 rounded-lg text-slate-300 hover:text-rose-500 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                  title="Hapus pesanan"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <X className="w-3.5 h-3.5 stroke-[2.2]" />
                 </button>
               </motion.div>
             ))}
