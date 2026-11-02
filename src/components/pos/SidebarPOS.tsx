@@ -1,21 +1,16 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import {
-  LayoutDashboard,
-  ShoppingBag,
+  LayoutGrid,
   History,
-  Layers,
   PackagePlus,
+  Layers,
   RotateCcw,
-  Clock,
-  Clock4,
+  ShoppingBag,
   Headphones,
   ChevronDown,
-  Sparkles,
 } from 'lucide-react';
 
 export function SidebarPOS() {
@@ -25,8 +20,6 @@ export function SidebarPOS() {
     setIsMorningStockModalOpen,
     setIsStockModalOpen,
     setIsReturnStockModalOpen,
-    setIsCashOpnameModalOpen,
-    setIsOrderModalOpen,
   } = usePos();
 
   return (
@@ -47,82 +40,62 @@ export function SidebarPOS() {
           </div>
         </div>
 
-        {/* 2. Navigation Menu Links */}
-        <nav className="space-y-1">
-          {/* Active: Dashboard / POS */}
+        {/* 2. Navigation Menu Links (Exact user requested items & order) */}
+        <nav className="space-y-1.5">
+          {/* 1. Dashboard (Active) */}
           <button
             type="button"
             className="w-full bg-white text-[#1A6B51] font-bold rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs shadow-sm transition-all"
           >
-            <LayoutDashboard className="w-4 h-4 stroke-[2.4]" />
+            <LayoutGrid className="w-4 h-4 stroke-[2.4]" />
             <span>Dashboard</span>
           </button>
 
-          {/* Sales / Order Queue */}
-          <button
-            type="button"
-            onClick={() => setIsOrderModalOpen(true)}
-            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
-          >
-            <Clock4 className="w-4 h-4 stroke-[2]" />
-            <span>Antrian Pesanan</span>
-          </button>
-
-          {/* History */}
+          {/* 2. History */}
           <button
             type="button"
             onClick={() => setIsHistoryModalOpen(true)}
             className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
             <History className="w-4 h-4 stroke-[2]" />
-            <span>Riwayat Transaksi</span>
+            <span>History</span>
           </button>
 
-          {/* Products & Inventory */}
-          <button
-            type="button"
-            onClick={() => setIsStockModalOpen(true)}
-            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
-          >
-            <Layers className="w-4 h-4 stroke-[2]" />
-            <span>Inventori Bahan</span>
-          </button>
-
-          {/* Morning Stock In */}
+          {/* 3. Order Stock */}
           <button
             type="button"
             onClick={() => setIsMorningStockModalOpen(true)}
             className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
             <PackagePlus className="w-4 h-4 stroke-[2]" />
-            <span>Stok Pagi Gudang</span>
+            <span>Order Stock</span>
           </button>
 
-          {/* Return */}
+          {/* 4. Inventory */}
+          <button
+            type="button"
+            onClick={() => setIsStockModalOpen(true)}
+            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
+          >
+            <Layers className="w-4 h-4 stroke-[2]" />
+            <span>Inventory</span>
+          </button>
+
+          {/* 5. Return Stock */}
           <button
             type="button"
             onClick={() => setIsReturnStockModalOpen(true)}
             className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
           >
             <RotateCcw className="w-4 h-4 stroke-[2]" />
-            <span>Retur Bahan</span>
-          </button>
-
-          {/* Cash Opname */}
-          <button
-            type="button"
-            onClick={() => setIsCashOpnameModalOpen(true)}
-            className="w-full text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3.5 py-2.5 flex items-center gap-3 text-xs font-semibold transition-all cursor-pointer"
-          >
-            <Clock className="w-4 h-4 stroke-[2]" />
-            <span>Cash Opname Shift</span>
+            <span>Return Stock</span>
           </button>
         </nav>
       </div>
 
       {/* 3. Bottom: Need Help Card & User Profile */}
       <div className="space-y-3">
-        {/* Need Help Card (Exact reference style) */}
+        {/* Need Help Card */}
         <div className="p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs flex items-center gap-3 cursor-pointer hover:bg-white/15 transition-all">
           <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
             <Headphones className="w-4 h-4 text-white" />
@@ -133,7 +106,7 @@ export function SidebarPOS() {
           </div>
         </div>
 
-        {/* User Profile Capsule (Exact reference style) */}
+        {/* User Profile Capsule */}
         <div className="pt-2 border-t border-white/15 flex items-center justify-between px-1">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 rounded-xl bg-white text-[#1A6B51] font-black text-xs flex items-center justify-center shadow-xs shrink-0">
