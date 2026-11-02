@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 interface NavbarDashboardProps {
-  activeTab: 'ANALYTICS' | 'PROMO' | 'BOM' | 'AUDIT';
-  setActiveTab: (tab: 'ANALYTICS' | 'PROMO' | 'BOM' | 'AUDIT') => void;
+  activeTab: 'ANALYTICS' | 'PROMO' | 'BOM';
+  setActiveTab: (tab: 'ANALYTICS' | 'PROMO' | 'BOM') => void;
   dateRange: string;
   setDateRange: (range: string) => void;
 }
@@ -88,18 +88,7 @@ export function NavbarDashboard({
             <span>Resep BOM</span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => setActiveTab('AUDIT')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
-              activeTab === 'AUDIT'
-                ? 'bg-orange-500 text-white shadow-xs'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <ScrollText className="w-3.5 h-3.5" />
-            <span>Audit Shift</span>
-          </button>
+
         </nav>
       </div>
 

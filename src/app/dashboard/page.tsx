@@ -5,11 +5,10 @@ import { NavbarDashboard } from '@/components/dashboard/NavbarDashboard';
 import { KpiCardsSection } from '@/components/dashboard/KpiCardsSection';
 import { SalesChartSection } from '@/components/dashboard/SalesChartSection';
 import { PromoManagerSection } from '@/components/dashboard/PromoManagerSection';
-import { ShiftAuditSection } from '@/components/dashboard/ShiftAuditSection';
 import { BomViewerSection } from '@/components/dashboard/BomViewerSection';
 
 export default function OwnerDashboardPage() {
-  const [activeTab, setActiveTab] = useState<'ANALYTICS' | 'PROMO' | 'BOM' | 'AUDIT'>('ANALYTICS');
+  const [activeTab, setActiveTab] = useState<'ANALYTICS' | 'PROMO' | 'BOM'>('ANALYTICS');
   const [dateRange, setDateRange] = useState('TODAY');
 
   return (
@@ -46,11 +45,7 @@ export default function OwnerDashboardPage() {
           </div>
         )}
 
-        {activeTab === 'AUDIT' && (
-          <div className="animate-in fade-in duration-200">
-            <ShiftAuditSection />
-          </div>
-        )}
+
       </main>
     </div>
   );
