@@ -180,7 +180,7 @@ function PosContent() {
       </div>
 
       {/* 3. Right Column: Cart Panel (Perkecil 15%, Full Height h-screen) */}
-      <div className="w-[315px] lg:w-[340px] xl:w-[365px] shrink-0 h-screen flex flex-col overflow-hidden border-l border-slate-200/80 dark:border-slate-800 bg-white shadow-2xl z-20">
+      <div className="w-[315px] lg:w-[340px] xl:w-[365px] shrink-0 h-screen flex flex-col overflow-hidden border-l border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#0F1E1B] shadow-2xl z-20 transition-colors duration-300">
         <CartPanel />
       </div>
 
