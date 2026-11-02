@@ -61,7 +61,7 @@ export function HeaderPOS() {
           {dateStr || 'Today'}
         </span>
         <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
-          VITAMINE Juice Bar
+          Dashboard Penjualan
         </h1>
       </div>
 
