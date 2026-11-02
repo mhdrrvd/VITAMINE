@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
-import { OrderType, DeliveryPlatform } from '@/types';
+import { OrderType } from '@/types';
 import {
   Plus,
   Minus,
@@ -14,8 +14,6 @@ import {
   Banknote,
   QrCode,
   ShoppingBag,
-  Bike,
-  Store,
   MoreVertical,
 } from 'lucide-react';
 
@@ -34,11 +32,6 @@ export function CartPanel() {
     processCheckout,
   } = usePos();
 
-  // Order Type: Pick Up & Delivery (GoFood / GrabFood)
-  const [orderType, setOrderType] = useState<OrderType>('PICK_UP');
-  const [deliveryPlatform, setDeliveryPlatform] = useState<DeliveryPlatform>('GOFOOD');
-  const [deliveryRefNumber, setDeliveryRefNumber] = useState('');
-
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [orderNote, setOrderNote] = useState('');
 
@@ -53,9 +46,7 @@ export function CartPanel() {
   const handleCheckoutClick = async () => {
     if (cart.length === 0) return;
     const order = await processCheckout({
-      orderType,
-      deliveryPlatform: orderType === 'DELIVERY' ? deliveryPlatform : undefined,
-      deliveryRefNumber: orderType === 'DELIVERY' && deliveryRefNumber ? deliveryRefNumber : undefined,
+      orderType: 'PICK_UP',
     });
     if (order) {
       setTimeout(() => {
@@ -67,8 +58,8 @@ export function CartPanel() {
   return (
     <aside className="w-full h-full bg-white text-slate-900 p-5 lg:p-6 select-none flex flex-col justify-between overflow-hidden">
       {/* 1. Header: "Current Sale" (Sesuai Referensi Gambar) */}
-      <div className="shrink-0">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div className="shrink-0 pb-3 border-b border-slate-100">
+        <div className="flex items-center justify-between">
           <div>
             <h3 className="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight font-display">
               Current Sale
@@ -97,92 +88,6 @@ export function CartPanel() {
               <MoreVertical className="w-4 h-4" />
             </button>
           </div>
-        </div>
-
-        {/* 2. Order Type Switcher: Pick Up & Delivery */}
-        <div className="mt-3 space-y-2">
-          <div className="grid grid-cols-2 gap-1.5 w-full">
-            <button
-              type="button"
-              onClick={() => setOrderType('PICK_UP')}
-              className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
-                orderType === 'PICK_UP'
-                  ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
-                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-              }`}
-            >
-              <Store className="w-3.5 h-3.5 shrink-0" />
-              <span>Pick Up</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setOrderType('DELIVERY')}
-              className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
-                orderType === 'DELIVERY'
-                  ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
-                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-              }`}
-            >
-              <Bike className="w-3.5 h-3.5 shrink-0" />
-              <span>Delivery</span>
-            </button>
-          </div>
-
-          {/* Sub-selector for Delivery Platform */}
-          <AnimatePresence>
-            {orderType === 'DELIVERY' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 overflow-hidden"
-              >
-                <div className="grid grid-cols-3 gap-1">
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPlatform('GOFOOD')}
-                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
-                      deliveryPlatform === 'GOFOOD'
-                        ? 'bg-[#005C2B] text-white border-[#005C2B]'
-                        : 'bg-white text-slate-600 border-slate-200'
-                    }`}
-                  >
-                    GoFood
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPlatform('GRABFOOD')}
-                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
-                      deliveryPlatform === 'GRABFOOD'
-                        ? 'bg-[#00B14F] text-white border-[#00B14F]'
-                        : 'bg-white text-slate-600 border-slate-200'
-                    }`}
-                  >
-                    GrabFood
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPlatform('SHOPEEFOOD')}
-                    className={`py-1 px-1.5 rounded-lg text-[10px] font-bold transition-all border cursor-pointer ${
-                      deliveryPlatform === 'SHOPEEFOOD'
-                        ? 'bg-[#EE4D2D] text-white border-[#EE4D2D]'
-                        : 'bg-white text-slate-600 border-slate-200'
-                    }`}
-                  >
-                    Shopee
-                  </button>
-                </div>
-                <input
-                  type="text"
-                  value={deliveryRefNumber}
-                  onChange={(e) => setDeliveryRefNumber(e.target.value)}
-                  placeholder={`No. Order ${deliveryPlatform}...`}
-                  className="w-full bg-white px-2 py-1 rounded-lg text-[11px] border border-slate-200 text-slate-800 placeholder:text-slate-400 focus:outline-none"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
 
