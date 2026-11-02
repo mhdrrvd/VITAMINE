@@ -25,22 +25,22 @@ export function SidebarPOS() {
 
   return (
     <aside className="w-20 bg-white border-r border-slate-100 flex flex-col justify-between items-center py-6 h-screen sticky top-0 shrink-0 select-none z-30 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
-      {/* 1. Top Logo */}
+      {/* 1. Top Logo (Enlarged VM Logo) */}
       <div className="flex flex-col items-center gap-6">
         <motion.div
-          whileHover={{ scale: 1.08, rotate: 2 }}
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-xs cursor-pointer border border-[#8EB69B]/40 overflow-hidden p-1.5"
+          className="w-16 h-12 rounded-2xl bg-white flex items-center justify-center shadow-xs cursor-pointer border border-[#8EB69B]/40 overflow-hidden px-1 py-1"
           title="VITAMINE Juice Bar"
         >
           <div className="relative w-full h-full flex items-center justify-center">
             <Image
               src="/images/logo-vm.png"
               alt="VITAMINE VM Logo"
-              width={40}
-              height={40}
-              className="object-contain"
+              width={64}
+              height={28}
+              className="object-contain scale-110"
               priority
             />
           </div>

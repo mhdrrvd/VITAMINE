@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import {
@@ -38,14 +39,26 @@ export function HeaderPOS() {
 
   return (
     <header className="px-8 pt-7 pb-4 flex items-center justify-between gap-6 bg-transparent select-none">
-      {/* 1. Left: Date & Restaurant Title (Exact reference style) */}
-      <div>
-        <span className="text-xs font-semibold text-slate-400 tracking-wide block">
-          {dateStr}
-        </span>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-display mt-0.5">
-          VITAMINE Juice Bar
-        </h1>
+      {/* 1. Left: Date & Restaurant Title with Enlarged VM Logo */}
+      <div className="flex items-center gap-3.5">
+        <div className="relative w-16 h-12 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center p-1.5 shrink-0">
+          <Image
+            src="/images/logo-vm.png"
+            alt="VITAMINE Logo"
+            width={60}
+            height={26}
+            className="object-contain scale-105"
+            priority
+          />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-slate-400 tracking-wide block">
+            {dateStr}
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-display mt-0.5">
+            VITAMINE Juice Bar
+          </h1>
+        </div>
       </div>
 
       {/* 2. Right: Search Here Capsule & Filter + Hardware pill */}

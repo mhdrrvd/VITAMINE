@@ -65,6 +65,8 @@ export interface Product {
   colorAccent?: string; // Hex color token for Fruit Card
   isFavorite?: boolean;
   vitamins?: ('A' | 'B' | 'C')[];
+  description?: string;
+  prepTimeMinutes?: number;
 }
 
 export interface CustomOptions {

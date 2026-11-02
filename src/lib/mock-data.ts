@@ -119,6 +119,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: true,
     vitamins: ['A', 'C'],
+    description: 'Jus mangga harum manis murni dengan puree kental, gula tebu alami & es kristal.',
+    prepTimeMinutes: 2,
     recipe: [
       { ingredientId: 'ing-mangga', quantityRequired: 150 },
       { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
@@ -136,6 +138,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: true,
     vitamins: ['B'],
+    description: 'Alpukat mentega pilihan bertekstur kental dengan drizzle cokelat dark pilihan.',
+    prepTimeMinutes: 3,
     recipe: [
       { ingredientId: 'ing-alpukat', quantityRequired: 140 },
       { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
@@ -153,6 +157,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: false,
     vitamins: ['C', 'B'],
+    description: 'Jus buah naga merah segar kaya serat & antioksidan alami, menyegarkan hari.',
+    prepTimeMinutes: 2,
     recipe: [
       { ingredientId: 'ing-buahnaga', quantityRequired: 160 },
       { ingredientId: 'ing-gula', quantityRequired: 30, isFlatOverhead: true },
@@ -170,6 +176,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: false,
     vitamins: ['C'],
+    description: 'Perasan murni sari jeruk Sunkist manis tanpa pemanis buatan, kaya vitamin.',
+    prepTimeMinutes: 2,
     recipe: [
       { ingredientId: 'ing-jeruk', quantityRequired: 200 },
       { ingredientId: 'ing-gula', quantityRequired: 25, isFlatOverhead: true },
@@ -187,6 +195,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: true,
     vitamins: ['A', 'C'],
+    description: 'Gradasi eksotis mangga harum manis & buah naga merah dalam dua lapis cantik.',
+    prepTimeMinutes: 3,
     recipe: [
       { ingredientId: 'ing-mangga', quantityRequired: 100 },
       { ingredientId: 'ing-buahnaga', quantityRequired: 70 },
@@ -205,6 +215,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: false,
     vitamins: ['A'],
+    description: 'Kombinasi wortel manis & tomat matang segar untuk nutrisi mata jernih & fit.',
+    prepTimeMinutes: 3,
     recipe: [
       { ingredientId: 'ing-wortel', quantityRequired: 100 },
       { ingredientId: 'ing-tomat', quantityRequired: 80 },
@@ -223,6 +235,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: false,
     vitamins: ['B'],
+    description: 'Paduan alpukat mentega, buah naga merah & madu untuk stamina energi harian.',
+    prepTimeMinutes: 3,
     recipe: [
       { ingredientId: 'ing-alpukat', quantityRequired: 100 },
       { ingredientId: 'ing-buahnaga', quantityRequired: 60 },
@@ -241,6 +255,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     isActive: true,
     isFavorite: true,
     vitamins: ['C'],
+    description: 'Sari jeruk Sunkist, lemon peras & buah naga merah sebagai immune booster alami.',
+    prepTimeMinutes: 2,
     recipe: [
       { ingredientId: 'ing-jeruk', quantityRequired: 120 },
       { ingredientId: 'ing-buahnaga', quantityRequired: 80 },
