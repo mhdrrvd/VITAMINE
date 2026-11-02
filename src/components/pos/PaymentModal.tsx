@@ -2,17 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { usePos } from '@/context/PosContext';
-import { OrderType, DeliveryPlatform } from '@/types';
 import {
   X,
   Banknote,
   QrCode,
-  Store,
-  Bike,
   Printer,
   CheckCircle2,
   AlertCircle,
-  FileText,
   RotateCcw,
 } from 'lucide-react';
 
@@ -30,12 +26,7 @@ export function PaymentModal() {
     processCheckout,
   } = usePos();
 
-  const [orderType, setOrderType] = useState<OrderType>('PICK_UP');
-  const [deliveryPlatform, setDeliveryPlatform] = useState<DeliveryPlatform>('GOFOOD');
-  const [deliveryRefNumber, setDeliveryRefNumber] = useState('');
-  const [orderNote, setOrderNote] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-
   const cashInputRef = useRef<HTMLInputElement>(null);
 
   // Focus cash input whenever modal opens with CASH selected
@@ -101,12 +92,7 @@ export function PaymentModal() {
 
     setIsProcessing(true);
     try {
-      const order = await processCheckout({
-        orderType,
-        deliveryPlatform: orderType === 'DELIVERY' ? deliveryPlatform : undefined,
-        deliveryRefNumber: orderType === 'DELIVERY' && deliveryRefNumber ? deliveryRefNumber : undefined,
-      });
-
+      const order = await processCheckout();
       if (order) {
         setIsPaymentModalOpen(false);
         setTimeout(() => {
@@ -122,7 +108,7 @@ export function PaymentModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs select-none animate-in fade-in duration-150">
-      <div className="bg-white dark:bg-[#0F1E1B] w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="bg-white dark:bg-[#0F1E1B] w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[92vh]">
         {/* 1. Header Modal */}
         <div className="px-6 py-4.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/60 dark:bg-slate-900/40">
           <div>
@@ -153,92 +139,10 @@ export function PaymentModal() {
 
         {/* 2. Body: Scrollable Form */}
         <div className="p-6 overflow-y-auto space-y-5 flex-1 min-h-0">
-          {/* Order Type Pill (Pick Up vs Delivery) */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-              Tipe Pesanan
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setOrderType('PICK_UP')}
-                className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
-                  orderType === 'PICK_UP'
-                    ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
-                    : 'bg-white dark:bg-[#162724] border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                <Store className="w-4 h-4 shrink-0" />
-                <span>Pick Up / Dine In</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setOrderType('DELIVERY')}
-                className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 cursor-pointer ${
-                  orderType === 'DELIVERY'
-                    ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
-                    : 'bg-white dark:bg-[#162724] border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                <Bike className="w-4 h-4 shrink-0" />
-                <span>Online Delivery (Ojol)</span>
-              </button>
-            </div>
-
-            {/* Delivery Sub-selector */}
-            {orderType === 'DELIVERY' && (
-              <div className="mt-2.5 p-3 rounded-2xl bg-slate-50 dark:bg-[#162724] border border-slate-200 dark:border-slate-700 space-y-2">
-                <div className="grid grid-cols-3 gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPlatform('GOFOOD')}
-                    className={`py-1.5 px-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                      deliveryPlatform === 'GOFOOD'
-                        ? 'bg-[#005C2B] text-white border-[#005C2B] shadow-xs'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-                    }`}
-                  >
-                    GoFood
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPlatform('GRABFOOD')}
-                    className={`py-1.5 px-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                      deliveryPlatform === 'GRABFOOD'
-                        ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-                    }`}
-                  >
-                    GrabFood
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPlatform('SHOPEEFOOD')}
-                    className={`py-1.5 px-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                      deliveryPlatform === 'SHOPEEFOOD'
-                        ? 'bg-[#EE4D2D] text-white border-[#EE4D2D] shadow-xs'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-                    }`}
-                  >
-                    ShopeeFood
-                  </button>
-                </div>
-                <input
-                  type="text"
-                  value={deliveryRefNumber}
-                  onChange={(e) => setDeliveryRefNumber(e.target.value)}
-                  placeholder={`Masukkan No. Order ${deliveryPlatform} (opsional)...`}
-                  className="w-full bg-white dark:bg-[#0F1E1B] px-3 py-2 rounded-xl text-xs border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#1A6B51]"
-                />
-              </div>
-            )}
-          </div>
-
           {/* Payment Method Tabs (CASH vs QRIS) */}
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-              Metode Pembayaran
+              Pilih Metode Pembayaran
             </label>
             <div className="grid grid-cols-2 gap-2">
               <button
