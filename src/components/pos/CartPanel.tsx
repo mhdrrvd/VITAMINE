@@ -91,31 +91,31 @@ export function CartPanel() {
 
         {/* 2. Order Type Switcher: Only Pick Up & Delivery (GoFood / GrabFood) */}
         <div className="mt-3.5 space-y-2">
-          <div className="flex items-center gap-2">
+          <div className="grid grid-cols-2 gap-2 w-full">
             <button
               type="button"
               onClick={() => setOrderType('PICK_UP')}
-              className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 ${
                 orderType === 'PICK_UP'
-                  ? 'bg-[#1A6B51] text-white shadow-xs'
-                  : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+                  ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
+                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
             >
-              <Store className="w-3.5 h-3.5" />
+              <Store className="w-4 h-4 shrink-0" />
               <span>Pick Up</span>
             </button>
 
             <button
               type="button"
               onClick={() => setOrderType('DELIVERY')}
-              className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 ${
                 orderType === 'DELIVERY'
-                  ? 'bg-[#1A6B51] text-white shadow-xs'
-                  : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+                  ? 'bg-[#1A6B51] border-[#1A6B51] text-white shadow-xs'
+                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
             >
-              <Bike className="w-3.5 h-3.5" />
-              <span>Delivery (Ojol)</span>
+              <Bike className="w-4 h-4 shrink-0" />
+              <span>Delivery</span>
             </button>
           </div>
 
@@ -138,11 +138,10 @@ export function CartPanel() {
                     whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={() => setDeliveryPlatform('GOFOOD')}
-                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${
-                      deliveryPlatform === 'GOFOOD'
-                        ? 'bg-[#005C2B] text-white border-[#005C2B] shadow-xs'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#005C2B]/10 hover:border-[#005C2B] hover:text-[#005C2B]'
-                    }`}
+                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${deliveryPlatform === 'GOFOOD'
+                      ? 'bg-[#005C2B] text-white border-[#005C2B] shadow-xs'
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-[#005C2B]/10 hover:border-[#005C2B] hover:text-[#005C2B]'
+                      }`}
                   >
                     GoFood
                   </motion.button>
@@ -152,11 +151,10 @@ export function CartPanel() {
                     whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={() => setDeliveryPlatform('GRABFOOD')}
-                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${
-                      deliveryPlatform === 'GRABFOOD'
-                        ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#00B14F]/10 hover:border-[#00B14F] hover:text-[#00B14F]'
-                    }`}
+                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${deliveryPlatform === 'GRABFOOD'
+                      ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-[#00B14F]/10 hover:border-[#00B14F] hover:text-[#00B14F]'
+                      }`}
                   >
                     GrabFood
                   </motion.button>
@@ -166,11 +164,10 @@ export function CartPanel() {
                     whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={() => setDeliveryPlatform('SHOPEEFOOD')}
-                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${
-                      deliveryPlatform === 'SHOPEEFOOD'
-                        ? 'bg-[#EE4D2D] text-white border-[#EE4D2D] shadow-xs'
-                        : 'bg-white text-slate-600 border-slate-200 hover:bg-[#EE4D2D]/10 hover:border-[#EE4D2D] hover:text-[#EE4D2D]'
-                    }`}
+                    className={`py-1.5 px-2 rounded-lg text-[10px] font-bold transition-all border ${deliveryPlatform === 'SHOPEEFOOD'
+                      ? 'bg-[#EE4D2D] text-white border-[#EE4D2D] shadow-xs'
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-[#EE4D2D]/10 hover:border-[#EE4D2D] hover:text-[#EE4D2D]'
+                      }`}
                   >
                     ShopeeFood
                   </motion.button>
@@ -181,13 +178,12 @@ export function CartPanel() {
                   value={deliveryRefNumber}
                   onChange={(e) => setDeliveryRefNumber(e.target.value)}
                   placeholder={`No. Pesanan ${deliveryPlatform === 'GOFOOD' ? 'GoFood (e.g. GF-4829)' : deliveryPlatform === 'GRABFOOD' ? 'GrabFood (e.g. GR-2810)' : 'ShopeeFood (e.g. SF-9021)'}...`}
-                  className={`w-full bg-white px-2.5 py-1.5 rounded-lg text-xs border border-slate-200 focus:outline-none transition-colors ${
-                    deliveryPlatform === 'GOFOOD'
-                      ? 'focus:border-[#005C2B]'
-                      : deliveryPlatform === 'GRABFOOD'
+                  className={`w-full bg-white px-2.5 py-1.5 rounded-lg text-xs border border-slate-200 focus:outline-none transition-colors ${deliveryPlatform === 'GOFOOD'
+                    ? 'focus:border-[#005C2B]'
+                    : deliveryPlatform === 'GRABFOOD'
                       ? 'focus:border-[#00B14F]'
                       : 'focus:border-[#EE4D2D]'
-                  }`}
+                    }`}
                 />
               </motion.div>
             )}
@@ -350,30 +346,28 @@ export function CartPanel() {
           <h4 className="text-xs font-bold text-slate-800 tracking-wide mb-2">
             Payments
           </h4>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 w-full">
             <button
               type="button"
               onClick={() => setPaymentMethod('CASH')}
-              className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                paymentMethod === 'CASH'
-                  ? 'bg-[#1E293B] text-white shadow-xs'
-                  : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
+              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 ${paymentMethod === 'CASH'
+                ? 'bg-[#1E293B] border-[#1E293B] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                }`}
             >
-              <Banknote className="w-3.5 h-3.5" />
+              <Banknote className="w-4 h-4 shrink-0" />
               <span>Cash (F8)</span>
             </button>
 
             <button
               type="button"
               onClick={() => setPaymentMethod('QRIS_STATIC')}
-              className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                paymentMethod === 'QRIS_STATIC'
-                  ? 'bg-[#1E293B] text-white shadow-xs'
-                  : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
+              className={`w-full h-10 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-2 ${paymentMethod === 'QRIS_STATIC'
+                ? 'bg-[#1E293B] border-[#1E293B] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                }`}
             >
-              <QrCode className="w-3.5 h-3.5" />
+              <QrCode className="w-4 h-4 shrink-0" />
               <span>QRIS (F9)</span>
             </button>
           </div>
@@ -455,11 +449,10 @@ export function CartPanel() {
           type="button"
           onClick={handleCheckoutClick}
           disabled={cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)}
-          className={`w-full py-3.5 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md ${
-            cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
-              ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-              : 'bg-[#1A6B51] hover:bg-[#14533F] text-white shadow-[#1A6B51]/20 hover:shadow-lg'
-          }`}
+          className={`w-full py-3.5 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md ${cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
+            ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+            : 'bg-[#1A6B51] hover:bg-[#14533F] text-white shadow-[#1A6B51]/20 hover:shadow-lg'
+            }`}
         >
           <span>Checkout</span>
           <kbd className="px-1.5 py-0.5 bg-black/20 rounded text-[10px] font-mono text-white/90">
