@@ -14,6 +14,7 @@ import {
   Receipt,
   MoreVertical,
   Menu,
+  Users,
 } from 'lucide-react';
 
 export function HeaderPOS() {
@@ -97,8 +98,12 @@ export function HeaderPOS() {
     .filter((o) => !o.id.startsWith('order-sample-'))
     .reduce((sum, o) => sum + o.items.reduce((s, it) => s + it.quantity, 0), 0);
 
+  const additionalCustomers = (recentOrders || [])
+    .filter((o) => !o.id.startsWith('order-sample-')).length;
+
   const totalRevenue = 3840000 + additionalRevenue;
   const totalCupsSold = 142 + additionalCups;
+  const totalCustomers = 118 + additionalCustomers;
 
   return (
     <div className="px-6 pt-5 pb-2 shrink-0 select-none">
@@ -240,23 +245,23 @@ export function HeaderPOS() {
             </button>
           </div>
 
-          {/* KPI 3: Peak Hours */}
+          {/* KPI 3: Total Customer */}
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-start justify-between transition-all">
             <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
-                  <Clock className="w-4 h-4 stroke-[2.4]" />
+                  <Users className="w-4 h-4 stroke-[2.4]" />
                 </div>
                 <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 truncate">
-                  Peak Hours
+                  Total Customer
                 </span>
               </div>
               <div className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-mono tracking-tight">
-                12:00 & 18:00
+                {totalCustomers}
               </div>
               <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                <span>↑ 5.4%</span>
-                <span className="text-slate-400 dark:text-slate-500 font-normal">peak load</span>
+                <span>↑ 12.5%</span>
+                <span className="text-slate-400 dark:text-slate-500 font-normal">from yesterday</span>
               </div>
             </div>
             <button type="button" className="text-slate-300 dark:text-slate-600 hover:text-slate-500 p-0.5">
