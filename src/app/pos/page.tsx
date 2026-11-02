@@ -123,8 +123,8 @@ function PosContent() {
   }, [cart, paymentMethod, cashTendered, cartTotal, setIsStockModalOpen, setPaymentMethod, processCheckout]);
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex bg-[#F3F6F5] dark:bg-[#081210] font-sans select-none transition-colors duration-300">
-      {/* 1. Left: Full Teal Sidebar (Sesuai Referensi Gambar) */}
+    <div className="h-screen w-screen overflow-hidden flex bg-[#F3F6F5] dark:bg-[#081210] font-sans select-none transition-colors duration-300 pl-16">
+      {/* Floating Navbar di Samping Kiri (Hanya Sebesar Tombol) */}
       <SidebarPOS />
 
       {/* 2. Main Work Area */}
