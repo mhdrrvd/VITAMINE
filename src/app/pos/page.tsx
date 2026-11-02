@@ -160,7 +160,7 @@ function PosContent() {
                     onClick={() => setSelectedCategory(cat.id as any)}
                     className={`px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
                       isActive
-                        ? 'bg-[#1A6B51] text-white shadow-md shadow-[#1A6B51]/20 dark:bg-[#00B14F] dark:text-slate-950 dark:shadow-[#00B14F]/20'
+                        ? 'bg-[#FF7A00] text-white shadow-md shadow-[#FF7A00]/25 dark:bg-[#FF7A00] dark:text-white dark:shadow-[#FF7A00]/25'
                         : 'bg-[#F1F5F3] dark:bg-[#0F1E1B] text-slate-600 dark:text-slate-300 border border-transparent dark:border-slate-800 hover:bg-[#FF7A00] hover:text-white dark:hover:bg-[#FF7A00] dark:hover:text-white hover:shadow-md hover:shadow-[#FF7A00]/25'
                     }`}
                   >
