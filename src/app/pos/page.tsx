@@ -13,6 +13,7 @@ import { MorningStockModal } from '@/components/pos/MorningStockModal';
 import { StockReturnModal } from '@/components/pos/StockReturnModal';
 import { CashOpnameModal } from '@/components/pos/CashOpnameModal';
 import { ShiftOpenModal } from '@/components/pos/ShiftOpenModal';
+import { HistoryModal } from '@/components/pos/HistoryModal';
 import { ReceiptPrintView } from '@/components/pos/ReceiptPrintView';
 
 const CATEGORIES = [
@@ -184,6 +185,7 @@ function PosContent() {
       <CartPanel />
 
       {/* Modals & Hardware views */}
+      <HistoryModal />
       <ModifierModal />
       <StockCheckerModal />
       <MorningStockModal />

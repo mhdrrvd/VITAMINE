@@ -1,4 +1,4 @@
-import { Ingredient, Product, PromoSlide, User } from '@/types';
+import { Ingredient, Product, PromoSlide, User, Order } from '@/types';
 
 export const INITIAL_USERS: User[] = [
   {
@@ -215,6 +215,157 @@ export const INITIAL_PRODUCTS: Product[] = [
       { ingredientId: 'ing-sedotan', quantityRequired: 1, isFlatOverhead: true },
       { ingredientId: 'ing-tutup', quantityRequired: 1, isFlatOverhead: true },
     ],
+  },
+];
+
+export const INITIAL_RECENT_ORDERS: Order[] = [
+  {
+    id: 'order-sample-1',
+    orderNumber: 'VIT-20261102-1081',
+    shiftId: 'shift-101',
+    cashierId: 'user-1',
+    cashierName: 'Rian Pratama',
+    items: [
+      {
+        id: 'item-1',
+        productId: 'prod-mangga',
+        name: 'Jus Mangga Harum Manis',
+        unitPrice: 27000,
+        quantity: 1,
+        subtotal: 27000,
+        options: {
+          size: 'LARGE',
+          sugarLevel: '50%',
+          iceLevel: 'NORMAL',
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1553279768-865429fa0078?w=500&auto=format&fit=crop&q=80',
+      },
+      {
+        id: 'item-2',
+        productId: 'prod-jeruk',
+        name: 'Jus Sunkist Murni',
+        unitPrice: 20000,
+        quantity: 1,
+        subtotal: 20000,
+        options: {
+          size: 'REGULAR',
+          sugarLevel: '100%',
+          iceLevel: 'NORMAL',
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500&auto=format&fit=crop&q=80',
+      },
+    ],
+    totalAmount: 47000,
+    paymentMethod: 'CASH',
+    orderType: 'PICK_UP',
+    cashTendered: 50000,
+    changeGiven: 3000,
+    isPrinted: true,
+    createdAt: new Date(Date.now() - 42 * 60 * 1000).toISOString(), // 42 mins ago
+  },
+  {
+    id: 'order-sample-2',
+    orderNumber: 'VIT-20261102-1082',
+    shiftId: 'shift-101',
+    cashierId: 'user-1',
+    cashierName: 'Rian Pratama',
+    items: [
+      {
+        id: 'item-3',
+        productId: 'prod-vita',
+        name: 'Paket VIT-A (Mata Jernih)',
+        unitPrice: 28000,
+        quantity: 1,
+        subtotal: 28000,
+        options: {
+          size: 'REGULAR',
+          sugarLevel: '100%',
+          iceLevel: 'NORMAL',
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=500&auto=format&fit=crop&q=80',
+      },
+      {
+        id: 'item-4',
+        productId: 'prod-vitc',
+        name: 'Paket VIT-C (Imun Booster)',
+        unitPrice: 27000,
+        quantity: 1,
+        subtotal: 27000,
+        options: {
+          size: 'REGULAR',
+          sugarLevel: '100%',
+          iceLevel: 'NORMAL',
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1546173159-315724a31696?w=500&auto=format&fit=crop&q=80',
+      },
+    ],
+    totalAmount: 55000,
+    paymentMethod: 'QRIS_STATIC',
+    orderType: 'DELIVERY',
+    deliveryPlatform: 'GOFOOD',
+    deliveryRefNumber: 'GF-4829',
+    isPrinted: true,
+    createdAt: new Date(Date.now() - 25 * 60 * 1000).toISOString(), // 25 mins ago
+  },
+  {
+    id: 'order-sample-3',
+    orderNumber: 'VIT-20261102-1083',
+    shiftId: 'shift-101',
+    cashierId: 'user-1',
+    cashierName: 'Rian Pratama',
+    items: [
+      {
+        id: 'item-5',
+        productId: 'prod-alpukat',
+        name: 'Jus Alpukat Mentega',
+        unitPrice: 25000,
+        quantity: 1,
+        subtotal: 25000,
+        options: {
+          size: 'REGULAR',
+          sugarLevel: '0%',
+          iceLevel: 'LESS',
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=500&auto=format&fit=crop&q=80',
+      },
+    ],
+    totalAmount: 25000,
+    paymentMethod: 'CASH',
+    orderType: 'DELIVERY',
+    deliveryPlatform: 'GRABFOOD',
+    deliveryRefNumber: 'GR-8812',
+    cashTendered: 50000,
+    changeGiven: 25000,
+    isPrinted: true,
+    createdAt: new Date(Date.now() - 10 * 60 * 1000).toISOString(), // 10 mins ago
+  },
+  {
+    id: 'order-sample-4',
+    orderNumber: 'VIT-20261102-1084',
+    shiftId: 'shift-101',
+    cashierId: 'user-1',
+    cashierName: 'Rian Pratama',
+    items: [
+      {
+        id: 'item-6',
+        productId: 'prod-buahnaga',
+        name: 'Jus Buah Naga Merah',
+        unitPrice: 20000,
+        quantity: 1,
+        subtotal: 20000,
+        options: {
+          size: 'REGULAR',
+          sugarLevel: '50%',
+          iceLevel: 'NORMAL',
+        },
+        imageUrl: 'https://images.unsplash.com/photo-1527324688151-0e627063f2b1?w=500&auto=format&fit=crop&q=80',
+      },
+    ],
+    totalAmount: 20000,
+    paymentMethod: 'QRIS_STATIC',
+    orderType: 'PICK_UP',
+    isPrinted: true,
+    createdAt: new Date(Date.now() - 3 * 60 * 1000).toISOString(), // 3 mins ago
   },
 ];
 

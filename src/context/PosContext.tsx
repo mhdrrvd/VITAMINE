@@ -19,6 +19,7 @@ import {
   INITIAL_USERS,
   INITIAL_INGREDIENTS,
   INITIAL_PRODUCTS,
+  INITIAL_RECENT_ORDERS,
 } from '@/lib/mock-data';
 import { ThermalPrinter58mm } from '@/lib/printer-escpos';
 
@@ -67,6 +68,8 @@ interface PosContextType {
   reprintReceipt: (order: Order) => void;
 
   // Modal Controls
+  isHistoryModalOpen: boolean;
+  setIsHistoryModalOpen: (open: boolean) => void;
   isStockModalOpen: boolean;
   setIsStockModalOpen: (open: boolean) => void;
   isMorningStockModalOpen: boolean;
@@ -137,10 +140,23 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CASH');
   const [cashTendered, setCashTendered] = useState<number>(0);
-  const [recentOrders, setRecentOrders] = useState<Order[]>([]);
+  const [recentOrders, setRecentOrders] = useState<Order[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('vitamine_recent_orders');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    return INITIAL_RECENT_ORDERS;
+  });
   const [lastOrder, setLastOrder] = useState<Order | null>(null);
 
   // Modals
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isStockModalOpen, setIsStockModalOpen] = useState(false);
   const [isMorningStockModalOpen, setIsMorningStockModalOpen] = useState(false);
   const [isReturnStockModalOpen, setIsReturnStockModalOpen] = useState(false);
@@ -398,8 +414,12 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
     }
 
     // 3. Save Order & History
-    setRecentOrders([newOrder, ...recentOrders]);
+    const updatedOrders = [newOrder, ...recentOrders];
+    setRecentOrders(updatedOrders);
     setLastOrder(newOrder);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('vitamine_recent_orders', JSON.stringify(updatedOrders));
+    }
 
     // 4. Direct ESC/POS Print (or browser print trigger)
     try {
@@ -415,7 +435,15 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   };
 
   const reprintReceipt = (order: Order) => {
-    ThermalPrinter58mm.printDirectSerial(order);
+    setLastOrder(order);
+    try {
+      ThermalPrinter58mm.printDirectSerial(order);
+    } catch (e) {
+      console.warn('Direct WebUSB printing not active', e);
+    }
+    setTimeout(() => {
+      window.print();
+    }, 200);
   };
 
   return (
@@ -445,6 +473,8 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
         recentOrders,
         lastOrder,
         reprintReceipt,
+        isHistoryModalOpen,
+        setIsHistoryModalOpen,
         isStockModalOpen,
         setIsStockModalOpen,
         isMorningStockModalOpen,

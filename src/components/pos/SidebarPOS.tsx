@@ -6,6 +6,7 @@ import { usePos } from '@/context/PosContext';
 import {
   ShoppingBag,
   LayoutGrid,
+  History,
   Layers,
   RotateCcw,
   Clock,
@@ -14,6 +15,7 @@ import {
 export function SidebarPOS() {
   const {
     currentUser,
+    setIsHistoryModalOpen,
     setIsStockModalOpen,
     setIsReturnStockModalOpen,
     setIsCashOpnameModalOpen,
@@ -33,8 +35,8 @@ export function SidebarPOS() {
           <ShoppingBag className="w-6 h-6 stroke-[2.2]" />
         </motion.div>
 
-        {/* 2. Slim Vertical Navigation Rail: Order, Inventory, Retur, Opname */}
-        <nav className="flex flex-col items-center gap-3.5 w-full px-2">
+        {/* 2. Slim Vertical Navigation Rail: Order, History, Inventory, Retur, Opname */}
+        <nav className="flex flex-col items-center gap-3 w-full px-2">
           {/* 1. Order (Active POS Kasir) */}
           <div className="relative group">
             <motion.div
@@ -50,7 +52,24 @@ export function SidebarPOS() {
             </span>
           </div>
 
-          {/* 2. Inventory (Stok Bahan Baku) */}
+          {/* 2. History (Riwayat Penjualan) */}
+          <div className="relative group">
+            <motion.button
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              type="button"
+              onClick={() => setIsHistoryModalOpen(true)}
+              className="w-11 h-11 rounded-2xl text-slate-400 hover:text-white hover:bg-[#1A6B51] hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
+            >
+              <History className="w-5 h-5 stroke-[1.8]" />
+            </motion.button>
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+              History
+            </span>
+          </div>
+
+          {/* 3. Inventory (Stok Bahan Baku) */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}
@@ -67,7 +86,7 @@ export function SidebarPOS() {
             </span>
           </div>
 
-          {/* 3. Retur (Retur Bahan) */}
+          {/* 4. Retur (Retur Bahan) */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}
@@ -84,7 +103,7 @@ export function SidebarPOS() {
             </span>
           </div>
 
-          {/* 4. Opname (Cash Opname Kasir) */}
+          {/* 5. Opname (Cash Opname Kasir) */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}
