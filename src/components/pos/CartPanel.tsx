@@ -64,7 +64,7 @@ export function CartPanel() {
   };
 
   return (
-    <aside className="w-full lg:w-[350px] xl:w-[370px] bg-white border-l border-slate-100 flex flex-col justify-between p-6 select-none shrink-0 min-h-screen sticky top-0 shadow-[-2px_0_12px_rgba(0,0,0,0.02)]">
+    <aside className="w-full lg:w-[350px] xl:w-[370px] bg-white border-l border-slate-100 flex flex-col justify-between p-6 select-none shrink-0 h-screen overflow-hidden sticky top-0 z-30 shadow-[-2px_0_12px_rgba(0,0,0,0.02)]">
       {/* 1. Header: "My Order" & Close/Clear button */}
       <div>
         <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">

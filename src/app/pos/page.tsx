@@ -123,60 +123,64 @@ function PosContent() {
   }, [cart, paymentMethod, cashTendered, cartTotal, setIsStockModalOpen, setPaymentMethod, processCheckout]);
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9] flex overflow-x-hidden font-sans">
-      {/* 1. Left Slim Icon Sidebar Rail (Matches Reference Image) */}
+    <div className="h-screen w-screen overflow-hidden bg-[#F8FAF9] flex font-sans select-none">
+      {/* 1. Left Slim Icon Sidebar Rail (Locked, never moves) */}
       <SidebarPOS />
 
-      {/* 2. Center Main Work Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Header with Date, Title & Search Capsule */}
-        <HeaderPOS />
+      {/* 2. Center Main Work Area (Fixed height, isolated menu scroll) */}
+      <div className="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
+        {/* Fixed Top Section: Header & Category Navbar (Locked, never scrolls) */}
+        <div className="shrink-0 bg-[#F8FAF9] z-20 border-b border-slate-100/60 shadow-[0_2px_10px_rgba(0,0,0,0.015)]">
+          {/* Top Header with Date, Title & Search Capsule */}
+          <HeaderPOS />
 
-        {/* Catalog Main Body */}
-        <main className="px-8 pb-10 flex-1 flex flex-col">
-          {/* Section Heading: "Find The Best Food" / "Find The Fresh Juice" */}
-          <div className="flex items-center justify-between mt-2 mb-3.5">
-            <h2 className="text-xl font-extrabold text-slate-900 tracking-tight font-display">
-              Find The Fresh Juice
-            </h2>
-            <button
-              type="button"
-              onClick={() => setSelectedCategory('ALL')}
-              className="px-3 py-1 rounded-lg text-xs font-bold text-[#1A6B51] hover:bg-[#1A6B51] hover:text-white transition-all duration-300 ease-out cursor-pointer"
-            >
-              View All
-            </button>
+          {/* Section Heading & Category Navigation Pills Bar */}
+          <div className="px-8 pb-3.5">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-xl font-extrabold text-slate-900 tracking-tight font-display">
+                Find The Fresh Juice
+              </h2>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('ALL')}
+                className="px-3 py-1 rounded-lg text-xs font-bold text-[#1A6B51] hover:bg-[#1A6B51] hover:text-white transition-all duration-300 ease-out cursor-pointer"
+              >
+                View All
+              </button>
+            </div>
+
+            {/* Category Navigation Pills Bar */}
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+              {CATEGORIES.map((cat) => {
+                const isActive = selectedCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat.id as any)}
+                    className={`px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
+                      isActive
+                        ? 'bg-[#1A6B51] text-white shadow-md shadow-[#1A6B51]/20'
+                        : 'bg-[#F1F5F3] text-slate-600 hover:bg-[#1A6B51] hover:text-white'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+        </div>
 
-          {/* Category Navigation Pills Bar */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 mb-6">
-            {CATEGORIES.map((cat) => {
-              const isActive = selectedCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat.id as any)}
-                  className={`px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out whitespace-nowrap select-none cursor-pointer ${
-                    isActive
-                      ? 'bg-[#1A6B51] text-white shadow-md shadow-[#1A6B51]/20'
-                      : 'bg-[#F1F5F3] text-slate-600 hover:bg-[#1A6B51] hover:text-white'
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Product Cards 3-Column Grid (Exact layout from reference image) */}
+        {/* Scrollable Menu Catalog Area (The ONLY part that scrolls!) */}
+        <main className="flex-1 overflow-y-auto px-8 pt-10 pb-20 no-scrollbar">
           {filteredProducts.length === 0 ? (
             <div className="py-20 text-center text-slate-400 bg-white rounded-3xl border border-slate-100 shadow-xs">
               <p className="font-bold text-slate-700">Tidak ada menu yang sesuai</p>
               <p className="text-xs text-slate-400 mt-1">Coba cari dengan kata kunci lain atau pilih kategori lain.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-16 pt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-16 pt-6">
               {filteredProducts.map((product) => (
                 <FruitCard key={product.id} product={product} />
               ))}
@@ -185,7 +189,7 @@ function PosContent() {
         </main>
       </div>
 
-      {/* 3. Right: "My Order" Cart Panel (Matches Reference Image) */}
+      {/* 3. Right: "My Order" Cart Panel (Locked to screen, never moves) */}
       <CartPanel />
 
       {/* Modals & Hardware views */}
