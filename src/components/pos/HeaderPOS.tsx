@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { usePos } from '@/context/PosContext';
 import {
   Search,
@@ -11,7 +12,6 @@ import {
   CupSoda,
   Clock,
   Calendar,
-  Store,
   Receipt,
   MoreVertical,
   Menu,
@@ -118,11 +118,19 @@ export function HeaderPOS() {
           <div>
             {/* Nama Outlet Utama */}
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#1A6B51]/10 dark:bg-[#00B14F]/15 text-[#1A6B51] dark:text-[#00B14F] flex items-center justify-center shrink-0">
-                <Store className="w-4 h-4 stroke-[2.2]" />
+              <div className="relative w-9 h-8 sm:w-10 sm:h-8.5 rounded-xl bg-white border border-slate-200/80 dark:border-white/15 flex items-center justify-center p-1 shadow-2xs shrink-0 overflow-hidden">
+                <Image
+                  src="/images/logo-vm-brand.png"
+                  alt="VM Logo"
+                  width={34}
+                  height={16}
+                  className="w-full h-auto object-contain"
+                  priority
+                  unoptimized
+                />
               </div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
-                VITAMINE Outlet Pusat
+                Outlet Sun Plaza
               </h2>
             </div>
 
