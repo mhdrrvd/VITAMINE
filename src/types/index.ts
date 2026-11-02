@@ -44,15 +44,27 @@ export interface RecipeItem {
   isFlatOverhead?: boolean; // Liquid sugar, cup, straw, etc.
 }
 
+export type ProductCategory =
+  | 'REGULAR'
+  | 'MIX_FRUIT'
+  | 'VIT_A'
+  | 'VIT_B'
+  | 'VIT_C'
+  | 'SINGLE_FRUIT'
+  | 'VITAMIN_PACKAGE'
+  | 'ADDON';
+
 export interface Product {
   id: string;
   name: string;
-  category: 'SINGLE_FRUIT' | 'VITAMIN_PACKAGE' | 'ADDON';
+  category: ProductCategory;
   basePrice: number; // Net final price (No tax)
   imageUrl: string;
   recipe: RecipeItem[];
   isActive: boolean;
   colorAccent?: string; // Hex color token for Fruit Card
+  isFavorite?: boolean;
+  vitamins?: ('A' | 'B' | 'C')[];
 }
 
 export interface CustomOptions {

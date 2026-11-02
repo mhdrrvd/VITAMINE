@@ -19,11 +19,12 @@ import { ReceiptPrintView } from '@/components/pos/ReceiptPrintView';
 
 const CATEGORIES = [
   { id: 'ALL', label: 'All' },
-  { id: 'SINGLE_FRUIT', label: 'Jus Tunggal' },
-  { id: 'VITAMIN_PACKAGE', label: 'Paket Vitamin' },
-  { id: 'IMMUNE', label: 'Immune Booster' },
-  { id: 'DETOX', label: 'Detox & Fit' },
-  { id: 'FAVORITE', label: 'Favorit' },
+  { id: 'REGULAR', label: 'Regular' },
+  { id: 'MIX_FRUIT', label: 'Mix Fruit' },
+  { id: 'VIT_A', label: 'Vit-A' },
+  { id: 'VIT_B', label: 'Vit-B' },
+  { id: 'VIT_C', label: 'Vit-C' },
+  { id: 'FAVORITE', label: 'Favorite' },
 ] as const;
 
 function PosContent() {
@@ -44,16 +45,18 @@ function PosContent() {
   // Filter products by category and search
   const filteredProducts = products.filter((p) => {
     let matchesCategory = true;
-    if (selectedCategory === 'SINGLE_FRUIT') {
-      matchesCategory = p.category === 'SINGLE_FRUIT';
-    } else if (selectedCategory === 'VITAMIN_PACKAGE') {
-      matchesCategory = p.category === 'VITAMIN_PACKAGE';
-    } else if (selectedCategory === 'IMMUNE') {
-      matchesCategory = p.id === 'prod-vitc' || p.id === 'prod-jeruk';
-    } else if (selectedCategory === 'DETOX') {
-      matchesCategory = p.id === 'prod-buahnaga' || p.id === 'prod-alpukat';
+    if (selectedCategory === 'REGULAR') {
+      matchesCategory = p.category === 'REGULAR' || p.category === 'SINGLE_FRUIT';
+    } else if (selectedCategory === 'MIX_FRUIT') {
+      matchesCategory = p.category === 'MIX_FRUIT' || p.category === 'VITAMIN_PACKAGE';
+    } else if (selectedCategory === 'VIT_A') {
+      matchesCategory = p.category === 'VIT_A' || (p.vitamins && p.vitamins.includes('A')) || p.id === 'prod-vita' || p.id === 'prod-mangga';
+    } else if (selectedCategory === 'VIT_B') {
+      matchesCategory = p.category === 'VIT_B' || (p.vitamins && p.vitamins.includes('B')) || p.id === 'prod-vitb' || p.id === 'prod-alpukat';
+    } else if (selectedCategory === 'VIT_C') {
+      matchesCategory = p.category === 'VIT_C' || (p.vitamins && p.vitamins.includes('C')) || p.id === 'prod-vitc' || p.id === 'prod-jeruk' || p.id === 'prod-buahnaga';
     } else if (selectedCategory === 'FAVORITE') {
-      matchesCategory = p.id === 'prod-mangga' || p.id === 'prod-alpukat';
+      matchesCategory = Boolean(p.isFavorite) || p.id === 'prod-mangga' || p.id === 'prod-alpukat' || p.id === 'prod-vitc' || p.id === 'prod-mix-sunset';
     }
 
     const matchesSearch =
