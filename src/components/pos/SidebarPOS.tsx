@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import {
-  ShoppingBag,
   LayoutGrid,
   History,
   PackagePlus,
@@ -23,20 +23,27 @@ export function SidebarPOS() {
     setIsCashOpnameModalOpen,
   } = usePos();
 
-
-
   return (
     <aside className="w-20 bg-white border-r border-slate-100 flex flex-col justify-between items-center py-6 h-screen sticky top-0 shrink-0 select-none z-30 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
       {/* 1. Top Logo */}
       <div className="flex flex-col items-center gap-6">
         <motion.div
-          whileHover={{ scale: 1.08, rotate: 4 }}
+          whileHover={{ scale: 1.08, rotate: 2 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="w-12 h-12 rounded-2xl bg-[#EAF5EF] text-[#1A6B51] flex items-center justify-center font-black shadow-xs cursor-pointer border border-[#8EB69B]/30"
+          className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-xs cursor-pointer border border-[#8EB69B]/40 overflow-hidden p-1.5"
           title="VITAMINE Juice Bar"
         >
-          <ShoppingBag className="w-6 h-6 stroke-[2.2]" />
+          <div className="relative w-full h-full flex items-center justify-center">
+            <Image
+              src="/images/logo-vm.png"
+              alt="VITAMINE VM Logo"
+              width={40}
+              height={40}
+              className="object-contain"
+              priority
+            />
+          </div>
         </motion.div>
 
         {/* 2. Slim Vertical Navigation Rail: Cashier, History, Order, Inventory, Return, Opname */}
