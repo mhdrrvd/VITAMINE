@@ -19,12 +19,12 @@ import { LayoutGrid } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'ALL', label: 'All' },
+  { id: 'FAVORITE', label: 'Favorite' },
   { id: 'REGULAR', label: 'Regular' },
   { id: 'MIX_FRUIT', label: 'Mix Fruit' },
   { id: 'VIT_A', label: 'Vit-A' },
   { id: 'VIT_B', label: 'Vit-B' },
   { id: 'VIT_C', label: 'Vit-C' },
-  { id: 'FAVORITE', label: 'Favorite' },
 ] as const;
 
 function PosContent() {
