@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import {
   Menu,
@@ -38,7 +39,7 @@ export function HeaderPOS() {
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-[#051F20] tracking-tight font-display flex items-center gap-2">
             <span>Welcome back, {currentUser.name.split(' ')[0]}!</span>
-            <span>👋</span>
+            <span className="inline-block animate-wave origin-bottom-right">👋</span>
           </h2>
           <p className="text-xs text-slate-500 font-medium">
             Here&apos;s what&apos;s happening with your store today.
@@ -47,17 +48,17 @@ export function HeaderPOS() {
       </div>
 
       {/* 2. Right Search & Notification Hub */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3.5">
         {/* Search Bar */}
-        <div className="relative w-64 xl:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+        <div className="relative w-64 xl:w-80 group">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 group-focus-within:text-[#235347] transition-colors" />
           <input
             id="pos-search-input"
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search anything..."
-            className="w-full pl-9 pr-12 py-2 bg-[#F4F7F5] border border-transparent focus:border-[#235347] rounded-xl text-xs font-medium text-[#051F20] placeholder:text-slate-400 focus:outline-none transition-all"
+            placeholder="Search menu or fruit (F2)..."
+            className="w-full pl-9 pr-12 py-2 bg-[#F4F7F5] border border-transparent focus:border-[#235347] focus:bg-white rounded-xl text-xs font-medium text-[#051F20] placeholder:text-slate-400 focus:outline-none transition-all shadow-2xs"
           />
           <kbd className="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[10px] font-mono text-slate-500 shadow-2xs">
             F2
@@ -65,37 +66,42 @@ export function HeaderPOS() {
         </div>
 
         {/* Hardware Badges */}
-        <div className="hidden xl:flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-xl bg-[#DAF1DE] text-[#163832]">
+        <div className="hidden xl:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[#DAF1DE] text-[#163832] border border-[#8EB69B]/30">
           <Printer className="w-3.5 h-3.5 text-[#235347]" />
           <span>58mm USB</span>
           <span className="text-slate-300">|</span>
           <Monitor className="w-3.5 h-3.5 text-[#235347]" />
-          <span>Display OK</span>
+          <span>Display Dual-OK</span>
         </div>
 
         {/* Notification Bell */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           type="button"
-          className="relative p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-600 hover:text-slate-900 transition-colors"
+          className="relative p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-600 hover:text-slate-900 transition-colors shadow-2xs"
           title="Notifikasi Stok"
         >
           <Bell className="w-4 h-4" />
           {lowStockCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#235347] text-white text-[10px] font-bold flex items-center justify-center border-2 border-white">
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#235347] text-white text-[10px] font-bold flex items-center justify-center border-2 border-white shadow-xs">
               {lowStockCount}
             </span>
           )}
-        </button>
+        </motion.button>
 
         {/* Quick Cart Indicator */}
-        <div className="relative p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="relative p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 shadow-2xs"
+        >
           <ShoppingBag className="w-4 h-4 text-[#235347]" />
           {cart.length > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E11D48] text-white text-[10px] font-bold flex items-center justify-center border-2 border-white">
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#235347] text-white text-[10px] font-bold flex items-center justify-center border-2 border-white shadow-xs animate-bounce">
               {cart.length}
             </span>
           )}
-        </div>
+        </motion.div>
       </div>
     </header>
   );

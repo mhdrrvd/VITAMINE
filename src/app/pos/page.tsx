@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PosProvider, usePos } from '@/context/PosContext';
 import { SidebarPOS } from '@/components/pos/SidebarPOS';
 import { HeaderPOS } from '@/components/pos/HeaderPOS';
@@ -15,6 +16,12 @@ import { CashOpnameModal } from '@/components/pos/CashOpnameModal';
 import { ShiftOpenModal } from '@/components/pos/ShiftOpenModal';
 import { ReceiptPrintView } from '@/components/pos/ReceiptPrintView';
 import { LayoutGrid } from 'lucide-react';
+
+const CATEGORIES = [
+  { id: 'ALL', label: 'All Menu' },
+  { id: 'SINGLE_FRUIT', label: 'Jus Buah Tunggal' },
+  { id: 'VITAMIN_PACKAGE', label: 'Paket Multi-Vitamin' },
+] as const;
 
 function PosContent() {
   const {
@@ -114,72 +121,75 @@ function PosContent() {
         {/* 4 Summary Metric Cards */}
         <MetricsRow />
 
-        {/* Split POS Workspace (Current Sale Cart on Left, Product Catalog on Right) */}
+        {/* Split POS Workspace: Product Catalog on LEFT, Current Sale Cart on RIGHT */}
         <main className="p-6 sm:p-8 pt-4 flex-1 flex flex-col lg:flex-row gap-6 items-start">
-          {/* Left: Current Sale Cart Panel */}
-          <CartPanel />
-
-          {/* Right: Product Menu & Fruit Cards Grid */}
+          {/* Left / Center: Product Menu & Fruit Cards Grid */}
           <section className="flex-1 min-w-0 w-full flex flex-col gap-4">
-            {/* Category Pills Bar (PosyMart style) */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory('ALL')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                    selectedCategory === 'ALL'
-                      ? 'bg-[#235347] text-white shadow-xs'
-                      : 'bg-[#DAF1DE] text-[#163832] hover:bg-[#c3e6ca]'
-                  }`}
-                >
-                  All
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory('SINGLE_FRUIT')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                    selectedCategory === 'SINGLE_FRUIT'
-                      ? 'bg-[#235347] text-white shadow-xs'
-                      : 'bg-[#DAF1DE] text-[#163832] hover:bg-[#c3e6ca]'
-                  }`}
-                >
-                  Jus Buah Tunggal
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory('VITAMIN_PACKAGE')}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                    selectedCategory === 'VITAMIN_PACKAGE'
-                      ? 'bg-[#235347] text-white shadow-xs'
-                      : 'bg-[#DAF1DE] text-[#163832] hover:bg-[#c3e6ca]'
-                  }`}
-                >
-                  Paket Multi-Vitamin (Vit-A, Vit-C)
-                </button>
+            {/* Minimalist Category Pills Bar with Smooth Framer Motion */}
+            <div className="flex items-center justify-between gap-3 bg-white p-2 rounded-2xl border border-slate-200/80 shadow-xs">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {CATEGORIES.map((cat) => {
+                  const isActive = selectedCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`relative px-4 py-2 rounded-xl text-xs font-bold transition-colors whitespace-nowrap select-none ${
+                        isActive
+                          ? 'text-white'
+                          : 'text-slate-600 hover:text-[#051F20] hover:bg-slate-100/70'
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeCategoryPill"
+                          className="absolute inset-0 bg-[#235347] rounded-xl shadow-xs"
+                          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10">{cat.label}</span>
+                    </button>
+                  );
+                })}
               </div>
 
-              <div className="hidden sm:flex items-center p-1.5 rounded-xl border border-slate-200 bg-white text-slate-500">
-                <LayoutGrid className="w-4 h-4 text-[#235347]" />
+              <div className="hidden sm:flex items-center gap-2 pr-2 text-xs font-semibold text-slate-500">
+                <span className="text-[11px] text-slate-400 font-mono">
+                  {filteredProducts.length} items
+                </span>
+                <div className="p-1.5 rounded-lg border border-slate-200 bg-slate-50 text-[#235347]">
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                </div>
               </div>
             </div>
 
             {/* 4-Column Product Cards Grid */}
             {filteredProducts.length === 0 ? (
-              <div className="py-20 text-center text-slate-400 bg-white rounded-2xl border border-slate-200/80">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="py-20 text-center text-slate-400 bg-white rounded-2xl border border-slate-200/80 shadow-xs"
+              >
                 <p className="font-bold text-slate-700">Tidak ada menu yang sesuai</p>
                 <p className="text-xs text-slate-400 mt-1">Coba cari dengan kata kunci lain.</p>
-              </div>
+              </motion.div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3.5">
-                {filteredProducts.map((product) => (
-                  <FruitCard key={product.id} product={product} />
-                ))}
-              </div>
+              <motion.div
+                layout
+                className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3.5"
+              >
+                <AnimatePresence>
+                  {filteredProducts.map((product) => (
+                    <FruitCard key={product.id} product={product} />
+                  ))}
+                </AnimatePresence>
+              </motion.div>
             )}
           </section>
+
+          {/* Right: Current Sale Cart Panel (As requested: keranjang ada di kanan) */}
+          <CartPanel />
         </main>
       </div>
 

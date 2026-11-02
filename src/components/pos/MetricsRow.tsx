@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { DollarSign, ShoppingBag, Users, TrendingUp, TrendingDown, Layers } from 'lucide-react';
 
 export function MetricsRow() {
@@ -36,18 +37,22 @@ export function MetricsRow() {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 px-6 sm:px-8 pt-6 pb-2 select-none">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 px-6 sm:px-8 pt-5 pb-2 select-none">
       {metrics.map((m, idx) => {
         const IconComponent = m.icon;
         return (
-          <div
+          <motion.div
             key={idx}
-            className="p-4 rounded-2xl bg-white border border-slate-200/70 shadow-sm flex items-center gap-4 hover:border-[#8EB69B]/60 transition-all"
+            whileHover={{ y: -3, transition: { duration: 0.2, ease: 'easeOut' } }}
+            className="p-4 rounded-2xl bg-white border border-slate-200/70 shadow-xs flex items-center gap-4 hover:border-[#8EB69B]/70 hover:shadow-sm transition-all cursor-default"
           >
             {/* Circular Icon with light mint background from palette */}
-            <div className="w-11 h-11 rounded-full bg-[#DAF1DE] text-[#235347] flex items-center justify-center shrink-0 shadow-xs">
+            <motion.div
+              whileHover={{ scale: 1.08 }}
+              className="w-11 h-11 rounded-full bg-[#DAF1DE] text-[#235347] flex items-center justify-center shrink-0 shadow-xs transition-transform"
+            >
               <IconComponent className="w-5 h-5 stroke-[2.2]" />
-            </div>
+            </motion.div>
 
             <div className="flex-1 min-w-0">
               <span className="text-xs text-slate-500 font-semibold block truncate">
@@ -70,7 +75,7 @@ export function MetricsRow() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </div>

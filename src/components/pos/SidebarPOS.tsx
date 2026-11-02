@@ -2,17 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { usePos } from '@/context/PosContext';
 import {
   ShoppingBag,
   LayoutDashboard,
   Layers,
   RotateCcw,
-  Receipt,
   Calculator,
   Monitor,
-  Settings,
   Headphones,
   ChevronDown,
   Sparkles,
@@ -21,7 +19,6 @@ import {
 export function SidebarPOS() {
   const {
     currentUser,
-    currentShift,
     setIsStockModalOpen,
     setIsMorningStockModalOpen,
     setIsReturnStockModalOpen,
@@ -33,9 +30,12 @@ export function SidebarPOS() {
       {/* 1. Top Brand Logo */}
       <div>
         <div className="px-6 py-5 flex items-center gap-3 border-b border-white/10">
-          <div className="w-9 h-9 rounded-xl bg-[#235347] border border-[#8EB69B]/30 text-[#DAF1DE] flex items-center justify-center font-extrabold text-lg shadow-sm">
+          <motion.div
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            className="w-9 h-9 rounded-xl bg-[#235347] border border-[#8EB69B]/30 text-[#DAF1DE] flex items-center justify-center font-extrabold text-lg shadow-sm"
+          >
             <ShoppingBag className="w-5 h-5" />
-          </div>
+          </motion.div>
           <div>
             <h1 className="font-extrabold text-white text-lg tracking-tight font-display">
               VITAMINE
@@ -47,70 +47,86 @@ export function SidebarPOS() {
         </div>
 
         {/* 2. Navigation Items */}
-        <nav className="p-3 space-y-1 text-sm font-semibold">
+        <nav className="p-3 space-y-1.5 text-sm font-semibold">
           {/* Active POS Button (Styled like active PosyMart card) */}
-          <div className="px-3 py-2.5 rounded-xl bg-white text-[#163832] flex items-center gap-3 shadow-md font-bold cursor-default">
+          <div className="px-3 py-2.5 rounded-xl bg-white text-[#163832] flex items-center gap-3 shadow-sm font-bold cursor-default">
             <ShoppingBag className="w-4 h-4 text-[#235347]" />
             <span>Kasir (Sales)</span>
           </div>
 
-          <Link
-            href="/dashboard"
-            className="px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
-          >
-            <LayoutDashboard className="w-4 h-4 text-[#8EB69B]" />
-            <span>Dashboard</span>
-          </Link>
+          <motion.div whileHover={{ x: 3 }} transition={{ duration: 0.15 }}>
+            <Link
+              href="/dashboard"
+              className="px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
+            >
+              <LayoutDashboard className="w-4 h-4 text-[#8EB69B]" />
+              <span>Dashboard</span>
+            </Link>
+          </motion.div>
 
-          <button
+          <motion.button
+            whileHover={{ x: 3 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.15 }}
             type="button"
             onClick={() => setIsStockModalOpen(true)}
             className="w-full text-left px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
           >
             <Layers className="w-4 h-4 text-[#8EB69B]" />
             <span>Cek Stok (F4)</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ x: 3 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.15 }}
             type="button"
             onClick={() => setIsMorningStockModalOpen(true)}
             className="w-full text-left px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
           >
             <Sparkles className="w-4 h-4 text-[#8EB69B]" />
             <span>Stok Pagi</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ x: 3 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.15 }}
             type="button"
             onClick={() => setIsReturnStockModalOpen(true)}
             className="w-full text-left px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
           >
             <RotateCcw className="w-4 h-4 text-[#8EB69B]" />
             <span>Retur Bahan</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ x: 3 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.15 }}
             type="button"
             onClick={() => setIsCashOpnameModalOpen(true)}
             className="w-full text-left px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
           >
             <Calculator className="w-4 h-4 text-[#8EB69B]" />
             <span>Tutup Shift</span>
-          </button>
+          </motion.button>
 
-          <Link
-            href="/customer-display"
-            target="_blank"
-            className="px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
-          >
-            <Monitor className="w-4 h-4 text-[#8EB69B]" />
-            <span>Display Customer</span>
-          </Link>
+          <motion.div whileHover={{ x: 3 }} transition={{ duration: 0.15 }}>
+            <Link
+              href="/customer-display"
+              target="_blank"
+              className="px-3 py-2.5 rounded-xl text-[#DAF1DE]/80 hover:text-white hover:bg-white/10 flex items-center gap-3 transition-colors"
+            >
+              <Monitor className="w-4 h-4 text-[#8EB69B]" />
+              <span>Display Customer</span>
+            </Link>
+          </motion.div>
         </nav>
       </div>
 
       {/* 3. Bottom Profile & Help Widget */}
-      <div className="p-3 space-y-3">
+      <div className="p-3 space-y-2.5">
         {/* Support Pill */}
         <div className="p-3 rounded-2xl bg-[#0B2B26]/60 border border-white/5 flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl bg-[#235347] text-[#DAF1DE] flex items-center justify-center shrink-0">
