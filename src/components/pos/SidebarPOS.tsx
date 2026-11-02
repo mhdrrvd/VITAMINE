@@ -10,16 +10,23 @@ import {
   Layers,
   RotateCcw,
   Clock,
+  ClipboardList,
 } from 'lucide-react';
 
 export function SidebarPOS() {
   const {
     currentUser,
+    recentOrders,
     setIsHistoryModalOpen,
+    setIsOrderModalOpen,
     setIsStockModalOpen,
     setIsReturnStockModalOpen,
     setIsCashOpnameModalOpen,
   } = usePos();
+
+  const activeOrdersCount = recentOrders.filter(
+    (o) => (o.status || 'PREPARING') !== 'COMPLETED'
+  ).length;
 
   return (
     <aside className="w-20 bg-white border-r border-slate-100 flex flex-col justify-between items-center py-6 h-screen sticky top-0 shrink-0 select-none z-30 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
@@ -35,9 +42,9 @@ export function SidebarPOS() {
           <ShoppingBag className="w-6 h-6 stroke-[2.2]" />
         </motion.div>
 
-        {/* 2. Slim Vertical Navigation Rail: Order, History, Inventory, Retur, Opname */}
+        {/* 2. Slim Vertical Navigation Rail: Cashier, History, Order, Inventory, Return, Opname */}
         <nav className="flex flex-col items-center gap-3 w-full px-2">
-          {/* 1. Order (Active POS Kasir) */}
+          {/* 1. Cashier */}
           <div className="relative group">
             <motion.div
               whileHover={{ scale: 1.08 }}
@@ -48,11 +55,11 @@ export function SidebarPOS() {
               <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
             </motion.div>
             <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
-              Order
+              Cashier
             </span>
           </div>
 
-          {/* 2. History (Riwayat Penjualan) */}
+          {/* 2. History */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}
@@ -69,7 +76,29 @@ export function SidebarPOS() {
             </span>
           </div>
 
-          {/* 3. Inventory (Stok Bahan Baku) */}
+          {/* 3. Order */}
+          <div className="relative group">
+            <motion.button
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              type="button"
+              onClick={() => setIsOrderModalOpen(true)}
+              className="relative w-11 h-11 rounded-2xl text-slate-400 hover:text-white hover:bg-[#1A6B51] hover:shadow-md hover:shadow-[#1A6B51]/20 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer"
+            >
+              <ClipboardList className="w-5 h-5 stroke-[1.8]" />
+              {activeOrdersCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#1A6B51] text-white text-[9px] font-bold flex items-center justify-center border-2 border-white">
+                  {activeOrdersCount}
+                </span>
+              )}
+            </motion.button>
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
+              Order
+            </span>
+          </div>
+
+          {/* 4. Inventory */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}
@@ -86,7 +115,7 @@ export function SidebarPOS() {
             </span>
           </div>
 
-          {/* 4. Retur (Retur Bahan) */}
+          {/* 5. Return */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}
@@ -99,11 +128,11 @@ export function SidebarPOS() {
               <RotateCcw className="w-5 h-5 stroke-[1.8]" />
             </motion.button>
             <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-[#051F20] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 shadow-md">
-              Retur
+              Return
             </span>
           </div>
 
-          {/* 5. Opname (Cash Opname Kasir) */}
+          {/* 6. Opname */}
           <div className="relative group">
             <motion.button
               whileHover={{ scale: 1.08 }}

@@ -76,6 +76,7 @@ export interface CartItem {
 export type OrderType = 'PICK_UP' | 'DELIVERY';
 export type DeliveryPlatform = 'GOFOOD' | 'GRABFOOD' | 'SHOPEEFOOD';
 export type PaymentMethod = 'CASH' | 'QRIS_STATIC';
+export type OrderStatus = 'PREPARING' | 'READY' | 'COMPLETED';
 
 export interface Order {
   id: string;
@@ -89,6 +90,7 @@ export interface Order {
   orderType?: OrderType;
   deliveryPlatform?: DeliveryPlatform;
   deliveryRefNumber?: string;
+  status?: OrderStatus;
   cashTendered?: number;
   changeGiven?: number;
   isPrinted: boolean;

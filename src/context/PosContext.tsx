@@ -10,6 +10,7 @@ import {
   Order,
   OrderType,
   DeliveryPlatform,
+  OrderStatus,
   PaymentMethod,
   CustomOptions,
   StockMovement,
@@ -66,8 +67,11 @@ interface PosContextType {
   recentOrders: Order[];
   lastOrder: Order | null;
   reprintReceipt: (order: Order) => void;
+  updateOrderStatus: (orderId: string, status: OrderStatus) => void;
 
   // Modal Controls
+  isOrderModalOpen: boolean;
+  setIsOrderModalOpen: (open: boolean) => void;
   isHistoryModalOpen: boolean;
   setIsHistoryModalOpen: (open: boolean) => void;
   isStockModalOpen: boolean;
@@ -156,6 +160,7 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   const [lastOrder, setLastOrder] = useState<Order | null>(null);
 
   // Modals
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isStockModalOpen, setIsStockModalOpen] = useState(false);
   const [isMorningStockModalOpen, setIsMorningStockModalOpen] = useState(false);
@@ -380,6 +385,7 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
       orderType: meta?.orderType || 'PICK_UP',
       deliveryPlatform: meta?.deliveryPlatform,
       deliveryRefNumber: meta?.deliveryRefNumber,
+      status: 'PREPARING',
       cashTendered: paymentMethod === 'CASH' ? cashTendered : undefined,
       changeGiven: paymentMethod === 'CASH' ? changeGiven : undefined,
       isPrinted: true,
@@ -446,6 +452,16 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
     }, 200);
   };
 
+  const updateOrderStatus = (orderId: string, status: OrderStatus) => {
+    setRecentOrders((prev) => {
+      const updated = prev.map((o) => (o.id === orderId ? { ...o, status } : o));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('vitamine_recent_orders', JSON.stringify(updated));
+      }
+      return updated;
+    });
+  };
+
   return (
     <PosContext.Provider
       value={{
@@ -473,6 +489,9 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
         recentOrders,
         lastOrder,
         reprintReceipt,
+        updateOrderStatus,
+        isOrderModalOpen,
+        setIsOrderModalOpen,
         isHistoryModalOpen,
         setIsHistoryModalOpen,
         isStockModalOpen,
