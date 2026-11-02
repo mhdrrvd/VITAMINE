@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { usePos } from '@/context/PosContext';
 import {
   LayoutGrid,
@@ -20,23 +19,8 @@ export function SidebarPOS() {
   } = usePos();
 
   return (
-    <aside className="w-20 h-screen bg-[#1A6B51] dark:bg-[#0E3D2E] text-white flex flex-col items-center py-5 px-3 shrink-0 select-none z-30 transition-colors duration-300 shadow-xl shadow-[#1A6B51]/15">
-      {/* 1. Brand Logo Only (Centered & Minimalist) */}
-      <div className="mb-7 flex flex-col items-center">
-        <div className="relative w-12 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm shadow-black/15 shrink-0 border border-white/20 overflow-hidden hover:scale-105 transition-transform">
-          <Image
-            src="/images/logo-vm-brand.png"
-            alt="VITAMINE"
-            width={40}
-            height={18}
-            className="w-full h-auto object-contain"
-            priority
-            unoptimized
-          />
-        </div>
-      </div>
-
-      {/* 2. Navigation Menu Links (Icons Only with Hover Tooltips) */}
+    <aside className="w-20 h-screen bg-[#1A6B51] dark:bg-[#0E3D2E] text-white flex flex-col items-center py-6 px-3 shrink-0 select-none z-30 transition-colors duration-300 shadow-xl shadow-[#1A6B51]/15">
+      {/* Navigation Menu Links (Icons Only with Hover Tooltips) */}
       <nav className="flex flex-col items-center gap-3 w-full">
         {/* 1. Dashboard (Active) */}
         <button
