@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="dark" suppressHydrationWarning>
+    <html lang="id" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -24,20 +24,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const saved = localStorage.getItem('vitamine-theme');
-                if (saved === 'light') {
-                  document.documentElement.classList.remove('dark');
-                } else {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch (e) {
+                localStorage.setItem('vitamine-theme', 'dark');
                 document.documentElement.classList.add('dark');
-              }
+              } catch (e) {}
             `,
           }}
         />
       </head>
-      <body className="min-h-screen bg-slate-50 dark:bg-[#081210] text-slate-900 dark:text-slate-100 antialiased selection:bg-orange-500 selection:text-white transition-colors duration-300">
+      <body className="min-h-screen bg-[#081210] text-slate-100 antialiased selection:bg-orange-500 selection:text-white">
         {children}
       </body>
     </html>

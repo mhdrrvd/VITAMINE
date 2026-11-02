@@ -3,10 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePos } from '@/context/PosContext';
 import {
-  Search,
-  Bell,
-  Sun,
-  Moon,
   DollarSign,
   CupSoda,
   Clock,
@@ -27,7 +23,6 @@ export function HeaderPOS() {
     setSearchQuery,
   } = usePos();
 
-  const [isDark, setIsDark] = useState(true);
   const [currentDate, setCurrentDate] = useState('');
   const [currentTime, setCurrentTime] = useState('');
 
@@ -60,30 +55,13 @@ export function HeaderPOS() {
     return () => clearInterval(interval);
   }, []);
 
-  // 2. Dark mode initialization
+  // Ensure dark mode is active
   useEffect(() => {
-    const savedTheme = localStorage.getItem('vitamine-theme');
-    const shouldBeDark = savedTheme ? savedTheme === 'dark' : true;
-
-    setIsDark(shouldBeDark);
-    if (shouldBeDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    const nextDark = !isDark;
-    setIsDark(nextDark);
-    if (nextDark) {
-      document.documentElement.classList.add('dark');
+    document.documentElement.classList.add('dark');
+    try {
       localStorage.setItem('vitamine-theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('vitamine-theme', 'light');
-    }
-  };
+    } catch (e) {}
+  }, []);
 
   const lowStockCount = ingredients.filter(
     (ing) => ing.currentStock <= ing.minStockAlert
@@ -146,7 +124,7 @@ export function HeaderPOS() {
             </div>
           </div>
 
-          {/* Right: User Login & Dark Mode */}
+          {/* Right: User Login */}
           <div className="flex items-center gap-2.5">
             {/* User Profile Card */}
             <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 shadow-2xs">
@@ -163,20 +141,6 @@ export function HeaderPOS() {
                 </div>
               </div>
             </div>
-
-            {/* Toggle Dark Mode */}
-            <button
-              type="button"
-              onClick={toggleDarkMode}
-              className="w-9 h-9 rounded-xl bg-white dark:bg-[#0F1E1B] border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-amber-400 hover:text-[#1A6B51] flex items-center justify-center transition-all cursor-pointer shadow-2xs"
-              title={isDark ? 'Mode Terang' : 'Mode Gelap'}
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4 stroke-[2.2] text-amber-400" />
-              ) : (
-                <Moon className="w-4 h-4 stroke-[2.2] text-slate-600" />
-              )}
-            </button>
           </div>
         </div>
 
