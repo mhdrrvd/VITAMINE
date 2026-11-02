@@ -135,7 +135,7 @@ function PosContent() {
           <HeaderPOS />
 
           {/* Section Heading & Category Navigation Pills Bar */}
-          <div className="px-8 pt-1.5 pb-2">
+          <div className="pl-4 pr-6 pt-1.5 pb-2">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display transition-colors duration-300">
                 Find The Fresh Juice
@@ -173,7 +173,7 @@ function PosContent() {
         </div>
 
         {/* Scrollable Menu Catalog Area (The ONLY part that scrolls!) */}
-        <main className="flex-1 overflow-y-auto px-8 pt-10 pb-20 no-scrollbar">
+        <main className="flex-1 overflow-y-auto pl-4 pr-6 pt-10 pb-20 no-scrollbar">
           {filteredProducts.length === 0 ? (
             <div className="py-20 text-center text-slate-400 bg-white dark:bg-[#0F1E1B] rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs">
               <p className="font-bold text-slate-700 dark:text-slate-200">Tidak ada menu yang sesuai</p>

@@ -54,7 +54,7 @@ export function HeaderPOS() {
   ).length;
 
   return (
-    <header className="mx-8 mt-5 mb-2 px-6 py-3.5 rounded-2xl bg-white/95 dark:bg-[#0F1E1B]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.25)] flex items-center justify-between gap-6 select-none transition-all duration-300">
+    <header className="ml-4 mr-6 mt-5 mb-2 px-6 py-3.5 rounded-2xl bg-white/95 dark:bg-[#0F1E1B]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.25)] flex items-center justify-between gap-6 select-none transition-all duration-300">
       {/* 1. Left: Date & Restaurant Title (Logo dihapus sesuai permintaan) */}
       <div className="flex flex-col justify-center">
         <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wide block transition-colors duration-300">
