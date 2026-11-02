@@ -143,15 +143,20 @@ export function CartPanel() {
                   </div>
                 </div>
 
-                {/* Remove Action Button */}
-                <button
-                  type="button"
-                  onClick={() => removeFromCart(item.id)}
-                  className="w-7 h-7 rounded-lg text-slate-300 hover:text-rose-500 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer shrink-0"
-                  title="Hapus pesanan"
-                >
-                  <X className="w-3.5 h-3.5 stroke-[2.2]" />
-                </button>
+                {/* Remove Action Button & Total Price di Sudut Kanan */}
+                <div className="flex flex-col items-end justify-between shrink-0 self-stretch min-h-[42px] pl-1">
+                  <button
+                    type="button"
+                    onClick={() => removeFromCart(item.id)}
+                    className="w-5 h-5 -mr-0.5 -mt-0.5 rounded-md text-slate-300 hover:text-rose-500 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer"
+                    title="Hapus pesanan"
+                  >
+                    <X className="w-3.5 h-3.5 stroke-[2.2]" />
+                  </button>
+                  <span className="text-xs font-bold text-slate-900 font-mono tracking-tight whitespace-nowrap">
+                    Rp {(item.subtotal || item.unitPrice * item.quantity).toLocaleString('id-ID')}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>
