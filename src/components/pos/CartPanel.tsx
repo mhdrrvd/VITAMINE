@@ -107,7 +107,7 @@ export function CartPanel() {
                 transition={{ duration: 0.16 }}
                 className="p-2 rounded-xl bg-white border border-slate-100 hover:border-slate-200 shadow-2xs flex items-center justify-between gap-2.5"
               >
-                {/* Square Product Image Thumbnail with Quantity Badge */}
+                {/* Square Product Image Thumbnail (Polos tanpa badge) */}
                 <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-50 border border-slate-100 shrink-0">
                   <Image
                     src={item.imageUrl}
@@ -117,12 +117,6 @@ export function CartPanel() {
                     className="object-contain p-1"
                     unoptimized
                   />
-                  {/* Quantity Badge on Thumbnail if > 1 */}
-                  {item.quantity > 1 && (
-                    <span className="absolute top-0.5 right-0.5 px-1 py-0.2 bg-[#1A6B51] text-white text-[8px] font-black rounded-md leading-none shadow-xs">
-                      {item.quantity}x
-                    </span>
-                  )}
                 </div>
 
                 {/* Full Product Name & Customization Options (Teks Lebih Panjang & Jelas) */}
