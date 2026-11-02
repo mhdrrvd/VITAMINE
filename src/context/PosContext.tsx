@@ -8,6 +8,8 @@ import {
   Product,
   CartItem,
   Order,
+  OrderType,
+  DeliveryPlatform,
   PaymentMethod,
   CustomOptions,
   StockMovement,
@@ -54,7 +56,11 @@ interface PosContextType {
   cashTendered: number;
   setCashTendered: (amount: number) => void;
   changeGiven: number;
-  processCheckout: () => Promise<Order | null>;
+  processCheckout: (meta?: {
+    orderType?: OrderType;
+    deliveryPlatform?: DeliveryPlatform;
+    deliveryRefNumber?: string;
+  }) => Promise<Order | null>;
 
   // Recent Orders & Printing
   recentOrders: Order[];
@@ -365,7 +371,11 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Process Checkout & Print
-  const processCheckout = async (): Promise<Order | null> => {
+  const processCheckout = async (meta?: {
+    orderType?: OrderType;
+    deliveryPlatform?: DeliveryPlatform;
+    deliveryRefNumber?: string;
+  }): Promise<Order | null> => {
     if (cart.length === 0) return null;
     if (paymentMethod === 'CASH' && cashTendered < cartTotal) {
       alert(`Uang tunai kurang! Tagihan: Rp ${cartTotal.toLocaleString('id-ID')}, Diterima: Rp ${cashTendered.toLocaleString('id-ID')}`);
@@ -383,6 +393,9 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
       items: [...cart],
       totalAmount: cartTotal,
       paymentMethod,
+      orderType: meta?.orderType || 'PICK_UP',
+      deliveryPlatform: meta?.deliveryPlatform,
+      deliveryRefNumber: meta?.deliveryRefNumber,
       cashTendered: paymentMethod === 'CASH' ? cashTendered : undefined,
       changeGiven: paymentMethod === 'CASH' ? changeGiven : undefined,
       isPrinted: true,

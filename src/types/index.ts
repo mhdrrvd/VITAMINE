@@ -73,7 +73,9 @@ export interface CartItem {
   imageUrl: string;
 }
 
-export type PaymentMethod = 'CASH' | 'QRIS_STATIC' | 'TRANSFER';
+export type OrderType = 'PICK_UP' | 'DELIVERY';
+export type DeliveryPlatform = 'GOFOOD' | 'GRABFOOD' | 'SHOPEEFOOD';
+export type PaymentMethod = 'CASH' | 'QRIS_STATIC';
 
 export interface Order {
   id: string;
@@ -84,6 +86,9 @@ export interface Order {
   items: CartItem[];
   totalAmount: number; // Net final
   paymentMethod: PaymentMethod;
+  orderType?: OrderType;
+  deliveryPlatform?: DeliveryPlatform;
+  deliveryRefNumber?: string;
   cashTendered?: number;
   changeGiven?: number;
   isPrinted: boolean;

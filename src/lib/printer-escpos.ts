@@ -34,6 +34,13 @@ export class ThermalPrinter58mm {
     receipt += this.formatRow('No Order:', order.orderNumber);
     receipt += this.formatRow('Waktu:', new Date(order.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }));
     receipt += this.formatRow('Kasir:', order.cashierName);
+    const serviceLabel = order.orderType === 'DELIVERY'
+      ? `DELIVERY (${order.deliveryPlatform || 'ONLINE'})`
+      : 'PICK UP';
+    receipt += this.formatRow('Layanan:', serviceLabel);
+    if (order.deliveryRefNumber) {
+      receipt += this.formatRow('Ref Ojol:', order.deliveryRefNumber);
+    }
     receipt += this.formatSeparator();
 
     // Items
