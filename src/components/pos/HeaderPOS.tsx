@@ -24,13 +24,12 @@ export function HeaderPOS() {
     recentOrders,
   } = usePos();
 
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
-    // Dark mode initialization
+    // Default mode: Dark mode (kecuali user pernah memilih 'light')
     const savedTheme = localStorage.getItem('vitamine-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    const shouldBeDark = savedTheme ? savedTheme === 'dark' : true;
 
     setIsDark(shouldBeDark);
     if (shouldBeDark) {
