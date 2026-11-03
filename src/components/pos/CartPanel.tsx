@@ -322,14 +322,14 @@ export function CartPanel() {
             type="button"
             onClick={handleCheckoutClick}
             disabled={cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)}
-            className={`btn-kilat flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-md cursor-pointer ${
+            className={`btn-kilat flex-1 py-2.5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-md ${
               cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
-                ? 'bg-slate-200 dark:bg-slate-800/80 border border-slate-700 text-slate-500 cursor-not-allowed shadow-none'
-                : 'bg-[#00B14F] hover:bg-[#00E565] border border-[#00E565] text-white hover:text-slate-950 shadow-lg shadow-[#00E565]/20 hover:shadow-xl hover:shadow-[#00E565]/35'
+                ? 'bg-[#00E565] border-2 border-[#00E565] text-slate-950 opacity-80 cursor-not-allowed shadow-none'
+                : 'bg-[#00E565] hover:bg-[#2ef586] border-2 border-[#00E565] text-slate-950 shadow-lg shadow-[#00E565]/30 hover:shadow-xl hover:shadow-[#00E565]/50 cursor-pointer active:scale-98'
             }`}
           >
-            <span>Pay <span className="font-mono">Rp {cartTotal.toLocaleString('id-ID')}</span></span>
-            <kbd className="px-1.5 py-0.5 bg-black/30 rounded text-[9px] font-mono text-white/90">
+            <span>Pay <span className="font-mono font-black">Rp {cartTotal.toLocaleString('id-ID')}</span></span>
+            <kbd className="px-1.5 py-0.5 bg-black/25 text-slate-950 rounded text-[9px] font-mono font-black border border-black/10">
               Enter
             </kbd>
           </motion.button>
