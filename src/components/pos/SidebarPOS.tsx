@@ -23,22 +23,25 @@ export function SidebarPOS() {
   return (
     <nav
       aria-label="Floating POS Navbar"
-      className="fixed left-4 top-1/2 -translate-y-1/2 z-50 bg-[#1A6B51]/95 dark:bg-[#0E3D2E]/95 backdrop-blur-md px-3 py-4 rounded-3xl shadow-2xl shadow-[#1A6B51]/25 border border-white/20 flex flex-col items-center gap-3.5 select-none transition-all duration-200"
+      className="fixed left-3 top-1/2 -translate-y-1/2 z-50 bg-[#0B1E19]/90 backdrop-blur-xl px-1.5 py-2 rounded-2xl shadow-xl shadow-black/40 border border-white/10 flex flex-col items-center gap-1.5 select-none transition-all duration-200"
     >
       {/* 1. Dashboard (Active) */}
       <div className="relative group flex items-center">
         <button
           type="button"
           title="Dashboard"
-          className="btn-kilat relative w-12 h-12 rounded-2xl bg-white text-[#1A6B51] p-3 flex items-center justify-center shadow-md shadow-black/10 font-bold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-white/30 active:scale-95 cursor-pointer overflow-hidden"
+          className="btn-kilat relative w-10 h-10 rounded-xl bg-white text-[#0B1E19] flex items-center justify-center shadow-xs font-bold transition-all duration-150 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
         >
-          <LayoutGrid className="w-5 h-5 stroke-[2.4]" />
+          <LayoutGrid className="w-4.5 h-4.5 stroke-[2.2]" />
         </button>
-        {/* Floating Tooltip to the right */}
-        <span className="absolute left-full ml-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10">
+        {/* Minimalist Tooltip */}
+        <span className="absolute left-full ml-2.5 px-2 py-1 rounded-md bg-slate-950/95 text-white text-[11px] font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10 backdrop-blur-xs">
           Dashboard
         </span>
       </div>
+
+      {/* Minimalist Divider */}
+      <div className="w-5 h-[1px] bg-white/10 my-0.5" />
 
       {/* 2. History */}
       <div className="relative group flex items-center">
@@ -46,11 +49,11 @@ export function SidebarPOS() {
           type="button"
           onClick={() => setIsHistoryModalOpen(true)}
           title="History"
-          className="btn-kilat relative w-12 h-12 rounded-2xl text-white/85 hover:text-white hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-md hover:shadow-white/10 p-3 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden border border-transparent"
+          className="btn-kilat relative w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
         >
-          <History className="w-5 h-5 stroke-[2]" />
+          <History className="w-4.5 h-4.5 stroke-[1.8]" />
         </button>
-        <span className="absolute left-full ml-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10">
+        <span className="absolute left-full ml-2.5 px-2 py-1 rounded-md bg-slate-950/95 text-white text-[11px] font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10 backdrop-blur-xs">
           History
         </span>
       </div>
@@ -61,11 +64,11 @@ export function SidebarPOS() {
           type="button"
           onClick={() => setIsMorningStockModalOpen(true)}
           title="Order Stock"
-          className="btn-kilat relative w-12 h-12 rounded-2xl text-white/85 hover:text-white hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-md hover:shadow-white/10 p-3 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden border border-transparent"
+          className="btn-kilat relative w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
         >
-          <PackagePlus className="w-5 h-5 stroke-[2]" />
+          <PackagePlus className="w-4.5 h-4.5 stroke-[1.8]" />
         </button>
-        <span className="absolute left-full ml-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10">
+        <span className="absolute left-full ml-2.5 px-2 py-1 rounded-md bg-slate-950/95 text-white text-[11px] font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10 backdrop-blur-xs">
           Order Stock
         </span>
       </div>
@@ -76,11 +79,11 @@ export function SidebarPOS() {
           type="button"
           onClick={() => setIsStockModalOpen(true)}
           title="Inventory"
-          className="btn-kilat relative w-12 h-12 rounded-2xl text-white/85 hover:text-white hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-md hover:shadow-white/10 p-3 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden border border-transparent"
+          className="btn-kilat relative w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
         >
-          <Layers className="w-5 h-5 stroke-[2]" />
+          <Layers className="w-4.5 h-4.5 stroke-[1.8]" />
         </button>
-        <span className="absolute left-full ml-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10">
+        <span className="absolute left-full ml-2.5 px-2 py-1 rounded-md bg-slate-950/95 text-white text-[11px] font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10 backdrop-blur-xs">
           Inventory
         </span>
       </div>
@@ -91,11 +94,11 @@ export function SidebarPOS() {
           type="button"
           onClick={() => setIsReturnStockModalOpen(true)}
           title="Return Stock"
-          className="btn-kilat relative w-12 h-12 rounded-2xl text-white/85 hover:text-white hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-md hover:shadow-white/10 p-3 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden border border-transparent"
+          className="btn-kilat relative w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
         >
-          <RotateCcw className="w-5 h-5 stroke-[2]" />
+          <RotateCcw className="w-4.5 h-4.5 stroke-[1.8]" />
         </button>
-        <span className="absolute left-full ml-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10">
+        <span className="absolute left-full ml-2.5 px-2 py-1 rounded-md bg-slate-950/95 text-white text-[11px] font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10 backdrop-blur-xs">
           Return Stock
         </span>
       </div>
@@ -106,11 +109,11 @@ export function SidebarPOS() {
           type="button"
           onClick={() => setIsCashOpnameModalOpen(true)}
           title="Cash Opname"
-          className="btn-kilat relative w-12 h-12 rounded-2xl text-white/85 hover:text-white hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-md hover:shadow-white/10 p-3 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden border border-transparent"
+          className="btn-kilat relative w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
         >
-          <Calculator className="w-5 h-5 stroke-[2]" />
+          <Calculator className="w-4.5 h-4.5 stroke-[1.8]" />
         </button>
-        <span className="absolute left-full ml-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10">
+        <span className="absolute left-full ml-2.5 px-2 py-1 rounded-md bg-slate-950/95 text-white text-[11px] font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 shadow-md border border-white/10 backdrop-blur-xs">
           Cash Opname
         </span>
       </div>
