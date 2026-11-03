@@ -252,7 +252,7 @@ export function CartPanel() {
                   type="button"
                   onClick={setExactCash}
                   title="Bayar dengan uang pas"
-                  className="absolute right-1.5 px-2 py-0.5 rounded-lg bg-[#00B14F]/15 hover:bg-[#00B14F] text-[#00E565] hover:text-white dark:hover:text-black text-[10px] font-black transition-colors cursor-pointer"
+                  className="btn-kilat absolute right-1.5 px-2.5 py-1 rounded-lg bg-[#00E565]/20 hover:bg-[#00E565] border border-[#00E565] text-[#00E565] hover:text-black text-[10px] font-black transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md hover:shadow-[#00E565]/30 active:scale-95"
                 >
                   PAS
                 </button>
@@ -264,10 +264,10 @@ export function CartPanel() {
               <button
                 type="button"
                 onClick={() => setCashTendered(20000)}
-                className={`py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
+                className={`btn-kilat py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
                   cashTendered === 20000
-                    ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
-                    : 'bg-white dark:bg-[#132824] text-[#00E565] border-slate-200 dark:border-slate-800 hover:border-[#00B14F] hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-[#00E565] text-slate-950 border-2 border-[#00E565] shadow-lg shadow-[#00E565]/25 font-black'
+                    : 'bg-[#132824] hover:bg-[#00E565]/20 text-[#00E565] hover:text-white border border-[#00E565]/50 hover:border-[#00E565] hover:shadow-md hover:shadow-[#00E565]/20'
                 }`}
               >
                 20k
@@ -275,10 +275,10 @@ export function CartPanel() {
               <button
                 type="button"
                 onClick={() => setCashTendered(50000)}
-                className={`py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
+                className={`btn-kilat py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
                   cashTendered === 50000
-                    ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
-                    : 'bg-white dark:bg-[#132824] text-[#00E565] border-slate-200 dark:border-slate-800 hover:border-[#00B14F] hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-[#00E565] text-slate-950 border-2 border-[#00E565] shadow-lg shadow-[#00E565]/25 font-black'
+                    : 'bg-[#132824] hover:bg-[#00E565]/20 text-[#00E565] hover:text-white border border-[#00E565]/50 hover:border-[#00E565] hover:shadow-md hover:shadow-[#00E565]/20'
                 }`}
               >
                 50k
@@ -286,10 +286,10 @@ export function CartPanel() {
               <button
                 type="button"
                 onClick={() => setCashTendered(100000)}
-                className={`py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
+                className={`btn-kilat py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
                   cashTendered === 100000
-                    ? 'bg-[#00B14F] text-white border-[#00B14F] shadow-xs'
-                    : 'bg-white dark:bg-[#132824] text-[#00E565] border-slate-200 dark:border-slate-800 hover:border-[#00B14F] hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    ? 'bg-[#00E565] text-slate-950 border-2 border-[#00E565] shadow-lg shadow-[#00E565]/25 font-black'
+                    : 'bg-[#132824] hover:bg-[#00E565]/20 text-[#00E565] hover:text-white border border-[#00E565]/50 hover:border-[#00E565] hover:shadow-md hover:shadow-[#00E565]/20'
                 }`}
               >
                 100k
@@ -311,7 +311,7 @@ export function CartPanel() {
             type="button"
             onClick={clearCart}
             disabled={cart.length === 0}
-            className="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-[#00E565] text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+            className="btn-kilat px-3.5 py-2.5 rounded-xl border border-rose-500/70 hover:border-rose-500 text-rose-400 hover:text-white bg-rose-500/10 hover:bg-rose-600 text-xs font-bold transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-xs hover:shadow-md hover:shadow-rose-600/30 active:scale-95"
           >
             Clear Cart
           </button>
@@ -322,14 +322,14 @@ export function CartPanel() {
             type="button"
             onClick={handleCheckoutClick}
             disabled={cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)}
-            className={`flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer ${
+            className={`btn-kilat flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-md cursor-pointer ${
               cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
-                ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none'
-                : 'bg-[#1A6B51] hover:bg-[#14533F] dark:bg-[#00B14F] dark:hover:bg-[#009440] text-white shadow-[#1A6B51]/20 dark:shadow-[#00B14F]/20 hover:shadow-lg'
+                ? 'bg-slate-200 dark:bg-slate-800/80 border border-slate-700 text-slate-500 cursor-not-allowed shadow-none'
+                : 'bg-[#00B14F] hover:bg-[#00E565] border border-[#00E565] text-white hover:text-slate-950 shadow-lg shadow-[#00E565]/20 hover:shadow-xl hover:shadow-[#00E565]/35'
             }`}
           >
             <span>Pay <span className="font-mono">Rp {cartTotal.toLocaleString('id-ID')}</span></span>
-            <kbd className="px-1.5 py-0.5 bg-black/20 rounded text-[9px] font-mono text-white/90">
+            <kbd className="px-1.5 py-0.5 bg-black/30 rounded text-[9px] font-mono text-white/90">
               Enter
             </kbd>
           </motion.button>

@@ -23,6 +23,37 @@ input[type="number"],
   letter-spacing: -0.01em;
 }
 
+/* Efek kilat / shiny light sweep pada tombol interaktif */
+.btn-kilat {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-kilat::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.btn-kilat:hover::after {
+  left: 160%;
+  transition: left 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 body {
   font-family: var(--font-inter);
   background-color: #F4F7F5;
