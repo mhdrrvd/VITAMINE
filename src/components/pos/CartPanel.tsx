@@ -322,14 +322,22 @@ export function CartPanel() {
             type="button"
             onClick={handleCheckoutClick}
             disabled={cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)}
-            className={`btn-kilat flex-1 py-2.5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-md ${
-              cart.length === 0 || (paymentMethod === 'CASH' && cashTendered < cartTotal)
-                ? 'bg-[#00E565] border-2 border-[#00E565] text-slate-950 opacity-80 cursor-not-allowed shadow-none'
-                : 'bg-[#00E565] hover:bg-[#2ef586] border-2 border-[#00E565] text-slate-950 shadow-lg shadow-[#00E565]/30 hover:shadow-xl hover:shadow-[#00E565]/50 cursor-pointer active:scale-98'
+            className={`flex-1 py-2.5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 ${
+              cart.length === 0
+                ? 'bg-[#0B1A16] border border-[#00E565]/15 text-[#00E565]/30 cursor-not-allowed shadow-none'
+                : paymentMethod === 'CASH' && cashTendered < cartTotal
+                ? 'btn-kilat bg-[#00E565]/20 border border-[#00E565]/60 text-[#00E565] cursor-not-allowed shadow-none'
+                : 'btn-kilat bg-[#00E565] hover:bg-[#2ef586] border-2 border-[#00E565] text-slate-950 shadow-lg shadow-[#00E565]/35 hover:shadow-xl hover:shadow-[#00E565]/55 cursor-pointer active:scale-98'
             }`}
           >
             <span>Pay <span className="font-mono font-black">Rp {cartTotal.toLocaleString('id-ID')}</span></span>
-            <kbd className="px-1.5 py-0.5 bg-black/25 text-slate-950 rounded text-[9px] font-mono font-black border border-black/10">
+            <kbd className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-black border transition-colors ${
+              cart.length === 0
+                ? 'bg-black/40 text-[#00E565]/30 border-white/5'
+                : paymentMethod === 'CASH' && cashTendered < cartTotal
+                ? 'bg-black/30 text-[#00E565] border-[#00E565]/20'
+                : 'bg-black/25 text-slate-950 border-black/10'
+            }`}>
               Enter
             </kbd>
           </motion.button>
