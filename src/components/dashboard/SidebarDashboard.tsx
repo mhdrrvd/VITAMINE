@@ -16,8 +16,10 @@ import {
   Sparkles,
   Volume2,
   VolumeX,
+  Database,
 } from 'lucide-react';
 import { soundEffects } from '@/lib/audio-effects';
+import { BackupRestoreModal } from './BackupRestoreModal';
 
 export type DashboardTab =
   | 'ANALYTICS'
@@ -41,6 +43,7 @@ export function SidebarDashboard({
   productsCount = 0,
 }: SidebarDashboardProps) {
   const [isMuted, setIsMuted] = React.useState(false);
+  const [isBackupModalOpen, setIsBackupModalOpen] = React.useState(false);
 
   React.useEffect(() => {
     setIsMuted(soundEffects.getIsMuted());
@@ -217,6 +220,19 @@ export function SidebarDashboard({
           <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100" />
         </Link>
 
+        {/* Backup & Restore Action Button */}
+        <button
+          type="button"
+          onClick={() => setIsBackupModalOpen(true)}
+          className="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5 text-[11px] font-bold flex items-center justify-between transition-colors cursor-pointer"
+        >
+          <div className="flex items-center gap-2">
+            <Database className="w-3.5 h-3.5 text-[#00E565]" />
+            <span>Cadangan Database</span>
+          </div>
+          <span className="text-[10px] text-white/40 font-mono">JSON</span>
+        </button>
+
         {/* User Card */}
         <div className="flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/5">
           <div className="flex items-center gap-2.5 min-w-0">
@@ -248,6 +264,12 @@ export function SidebarDashboard({
           </div>
         </div>
       </div>
+
+      {/* Database Backup & Restore Modal */}
+      <BackupRestoreModal
+        isOpen={isBackupModalOpen}
+        onClose={() => setIsBackupModalOpen(false)}
+      />
     </aside>
   );
 }
