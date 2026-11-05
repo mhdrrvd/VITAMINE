@@ -10,6 +10,7 @@ import {
   Store,
   UserCheck,
   ChevronDown,
+  Search,
 } from 'lucide-react';
 import { usePos } from '@/context/PosContext';
 
@@ -17,12 +18,14 @@ interface DashboardHeaderProps {
   dateRange: string;
   setDateRange: (range: string) => void;
   activeTabTitle?: string;
+  onOpenCommandPalette?: () => void;
 }
 
 export function DashboardHeader({
   dateRange,
   setDateRange,
   activeTabTitle = 'Dashboard Operasional',
+  onOpenCommandPalette,
 }: DashboardHeaderProps) {
   const { currentShift } = usePos();
   const [currentDate, setCurrentDate] = useState('');
@@ -85,6 +88,20 @@ export function DashboardHeader({
 
       {/* Right: Cashier Shift status, Date Filter, & Quick POS Link */}
       <div className="flex items-center gap-2.5 sm:gap-3">
+        {/* Command Palette Trigger */}
+        <button
+          type="button"
+          onClick={onOpenCommandPalette}
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0F1E1B] hover:bg-white/10 border border-white/10 text-xs text-white/70 hover:text-white transition-colors cursor-pointer"
+          title="Buka Command Palette (Ctrl+K)"
+        >
+          <Search className="w-3.5 h-3.5 text-[#00E565]" />
+          <span>Cari Perintah</span>
+          <kbd className="px-1.5 py-0.2 rounded bg-white/10 text-white/50 text-[10px] font-mono border border-white/10">
+            ⌘K
+          </kbd>
+        </button>
+
         {/* Branch / Outlet Switcher */}
         <div className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F1E1B] border border-white/10 text-xs text-white">
           <Store className="w-3.5 h-3.5 text-[#00E565]" />

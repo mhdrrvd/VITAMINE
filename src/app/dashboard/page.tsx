@@ -11,6 +11,7 @@ import { KpiCardsSection } from '@/components/dashboard/KpiCardsSection';
 import { SalesChartSection } from '@/components/dashboard/SalesChartSection';
 import { PromoManagerSection } from '@/components/dashboard/PromoManagerSection';
 import { BomViewerSection } from '@/components/dashboard/BomViewerSection';
+import { CommandPaletteModal } from '@/components/dashboard/CommandPaletteModal';
 
 const TAB_TITLES: Record<DashboardTab, string> = {
   ANALYTICS: 'Ringkasan & Analitik Bisnis',
@@ -25,6 +26,19 @@ function DashboardContent() {
   const { products, recentOrders } = usePos();
   const [activeTab, setActiveTab] = useState<DashboardTab>('ANALYTICS');
   const [dateRange, setDateRange] = useState('TODAY');
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+
+  // Keyboard shortcut listener for Ctrl+K / Cmd+K
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#081210] text-slate-100 flex flex-row font-sans selection:bg-[#00B14F] selection:text-white">
@@ -43,6 +57,7 @@ function DashboardContent() {
           dateRange={dateRange}
           setDateRange={setDateRange}
           activeTabTitle={TAB_TITLES[activeTab]}
+          onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         />
 
         {/* Tab Sections */}
@@ -91,6 +106,13 @@ function DashboardContent() {
           )}
         </main>
       </div>
+
+      {/* Global Command Palette */}
+      <CommandPaletteModal
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onSelectTab={(tab) => setActiveTab(tab)}
+      />
     </div>
   );
 }
