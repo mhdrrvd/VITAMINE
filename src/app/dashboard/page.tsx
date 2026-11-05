@@ -12,6 +12,7 @@ import { SalesChartSection } from '@/components/dashboard/SalesChartSection';
 import { PromoManagerSection } from '@/components/dashboard/PromoManagerSection';
 import { BomViewerSection } from '@/components/dashboard/BomViewerSection';
 import { CommandPaletteModal } from '@/components/dashboard/CommandPaletteModal';
+import { LowStockBanner } from '@/components/dashboard/LowStockBanner';
 
 const TAB_TITLES: Record<DashboardTab, string> = {
   ANALYTICS: 'Ringkasan & Analitik Bisnis',
@@ -62,6 +63,9 @@ function DashboardContent() {
 
         {/* Tab Sections */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-8 pb-12">
+          {/* Low Stock Warning Alert Banner */}
+          <LowStockBanner onNavigateToBom={() => setActiveTab('BOM')} />
+
           {/* Tab 1: Analitik & KPI Bisnis */}
           {activeTab === 'ANALYTICS' && (
             <div className="space-y-8 animate-in fade-in duration-200">
