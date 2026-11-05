@@ -74,6 +74,7 @@ interface PosContextType {
   lastOrder: Order | null;
   reprintReceipt: (order: Order) => void;
   updateOrderStatus: (orderId: string, status: OrderStatus) => void;
+  simulateIncomingOrder: () => Order;
 
   // Modal Controls
   isOrderModalOpen: boolean;
@@ -510,6 +511,56 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  const simulateIncomingOrder = (): Order => {
+    const randomProduct = products[Math.floor(Math.random() * products.length)] || products[0];
+    const qty = Math.floor(Math.random() * 2) + 1;
+    const isQris = Math.random() > 0.4;
+    const totalAmount = (randomProduct?.basePrice || 18000) * qty;
+    const orderNumber = `VIT-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    const newOrder: Order = {
+      id: `order-${Date.now()}`,
+      orderNumber,
+      shiftId: currentShift?.id || 'simulated-shift',
+      cashierId: currentUser.id,
+      cashierName: currentUser.name,
+      items: [
+        {
+          id: `item-${Date.now()}`,
+          productId: randomProduct?.id || 'prod-1',
+          name: randomProduct?.name || 'Avocado Glow Detox',
+          unitPrice: randomProduct?.basePrice || 18000,
+          quantity: qty,
+          options: {
+            size: 'REGULAR',
+            sugarLevel: '100%',
+            iceLevel: 'NORMAL',
+          },
+          imageUrl: randomProduct?.imageUrl || '/images/products/avocado.png',
+          subtotal: totalAmount,
+        },
+      ],
+      totalAmount,
+      paymentMethod: isQris ? 'QRIS_STATIC' : 'CASH',
+      orderType: 'PICK_UP',
+      status: 'PREPARING',
+      cashTendered: isQris ? undefined : totalAmount + 5000,
+      changeGiven: isQris ? undefined : 5000,
+      isPrinted: true,
+      createdAt: new Date().toISOString(),
+    };
+
+    setRecentOrders((prev) => {
+      const updated = [newOrder, ...prev];
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('vitamine_recent_orders', JSON.stringify(updated));
+      }
+      return updated;
+    });
+
+    return newOrder;
+  };
+
   return (
     <PosContext.Provider
       value={{
@@ -544,6 +595,7 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
         lastOrder,
         reprintReceipt,
         updateOrderStatus,
+        simulateIncomingOrder,
         isOrderModalOpen,
         setIsOrderModalOpen,
         isHistoryModalOpen,

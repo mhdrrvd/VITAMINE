@@ -18,14 +18,24 @@ import {
   X,
   ExternalLink,
   Download,
+  Zap,
 } from 'lucide-react';
 import { exportToCsv } from '@/lib/export-utils';
+import { soundEffects } from '@/lib/audio-effects';
 
 export function PosOrdersSection() {
-  const { recentOrders, updateOrderStatus, reprintReceipt } = usePos();
+  const { recentOrders, updateOrderStatus, reprintReceipt, simulateIncomingOrder } = usePos();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | OrderStatus>('ALL');
   const [selectedReceiptOrder, setSelectedReceiptOrder] = useState<Order | null>(null);
+  const [newlyAddedOrderId, setNewlyAddedOrderId] = useState<string | null>(null);
+
+  const handleSimulateOrder = () => {
+    const order = simulateIncomingOrder();
+    soundEffects.playSuccess();
+    setNewlyAddedOrderId(order.id);
+    setTimeout(() => setNewlyAddedOrderId(null), 4000);
+  };
 
   // Filter orders
   const filteredOrders = recentOrders.filter((order) => {
@@ -87,7 +97,17 @@ export function PosOrdersSection() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 self-start sm:self-auto">
+        <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-auto">
+          <button
+            type="button"
+            onClick={handleSimulateOrder}
+            className="btn-kilat px-3.5 py-2 rounded-xl bg-[#00B14F] hover:bg-[#00E565] text-white hover:text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md shadow-[#00B14F]/20 transition-all cursor-pointer"
+            title="Simulasikan transaksi baru masuk dari terminal kasir"
+          >
+            <Zap className="w-3.5 h-3.5 fill-current" />
+            <span>Simulasi Order Baru</span>
+          </button>
+
           <button
             type="button"
             onClick={handleExportCsv}
@@ -208,13 +228,21 @@ export function PosOrdersSection() {
                 </tr>
               ) : (
                 filteredOrders.map((order) => {
+                  const isNew = newlyAddedOrderId === order.id;
                   const timeFormatted = new Date(order.createdAt).toLocaleTimeString('id-ID', {
                     hour: '2-digit',
                     minute: '2-digit',
                   });
 
                   return (
-                    <tr key={order.id} className="hover:bg-white/5 transition-colors">
+                    <tr
+                      key={order.id}
+                      className={`transition-colors duration-500 ${
+                        isNew
+                          ? 'bg-[#00B14F]/25 border-l-4 border-l-[#00E565] animate-pulse'
+                          : 'hover:bg-white/5'
+                      }`}
+                    >
                       {/* Order Number & Time */}
                       <td className="py-3.5 px-4 font-mono">
                         <div className="font-bold text-white">{order.orderNumber}</div>
