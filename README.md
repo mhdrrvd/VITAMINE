@@ -12,6 +12,16 @@
 
 ## 🌟 Fitur Utama
 
+- **Executive Management Dashboard:**
+  - **Left Sidebar Navigation:** Navigasi vertikal terstruktur dengan audio feedback, indikator status shift, dan switcher cabang outlet multi-store.
+  - **Katalog Produk & Formula Resep (Full CRUD GUI):** Manajemen produk mandiri lengkap dengan pencarian, filter kategori, batch active toggle, serta modal edit harga dan formula resep BOM.
+  - **Live Monitor Transaksi POS & Simulasi Antrean:** Pemantauan real-time transaksi kasir masuk, pemisahan metode bayar (Tunai & QRIS), pratinjau struk thermal 58mm, dan simulasi order kasir interaktif.
+  - **Rekonsiliasi & Audit Kasir Shift:** Ringkasan cash opname laci kasir, audit selisih (*variance ledger*), dan pelacakan riwayat pergantian shift.
+  - **Master Resep BOM & Kalkulator HPP:** Rincian kebutuhan gramatur bahan baku per cup, analisis persentase margin keuntungan (*gross profit margin*), dan simulasi biaya modal.
+  - **Pusat Cadangan Data (*Backup & Restore*):** Ekspor & impor seluruh database toko (katalog produk, stok bahan, dan riwayat pesanan) ke file format JSON terenkapsulasi.
+  - **Ekspor Laporan Cepat:** Unduh data transaksi dan audit shift kasir dalam format CSV dan JSON hanya dengan 1-klik.
+  - **Command Palette Cepat (<kbd>Ctrl+K</kbd> / <kbd>⌘K</kbd>):** Pintasan pencarian universal untuk navigasi instan antar tab dan aksi sistem.
+  - **Desain Adaptif & Mobile Drawer:** Tampilan responsif yang mulus di perangkat desktop, tablet, maupun layar smartphone kasir.
 - **Katalog Kartu Buah Interaktif (*Fruit Cards UI*):** Navigasi visual menu jus dengan foto buah asli, label harga net final, dan status ketersediaan stok real-time (*Sisa Cup / Habis*).
 - **Otomasi Pemotongan Resep (*Bill of Materials - BOM*):** Setiap cup transaksi otomatis memotong gramatur buah segar, gula cair, cup, tutup, dan sedotan secara atomik di inventaris.
 - **Navigasi Cepat Keyboard & Mouse (Sub-Second Ergonomics):**
@@ -40,7 +50,8 @@ npm install
 ```bash
 npm run dev
 ```
-Buka browser di **[http://localhost:3000/pos](http://localhost:3000/pos)**.
+- **Terminal Kasir POS:** [http://localhost:3000/pos](http://localhost:3000/pos)
+- **Executive Dashboard:** [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
 
 ### 3. Build Produksi
 ```bash
@@ -61,8 +72,23 @@ VITAMINE/
 │   │   ├── globals.css     # Tailwind CSS tokens & Print styling 58mm
 │   │   ├── layout.tsx      # Root HTML Layout & Google Fonts
 │   │   ├── page.tsx        # Landing Page Verifikasi Sistem
-│   │   └── pos/
-│   │       └── page.tsx    # Layar Utama POS Meja Kasir
+│   │   ├── pos/
+│   │   │   └── page.tsx    # Layar Utama POS Meja Kasir
+│   │   └── dashboard/
+│   │       └── page.tsx    # Executive Left-Sidebar Dashboard Hub
+│   ├── components/
+│   │   ├── pos/            # Komponen POS, Kartu Buah, Numpad, & Modal Kasir
+│   │   └── dashboard/      # Sidebar, Header, Product CRUD, Live Orders, Audit Kas, BOM Calculator
+│   ├── context/
+│   │   └── PosContext.tsx  # State Management Kasir, Shift, & BOM Engine
+│   ├── lib/
+│   │   ├── audio-effects.ts # Web Audio Synthesizer (SFX Click & Beep)
+│   │   ├── export-utils.ts  # CSV & JSON Reporting Engine
+│   │   ├── broadcast.ts    # Dual-Screen BroadcastChannel Synchronizer
+│   │   ├── mock-data.ts    # Master Resep Buah & Inventory Awal
+│   │   └── printer-escpos.ts # Driver ESC/POS Thermal 58mm
+│   └── types/
+│       └── index.ts        # TypeScript Type Definitions
 │   ├── components/pos/
 │   │   ├── NavbarPOS.tsx         # Header POS & Hardware Indicators
 │   │   ├── FruitCard.tsx         # Kartu Menu Buah & Live Cup Counter
