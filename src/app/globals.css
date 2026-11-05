@@ -34,23 +34,25 @@ input[type="number"],
   content: '';
   position: absolute;
   top: 0;
-  left: -120%;
-  width: 50%;
+  left: -150%;
+  width: 65%;
   height: 100%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.2) 80%,
     transparent 100%
   );
   transform: skewX(-25deg);
   transition: none;
   pointer-events: none;
-  z-index: 10;
+  z-index: 20;
 }
 
 .btn-kilat:hover::after {
-  left: 160%;
+  left: 180%;
   transition: left 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 

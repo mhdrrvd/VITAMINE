@@ -38,9 +38,15 @@ interface PosContextType {
 
   // Catalog & Inventory
   products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  addProduct: (product: Omit<Product, 'id'> | Product) => Product;
+  updateProduct: (product: Product) => void;
+  deleteProduct: (productId: string) => void;
+  toggleProductActive: (productId: string) => void;
   ingredients: Ingredient[];
   getCupCapacity: (product: Product) => number;
   addMorningStock: (stockInputs: { ingredientId: string; quantity: number }[]) => void;
+  receiveMorningStock: (stockInputs: { ingredientId: string; quantity: number }[]) => void;
   returnStock: (returnInputs: { ingredientId: string; quantity: number; isWaste: boolean; reason: string }[]) => void;
 
   // Cart & Transaction
@@ -137,8 +143,49 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
     return INITIAL_INGREDIENTS;
   });
 
-  // Products
-  const [products] = useState<Product[]>(INITIAL_PRODUCTS);
+  // Products (Live Menu Catalog with LocalStorage persistence)
+  const [products, setProducts] = useState<Product[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('vitamine_products');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    return INITIAL_PRODUCTS;
+  });
+
+  // Save products to local storage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('vitamine_products', JSON.stringify(products));
+    }
+  }, [products]);
+
+  // CRUD Product Actions
+  const addProduct = (newProd: Omit<Product, 'id'> | Product): Product => {
+    const id = 'id' in newProd && newProd.id ? newProd.id : `prod-${Date.now()}`;
+    const productToAdd: Product = { ...newProd, id };
+    setProducts((prev) => [productToAdd, ...prev]);
+    return productToAdd;
+  };
+
+  const updateProduct = (updatedProd: Product) => {
+    setProducts((prev) => prev.map((p) => (p.id === updatedProd.id ? updatedProd : p)));
+  };
+
+  const deleteProduct = (productId: string) => {
+    setProducts((prev) => prev.filter((p) => p.id !== productId));
+  };
+
+  const toggleProductActive = (productId: string) => {
+    setProducts((prev) =>
+      prev.map((p) => (p.id === productId ? { ...p, isActive: !p.isActive } : p))
+    );
+  };
 
   // Cart
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -471,9 +518,15 @@ export function PosProvider({ children }: { children: React.ReactNode }) {
         openShift,
         closeShift,
         products,
+        setProducts,
+        addProduct,
+        updateProduct,
+        deleteProduct,
+        toggleProductActive,
         ingredients,
         getCupCapacity,
         addMorningStock,
+        receiveMorningStock: addMorningStock,
         returnStock,
         cart,
         addToCart,

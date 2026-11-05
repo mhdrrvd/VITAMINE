@@ -52,8 +52,8 @@ export function SidebarPOS() {
         aria-label="Dashboard POS"
         className={`btn-kilat relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer overflow-hidden ${
           isDashboardActive
-            ? 'bg-white text-[#0B1E19] shadow-md font-bold scale-105'
-            : 'text-white/70 hover:text-white hover:bg-white/10'
+            ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/40 font-bold scale-105'
+            : 'text-white/70 hover:text-white hover:bg-[#00B14F] hover:scale-105 hover:shadow-lg hover:shadow-[#00B14F]/40'
         }`}
       >
         <LayoutGrid className="w-4.5 h-4.5 stroke-[2.2]" />
@@ -69,8 +69,8 @@ export function SidebarPOS() {
         aria-label="Riwayat Penjualan"
         className={`btn-kilat relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer overflow-hidden ${
           isHistoryModalOpen
-            ? 'bg-white text-[#0B1E19] shadow-md font-bold scale-105'
-            : 'text-white/70 hover:text-white hover:bg-white/10'
+            ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/40 font-bold scale-105'
+            : 'text-white/70 hover:text-white hover:bg-[#00B14F] hover:scale-105 hover:shadow-lg hover:shadow-[#00B14F]/40'
         }`}
       >
         <History className="w-4.5 h-4.5 stroke-[2]" />
@@ -83,8 +83,8 @@ export function SidebarPOS() {
         aria-label="Order Bahan Baku"
         className={`btn-kilat relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer overflow-hidden ${
           isMorningStockModalOpen
-            ? 'bg-white text-[#0B1E19] shadow-md font-bold scale-105'
-            : 'text-white/70 hover:text-white hover:bg-white/10'
+            ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/40 font-bold scale-105'
+            : 'text-white/70 hover:text-white hover:bg-[#00B14F] hover:scale-105 hover:shadow-lg hover:shadow-[#00B14F]/40'
         }`}
       >
         <PackagePlus className="w-4.5 h-4.5 stroke-[2]" />
@@ -97,8 +97,8 @@ export function SidebarPOS() {
         aria-label="Status Stok Real-Time"
         className={`btn-kilat relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer overflow-hidden ${
           isStockModalOpen
-            ? 'bg-white text-[#0B1E19] shadow-md font-bold scale-105'
-            : 'text-white/70 hover:text-white hover:bg-white/10'
+            ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/40 font-bold scale-105'
+            : 'text-white/70 hover:text-white hover:bg-[#00B14F] hover:scale-105 hover:shadow-lg hover:shadow-[#00B14F]/40'
         }`}
       >
         <Layers className="w-4.5 h-4.5 stroke-[2]" />
@@ -111,8 +111,8 @@ export function SidebarPOS() {
         aria-label="Return Bahan Baku"
         className={`btn-kilat relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer overflow-hidden ${
           isReturnStockModalOpen
-            ? 'bg-white text-[#0B1E19] shadow-md font-bold scale-105'
-            : 'text-white/70 hover:text-white hover:bg-white/10'
+            ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/40 font-bold scale-105'
+            : 'text-white/70 hover:text-white hover:bg-[#00B14F] hover:scale-105 hover:shadow-lg hover:shadow-[#00B14F]/40'
         }`}
       >
         <RotateCcw className="w-4.5 h-4.5 stroke-[2]" />
@@ -125,8 +125,8 @@ export function SidebarPOS() {
         aria-label="Serah Terima Shift & Kas Opname"
         className={`btn-kilat relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-150 cursor-pointer overflow-hidden ${
           isCashOpnameModalOpen
-            ? 'bg-white text-[#0B1E19] shadow-md font-bold scale-105'
-            : 'text-white/70 hover:text-white hover:bg-white/10'
+            ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/40 font-bold scale-105'
+            : 'text-white/70 hover:text-white hover:bg-[#00B14F] hover:scale-105 hover:shadow-lg hover:shadow-[#00B14F]/40'
         }`}
       >
         <Calculator className="w-4.5 h-4.5 stroke-[2]" />

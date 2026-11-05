@@ -81,10 +81,10 @@ export function NavbarPOS() {
         {/* Real-time Stock Checker Button (F4) */}
         <button
           onClick={() => setIsStockModalOpen(true)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+          className={`btn-kilat relative overflow-hidden flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
             lowStockCount > 0
-              ? 'bg-amber-50 border-amber-300 text-amber-700 hover:bg-amber-100'
-              : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+              ? 'bg-amber-50 border-amber-300 text-amber-700 hover:bg-[#00B14F] hover:text-white hover:border-[#00B14F] hover:shadow-md hover:shadow-[#00B14F]/30'
+              : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-[#00B14F] hover:text-white hover:border-[#00B14F] hover:shadow-md hover:shadow-[#00B14F]/30'
           }`}
           title="Cek Stok Real-Time (F4)"
         >
@@ -104,20 +104,20 @@ export function NavbarPOS() {
         {/* Morning Stock In */}
         <button
           onClick={() => setIsMorningStockModalOpen(true)}
-          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-semibold text-slate-700 transition-all"
+          className="btn-kilat relative overflow-hidden hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-[#00B14F] hover:text-white border border-slate-200 hover:border-[#00B14F] hover:shadow-md hover:shadow-[#00B14F]/30 text-xs font-semibold text-slate-700 transition-all cursor-pointer"
           title="Input Penerimaan Stok Pagi"
         >
-          <ArrowDownToLine className="w-3.5 h-3.5 text-emerald-600" />
+          <ArrowDownToLine className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white" />
           <span>Stok Pagi</span>
         </button>
 
         {/* Retur Stok */}
         <button
           onClick={() => setIsReturnStockModalOpen(true)}
-          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-semibold text-slate-700 transition-all"
+          className="btn-kilat relative overflow-hidden hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-[#00B14F] hover:text-white border border-slate-200 hover:border-[#00B14F] hover:shadow-md hover:shadow-[#00B14F]/30 text-xs font-semibold text-slate-700 transition-all cursor-pointer"
           title="Retur Sisa Bahan Baku"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-rose-500" />
+          <RotateCcw className="w-3.5 h-3.5 text-rose-500 group-hover:text-white" />
           <span>Retur</span>
         </button>
 
@@ -136,10 +136,10 @@ export function NavbarPOS() {
         {/* Tutup Shift & Cash Opname */}
         <button
           onClick={() => setIsCashOpnameModalOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-sm"
+          className="btn-kilat relative overflow-hidden flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-[#00B14F] hover:text-white text-white text-xs font-bold transition-all shadow-sm hover:shadow-md hover:shadow-[#00B14F]/30 cursor-pointer"
           title="Serah Terima Shift & Cash Opname"
         >
-          <LogOut className="w-3.5 h-3.5 text-orange-400" />
+          <LogOut className="w-3.5 h-3.5 text-orange-400 group-hover:text-white" />
           <span>Tutup Shift</span>
         </button>
       </div>

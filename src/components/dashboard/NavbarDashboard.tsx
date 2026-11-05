@@ -59,10 +59,10 @@ export function NavbarDashboard({
           <button
             type="button"
             onClick={() => setActiveTab('ANALYTICS')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-300 ease-out ${
+            className={`btn-kilat relative overflow-hidden px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-200 ease-out cursor-pointer ${
               activeTab === 'ANALYTICS'
-                ? 'bg-[#1A6B51] text-white shadow-xs'
-                : 'text-slate-400 hover:bg-[#1A6B51] hover:text-white'
+                ? 'bg-[#00B14F] text-white shadow-xs'
+                : 'text-slate-400 hover:bg-[#00B14F] hover:text-white hover:shadow-md hover:shadow-[#00B14F]/30'
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
@@ -72,10 +72,10 @@ export function NavbarDashboard({
           <button
             type="button"
             onClick={() => setActiveTab('PROMO')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-300 ease-out ${
+            className={`btn-kilat relative overflow-hidden px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-200 ease-out cursor-pointer ${
               activeTab === 'PROMO'
-                ? 'bg-[#1A6B51] text-white shadow-xs'
-                : 'text-slate-400 hover:bg-[#1A6B51] hover:text-white'
+                ? 'bg-[#00B14F] text-white shadow-xs'
+                : 'text-slate-400 hover:bg-[#00B14F] hover:text-white hover:shadow-md hover:shadow-[#00B14F]/30'
             }`}
           >
             <ImageIcon className="w-3.5 h-3.5" />
@@ -85,10 +85,10 @@ export function NavbarDashboard({
           <button
             type="button"
             onClick={() => setActiveTab('BOM')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-300 ease-out ${
+            className={`btn-kilat relative overflow-hidden px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all duration-200 ease-out cursor-pointer ${
               activeTab === 'BOM'
-                ? 'bg-[#1A6B51] text-white shadow-xs'
-                : 'text-slate-400 hover:bg-[#1A6B51] hover:text-white'
+                ? 'bg-[#00B14F] text-white shadow-xs'
+                : 'text-slate-400 hover:bg-[#00B14F] hover:text-white hover:shadow-md hover:shadow-[#00B14F]/30'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -119,7 +119,7 @@ export function NavbarDashboard({
           <Link
             href="/pos"
             target="_blank"
-            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 transition-colors"
+            className="btn-kilat relative overflow-hidden px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-[#00B14F] hover:text-white text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700 hover:border-[#00B14F] hover:shadow-md hover:shadow-[#00B14F]/30 transition-all duration-200"
             title="Buka Terminal Kasir di Tab Baru"
           >
             <ShoppingBag className="w-3.5 h-3.5 text-orange-400" />
