@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Clock, PieChart, Sparkles } from 'lucide-react';
+import { Clock, PieChart, Sparkles, TrendingUp, BarChart2 } from 'lucide-react';
 
 interface HourlyData {
   hour: string;
@@ -28,8 +28,16 @@ const TOP_FRUITS = [
   { name: 'Lainnya & Add-on', percent: 8, color: '#94A3B8', cups: 11 },
 ];
 
+const CATEGORY_MARGINS = [
+  { name: 'Paket Vitamin (Multi)', margin: 74, hpp: 7000, price: 27000, color: '#00E565' },
+  { name: 'Mix Fruit Juice', margin: 71, hpp: 6900, price: 24000, color: '#38BDF8' },
+  { name: 'Regular Single Fruit', margin: 68, hpp: 7040, price: 22000, color: '#F59E0B' },
+  { name: 'Add-on & Extra Topping', margin: 82, hpp: 900, price: 5000, color: '#A855F7' },
+];
+
 export function SalesChartSection() {
   const [hoveredHour, setHoveredHour] = useState<HourlyData | null>(null);
+  const [viewMode, setViewMode] = useState<'HOURLY' | 'MARGIN'>('HOURLY');
 
   // SVG Area Chart Calculations
   const maxRevenue = Math.max(...HOURLY_SALES.map((d) => d.revenue));
@@ -52,77 +60,122 @@ export function SalesChartSection() {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* 1. Hourly Sales Trend Chart (7 cols) */}
       <div className="lg:col-span-7 p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-sm flex flex-col justify-between">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
             <h3 className="font-extrabold text-white text-base font-display flex items-center gap-2">
-              <Clock className="w-4 h-4 text-orange-400" />
-              <span>Tren Penjualan Jam Sibuk (Peak Hours)</span>
+              {viewMode === 'HOURLY' ? (
+                <>
+                  <Clock className="w-4 h-4 text-orange-400" />
+                  <span>Tren Penjualan Jam Sibuk (Peak Hours)</span>
+                </>
+              ) : (
+                <>
+                  <TrendingUp className="w-4 h-4 text-[#00E565]" />
+                  <span>Analisis Gross Margin per Kategori Menu</span>
+                </>
+              )}
             </h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Distribusi omzet per interval 2 jam di meja kasir
+              {viewMode === 'HOURLY'
+                ? 'Distribusi omzet per interval 2 jam di meja kasir'
+                : 'Tingkat profitabilitas bersih berdasarkan kalkulasi resep BOM'}
             </p>
           </div>
 
-          {hoveredHour && (
-            <div className="text-right">
-              <span className="text-[10px] text-slate-400 block font-mono">
-                Pukul {hoveredHour.hour}:
-              </span>
-              <span className="font-extrabold text-orange-400 text-sm">
-                Rp {hoveredHour.revenue.toLocaleString('id-ID')} ({hoveredHour.orders} cup)
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* SVG Area Chart */}
-        <div className="relative w-full pt-4">
-          <svg
-            viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-            className="w-full h-44 overflow-visible"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#FF6B00" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#FF6B00" stopOpacity="0.0" />
-              </linearGradient>
-            </defs>
-
-            {/* Area Fill */}
-            <path d={areaD} fill="url(#revenueGradient)" />
-
-            {/* Line Path */}
-            <path
-              d={pathD}
-              fill="none"
-              stroke="#FF6B00"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* Interactive Data Dots */}
-            {points.map((pt, idx) => (
-              <circle
-                key={idx}
-                cx={pt.x}
-                cy={pt.y}
-                r="4"
-                className="fill-slate-900 stroke-orange-400 stroke-2 hover:r-6 cursor-pointer transition-all"
-                onMouseEnter={() => setHoveredHour(pt.data)}
-                onMouseLeave={() => setHoveredHour(null)}
-              />
-            ))}
-          </svg>
-
-          {/* X Axis Labels */}
-          <div className="flex justify-between text-[11px] font-mono text-slate-500 mt-2 border-t border-slate-800 pt-2">
-            {HOURLY_SALES.map((d) => (
-              <span key={d.hour}>{d.hour}</span>
-            ))}
+          <div className="flex items-center gap-1 p-1 bg-slate-950 rounded-xl border border-slate-800 text-[11px] font-bold self-start sm:self-center">
+            <button
+              type="button"
+              onClick={() => setViewMode('HOURLY')}
+              className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+                viewMode === 'HOURLY'
+                  ? 'bg-[#00B14F] text-white shadow-xs'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              Jam Sibuk
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('MARGIN')}
+              className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+                viewMode === 'MARGIN'
+                  ? 'bg-[#00B14F] text-white shadow-xs'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              Margin HPP
+            </button>
           </div>
         </div>
+
+        {viewMode === 'MARGIN' ? (
+          <div className="space-y-3.5 my-auto py-2">
+            {CATEGORY_MARGINS.map((cat) => (
+              <div key={cat.name} className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div className="flex items-center justify-between text-xs font-bold">
+                  <span className="text-white">{cat.name}</span>
+                  <span className="font-mono text-[#00E565]">
+                    Margin {cat.margin}% (HPP: Rp {cat.hpp.toLocaleString('id-ID')})
+                  </span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{ width: `${cat.margin}%`, backgroundColor: cat.color }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="relative w-full pt-4">
+            <svg
+              viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+              className="w-full h-44 overflow-visible"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#FF6B00" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#FF6B00" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
+
+              {/* Area Fill */}
+              <path d={areaD} fill="url(#revenueGradient)" />
+
+              {/* Line Path */}
+              <path
+                d={pathD}
+                fill="none"
+                stroke="#FF6B00"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              {/* Interactive Data Dots */}
+              {points.map((pt, idx) => (
+                <circle
+                  key={idx}
+                  cx={pt.x}
+                  cy={pt.y}
+                  r="4"
+                  className="fill-slate-900 stroke-orange-400 stroke-2 hover:r-6 cursor-pointer transition-all"
+                  onMouseEnter={() => setHoveredHour(pt.data)}
+                  onMouseLeave={() => setHoveredHour(null)}
+                />
+              ))}
+            </svg>
+
+            {/* X Axis Labels */}
+            <div className="flex justify-between text-[11px] font-mono text-slate-500 mt-2 border-t border-slate-800 pt-2">
+              {HOURLY_SALES.map((d) => (
+                <span key={d.hour}>{d.hour}</span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 2. Top-Selling Fruits Breakdown (5 cols) */}
