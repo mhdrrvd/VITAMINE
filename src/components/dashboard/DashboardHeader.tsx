@@ -27,6 +27,7 @@ export function DashboardHeader({
   const { currentShift } = usePos();
   const [currentDate, setCurrentDate] = useState('');
   const [currentTime, setCurrentTime] = useState('');
+  const [selectedOutlet, setSelectedOutlet] = useState('Indomaret Mabar (Pusat)');
 
   useEffect(() => {
     const updateTime = () => {
@@ -84,6 +85,26 @@ export function DashboardHeader({
 
       {/* Right: Cashier Shift status, Date Filter, & Quick POS Link */}
       <div className="flex items-center gap-2.5 sm:gap-3">
+        {/* Branch / Outlet Switcher */}
+        <div className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F1E1B] border border-white/10 text-xs text-white">
+          <Store className="w-3.5 h-3.5 text-[#00E565]" />
+          <select
+            value={selectedOutlet}
+            onChange={(e) => setSelectedOutlet(e.target.value)}
+            className="bg-transparent focus:outline-none cursor-pointer text-xs font-semibold text-white pr-1"
+          >
+            <option value="Indomaret Mabar (Pusat)" className="bg-[#0B1E19] text-white">
+              Indomaret Mabar (Pusat)
+            </option>
+            <option value="Sun Plaza Medan" className="bg-[#0B1E19] text-white">
+              Sun Plaza Medan (Branch #2)
+            </option>
+            <option value="Centre Point Mall" className="bg-[#0B1E19] text-white">
+              Centre Point Mall (Branch #3)
+            </option>
+          </select>
+        </div>
+
         {/* Active Cashier Pill */}
         <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0F1E1B] border border-white/10 text-xs text-white">
           <UserCheck className="w-3.5 h-3.5 text-[#00E565]" />
