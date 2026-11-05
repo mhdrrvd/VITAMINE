@@ -17,6 +17,7 @@ import {
   Volume2,
   VolumeX,
   Database,
+  X,
 } from 'lucide-react';
 import { soundEffects } from '@/lib/audio-effects';
 import { BackupRestoreModal } from './BackupRestoreModal';
@@ -34,6 +35,8 @@ interface SidebarDashboardProps {
   setActiveTab: (tab: DashboardTab) => void;
   ordersCount?: number;
   productsCount?: number;
+  isMobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export function SidebarDashboard({
@@ -41,6 +44,8 @@ export function SidebarDashboard({
   setActiveTab,
   ordersCount = 0,
   productsCount = 0,
+  isMobileOpen = false,
+  onCloseMobile,
 }: SidebarDashboardProps) {
   const [isMuted, setIsMuted] = React.useState(false);
   const [isBackupModalOpen, setIsBackupModalOpen] = React.useState(false);
@@ -52,6 +57,9 @@ export function SidebarDashboard({
   const handleTabClick = (tab: DashboardTab) => {
     soundEffects.playClick();
     setActiveTab(tab);
+    if (onCloseMobile) {
+      onCloseMobile();
+    }
   };
 
   const handleToggleSound = (e: React.MouseEvent) => {
@@ -110,35 +118,63 @@ export function SidebarDashboard({
   ];
 
   return (
-    <aside className="w-64 lg:w-72 bg-[#0B1E19]/95 backdrop-blur-xl border-r border-white/10 flex flex-col justify-between h-screen sticky top-0 z-40 select-none shrink-0 transition-all duration-300">
-      {/* 1. Header Brand & Outlet Info */}
-      <div className="p-4 lg:p-5 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="relative w-11 h-11 rounded-2xl bg-[#081210] border border-white/10 flex items-center justify-center p-1.5 shadow-md shrink-0">
-            <Image
-              src="/images/logo-vm.png"
-              alt="VITAMINE Logo"
-              fill
-              className="object-contain p-1"
-              priority
-            />
-          </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <span className="font-black text-white text-base tracking-tight font-display">
-                VITAMINE
-              </span>
-              <span className="px-1.5 py-0.2 rounded bg-orange-500/20 text-orange-400 text-[10px] font-mono font-bold border border-orange-500/30">
-                OWNER
-              </span>
+    <>
+      {/* Mobile Backdrop */}
+      {isMobileOpen && (
+        <div
+          onClick={onCloseMobile}
+          className="fixed inset-0 bg-black/70 backdrop-blur-xs z-40 lg:hidden animate-in fade-in duration-200"
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`fixed lg:sticky top-0 left-0 z-50 lg:z-40 w-72 lg:w-72 bg-[#0B1E19]/98 lg:bg-[#0B1E19]/95 backdrop-blur-xl border-r border-white/10 flex flex-col justify-between h-screen select-none shrink-0 transition-transform duration-300 ease-in-out ${
+          isMobileOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'
+        }`}
+      >
+        {/* 1. Header Brand & Outlet Info */}
+        <div className="p-4 lg:p-5 border-b border-white/10">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative w-11 h-11 rounded-2xl bg-[#081210] border border-white/10 flex items-center justify-center p-1.5 shadow-md shrink-0">
+                <Image
+                  src="/images/logo-vm.png"
+                  alt="VITAMINE Logo"
+                  fill
+                  className="object-contain p-1"
+                  priority
+                />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-black text-white text-base tracking-tight font-display">
+                    VITAMINE
+                  </span>
+                  <span className="px-1.5 py-0.2 rounded bg-orange-500/20 text-orange-400 text-[10px] font-mono font-bold border border-orange-500/30">
+                    OWNER
+                  </span>
+                </div>
+                <p className="text-[11px] text-[#00E565] font-medium truncate flex items-center gap-1.5 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E565] animate-pulse shrink-0" />
+                  <span>Indomaret Mabar</span>
+                </p>
+              </div>
             </div>
-            <p className="text-[11px] text-[#00E565] font-medium truncate flex items-center gap-1.5 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00E565] animate-pulse shrink-0" />
-              <span>Indomaret Mabar</span>
-            </p>
+
+            {/* Mobile Close Button */}
+            {onCloseMobile && (
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                className="lg:hidden p-1.5 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                aria-label="Tutup Menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
         </div>
-      </div>
 
       {/* 2. Main Navigation Menu */}
       <nav className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-1.5" aria-label="Dashboard Menu">
@@ -271,6 +307,7 @@ export function SidebarDashboard({
         onClose={() => setIsBackupModalOpen(false)}
       />
     </aside>
+    </>
   );
 }
 

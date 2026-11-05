@@ -28,6 +28,7 @@ function DashboardContent() {
   const [activeTab, setActiveTab] = useState<DashboardTab>('ANALYTICS');
   const [dateRange, setDateRange] = useState('TODAY');
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Keyboard shortcut listener for Ctrl+K / Cmd+K
   React.useEffect(() => {
@@ -49,6 +50,8 @@ function DashboardContent() {
         setActiveTab={setActiveTab}
         ordersCount={recentOrders.length}
         productsCount={products.length}
+        isMobileOpen={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
       />
 
       {/* 2. Main Content Area */}
@@ -59,6 +62,7 @@ function DashboardContent() {
           setDateRange={setDateRange}
           activeTabTitle={TAB_TITLES[activeTab]}
           onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+          onToggleMobileMenu={() => setIsMobileMenuOpen((prev) => !prev)}
         />
 
         {/* Tab Sections */}

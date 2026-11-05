@@ -11,6 +11,7 @@ import {
   UserCheck,
   ChevronDown,
   Search,
+  Menu,
 } from 'lucide-react';
 import { usePos } from '@/context/PosContext';
 
@@ -19,6 +20,7 @@ interface DashboardHeaderProps {
   setDateRange: (range: string) => void;
   activeTabTitle?: string;
   onOpenCommandPalette?: () => void;
+  onToggleMobileMenu?: () => void;
 }
 
 export function DashboardHeader({
@@ -26,6 +28,7 @@ export function DashboardHeader({
   setDateRange,
   activeTabTitle = 'Dashboard Operasional',
   onOpenCommandPalette,
+  onToggleMobileMenu,
 }: DashboardHeaderProps) {
   const { currentShift } = usePos();
   const [currentDate, setCurrentDate] = useState('');
@@ -63,7 +66,18 @@ export function DashboardHeader({
   return (
     <header className="h-16 border-b border-white/10 px-4 sm:px-8 flex items-center justify-between gap-4 sticky top-0 z-30 bg-[#081210]/90 backdrop-blur-md select-none text-white">
       {/* Left: Outlet details & live clock */}
-      <div className="flex items-center gap-4 min-w-0">
+      <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+        {/* Mobile menu trigger */}
+        {onToggleMobileMenu && (
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            className="lg:hidden p-2 rounded-xl bg-[#0F1E1B] hover:bg-white/10 border border-white/10 text-white/80 hover:text-white transition-colors cursor-pointer"
+            aria-label="Buka Menu Navigasi"
+          >
+            <Menu className="w-5 h-5 text-[#00E565]" />
+          </button>
+        )}
         <div>
           <h2 className="text-sm sm:text-base font-extrabold text-white tracking-tight flex items-center gap-2">
             <span>{activeTabTitle}</span>
