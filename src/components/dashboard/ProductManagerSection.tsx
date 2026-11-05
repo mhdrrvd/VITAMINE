@@ -20,7 +20,11 @@ import {
   Package,
   AlertTriangle,
   RotateCcw,
+  Download,
+  CheckSquare,
+  Square,
 } from 'lucide-react';
+import { exportToCsv } from '@/lib/export-utils';
 
 const CATEGORY_LABELS: Record<ProductCategory, string> = {
   REGULAR: 'Regular',
@@ -57,6 +61,7 @@ export function ProductManagerSection() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // Modal States
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -230,6 +235,52 @@ export function ProductManagerSection() {
     });
   };
 
+  // Bulk actions
+  const handleToggleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedIds.length === filteredProducts.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(filteredProducts.map((p) => p.id));
+    }
+  };
+
+  const handleBatchToggleStatus = (targetActive: boolean) => {
+    selectedIds.forEach((id) => {
+      const prod = products.find((p) => p.id === id);
+      if (prod && prod.isActive !== targetActive) {
+        toggleProductActive(id);
+      }
+    });
+    setSelectedIds([]);
+  };
+
+  const handleBatchDelete = () => {
+    if (confirm(`Yakin ingin menghapus ${selectedIds.length} produk terpilih?`)) {
+      selectedIds.forEach((id) => deleteProduct(id));
+      setSelectedIds([]);
+    }
+  };
+
+  const handleExportProducts = () => {
+    const headers = ['ID Produk', 'Nama Menu', 'Kategori', 'Harga Jual', 'Status', 'Favorit', 'Jumlah Bahan BOM'];
+    const rows = products.map((p) => [
+      p.id,
+      p.name,
+      CATEGORY_LABELS[p.category] || p.category,
+      p.basePrice,
+      p.isActive ? 'AKTIF' : 'NONAKTIF',
+      p.isFavorite ? 'YA' : 'TIDAK',
+      p.recipe.length,
+    ]);
+    exportToCsv(`katalog-menu-vitamine-${new Date().toISOString().slice(0, 10)}`, headers, rows);
+  };
+
   // Stats calculation
   const totalProducts = products.length;
   const activeProducts = products.filter((p) => p.isActive).length;
@@ -253,14 +304,25 @@ export function ProductManagerSection() {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={handleOpenCreate}
-          className="btn-kilat px-5 py-2.5 rounded-2xl bg-[#00B14F] hover:bg-[#00E565] text-white hover:text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#00B14F]/30 transition-all cursor-pointer shrink-0"
-        >
-          <Plus className="w-4 h-4 stroke-[3]" />
-          <span>Tambah Menu Baru</span>
-        </button>
+        <div className="flex items-center gap-2.5 shrink-0 self-start sm:self-auto">
+          <button
+            type="button"
+            onClick={handleExportProducts}
+            className="px-4 py-2.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5 text-[#00E565]" />
+            <span>Export Katalog</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleOpenCreate}
+            className="btn-kilat px-5 py-2.5 rounded-2xl bg-[#00B14F] hover:bg-[#00E565] text-white hover:text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#00B14F]/30 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>Tambah Menu Baru</span>
+          </button>
+        </div>
       </div>
 
       {/* 2. Metric Mini Cards */}
@@ -347,6 +409,47 @@ export function ProductManagerSection() {
         </div>
       </div>
 
+      {/* Bulk Action Bar */}
+      {selectedIds.length > 0 && (
+        <div className="p-3 px-5 rounded-2xl bg-[#00B14F] text-white flex flex-wrap items-center justify-between gap-3 shadow-lg shadow-[#00B14F]/30 animate-in slide-in-from-top-2">
+          <div className="flex items-center gap-2 text-xs font-bold">
+            <CheckSquare className="w-4 h-4" />
+            <span>{selectedIds.length} menu terpilih</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleBatchToggleStatus(true)}
+              className="px-3 py-1 rounded-xl bg-white/20 hover:bg-white text-white hover:text-slate-950 text-xs font-bold transition-colors cursor-pointer"
+            >
+              Aktifkan di POS
+            </button>
+            <button
+              type="button"
+              onClick={() => handleBatchToggleStatus(false)}
+              className="px-3 py-1 rounded-xl bg-white/20 hover:bg-white text-white hover:text-slate-950 text-xs font-bold transition-colors cursor-pointer"
+            >
+              Nonaktifkan di POS
+            </button>
+            <button
+              type="button"
+              onClick={handleBatchDelete}
+              className="px-3 py-1 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-colors cursor-pointer"
+            >
+              Hapus Terpilih
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedIds([])}
+              className="p-1 rounded-lg hover:bg-white/20 text-white/80 hover:text-white"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 4. Product Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {filteredProducts.map((product) => {
@@ -382,9 +485,23 @@ export function ProductManagerSection() {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-1.5">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/5 text-[#00E565] border border-white/10">
-                        {CATEGORY_LABELS[product.category] || product.category}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => handleToggleSelect(product.id)}
+                          className="text-white/40 hover:text-white transition-colors cursor-pointer"
+                          title="Pilih produk untuk tindakan massal"
+                        >
+                          {selectedIds.includes(product.id) ? (
+                            <CheckSquare className="w-4 h-4 text-[#00E565]" />
+                          ) : (
+                            <Square className="w-4 h-4" />
+                          )}
+                        </button>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/5 text-[#00E565] border border-white/10">
+                          {CATEGORY_LABELS[product.category] || product.category}
+                        </span>
+                      </div>
 
                       {/* Status Toggle Switch */}
                       <button
