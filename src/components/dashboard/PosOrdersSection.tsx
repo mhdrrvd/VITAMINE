@@ -17,7 +17,9 @@ import {
   Eye,
   X,
   ExternalLink,
+  Download,
 } from 'lucide-react';
+import { exportToCsv } from '@/lib/export-utils';
 
 export function PosOrdersSection() {
   const { recentOrders, updateOrderStatus, reprintReceipt } = usePos();
@@ -50,6 +52,21 @@ export function PosOrdersSection() {
     .filter((o) => o.paymentMethod === 'QRIS_STATIC')
     .reduce((sum, o) => sum + o.totalAmount, 0);
 
+  const handleExportCsv = () => {
+    const headers = ['No Order', 'Waktu', 'Kasir', 'Shift', 'Items', 'Metode Bayar', 'Total Bayar', 'Status'];
+    const rows = recentOrders.map((o) => [
+      o.orderNumber,
+      new Date(o.createdAt).toLocaleString('id-ID'),
+      o.cashierName,
+      o.shiftId,
+      o.items.map((i) => `${i.quantity}x ${i.name}`).join('; '),
+      o.paymentMethod === 'CASH' ? 'TUNAI' : 'QRIS',
+      o.totalAmount,
+      o.status || 'COMPLETED',
+    ]);
+    exportToCsv(`transaksi-pos-vitamine-${new Date().toISOString().slice(0, 10)}`, headers, rows);
+  };
+
   return (
     <div className="space-y-6">
       {/* 1. Header Row */}
@@ -70,9 +87,20 @@ export function PosOrdersSection() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-[#00E565] bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl self-start sm:self-auto">
-          <span>Total Antrean:</span>
-          <span className="font-bold text-white">{recentOrders.length} Pesanan</span>
+        <div className="flex items-center gap-2.5 self-start sm:self-auto">
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5 text-[#00E565]" />
+            <span>Export CSV</span>
+          </button>
+
+          <div className="flex items-center gap-2 text-xs font-mono text-[#00E565] bg-white/5 border border-white/10 px-3 py-2 rounded-xl">
+            <span>Antrean:</span>
+            <span className="font-bold text-white">{recentOrders.length}</span>
+          </div>
         </div>
       </div>
 

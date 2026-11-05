@@ -15,7 +15,9 @@ import {
   TrendingDown,
   Info,
   X,
+  Download,
 } from 'lucide-react';
+import { exportToCsv } from '@/lib/export-utils';
 
 interface HistoricalShift {
   id: string;
@@ -101,6 +103,34 @@ export function ShiftAuditSection() {
   const startingCash = currentShift?.startingCash || 200000;
   const currentExpectedCash = startingCash + liveCashSales;
 
+  const handleExportAuditCsv = () => {
+    const headers = [
+      'ID Shift',
+      'Kasir',
+      'Waktu Buka',
+      'Waktu Tutup',
+      'Modal Awal',
+      'Kas Sistem',
+      'Kas Fisik Dihitung',
+      'Selisih Kas',
+      'Status',
+      'Catatan Kasir',
+    ];
+    const rows = HISTORICAL_SHIFTS.map((s) => [
+      s.id,
+      s.cashierName,
+      s.startTime,
+      s.endTime,
+      s.startingCash,
+      s.expectedCashTotal,
+      s.actualCashCounted,
+      s.discrepancy,
+      s.discrepancy === 0 ? 'BALANCE' : s.discrepancy < 0 ? 'MINUS' : 'SURPLUS',
+      s.note,
+    ]);
+    exportToCsv(`audit-shift-vitamine-${new Date().toISOString().slice(0, 10)}`, headers, rows);
+  };
+
   return (
     <div className="space-y-6">
       {/* 1. Header Row */}
@@ -120,9 +150,20 @@ export function ShiftAuditSection() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-[#00E565]">
-          <ShieldCheck className="w-4 h-4 text-[#00E565]" />
-          <span>Audit Keuangan Siap</span>
+        <div className="flex items-center gap-2.5 self-start sm:self-auto">
+          <button
+            type="button"
+            onClick={handleExportAuditCsv}
+            className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5 text-[#00E565]" />
+            <span>Download Audit CSV</span>
+          </button>
+
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-[#00E565]">
+            <ShieldCheck className="w-4 h-4 text-[#00E565]" />
+            <span>Siap Audit</span>
+          </div>
         </div>
       </div>
 
