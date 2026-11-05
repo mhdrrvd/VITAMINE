@@ -35,6 +35,35 @@ const SAMPLE_KPI: KpiData = {
   unbalancedShiftsCount: 0,
 };
 
+function Sparkline({ data, color }: { data: number[]; color: string }) {
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min || 1;
+  const width = 100;
+  const height = 28;
+
+  const points = data
+    .map((val, idx) => {
+      const x = (idx / (data.length - 1)) * width;
+      const y = height - ((val - min) / range) * (height - 6) - 3;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(' ');
+
+  return (
+    <svg className="w-20 h-6 overflow-visible opacity-80" viewBox={`0 0 ${width} ${height}`}>
+      <polyline
+        fill="none"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        points={points}
+      />
+    </svg>
+  );
+}
+
 export function KpiCardsSection() {
   const [data, setData] = useState<KpiData>(SAMPLE_KPI);
   const [displayRevenue, setDisplayRevenue] = useState(0);
@@ -77,9 +106,12 @@ export function KpiCardsSection() {
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-2xl sm:text-3xl font-black text-white font-display">
-            Rp {displayRevenue.toLocaleString('id-ID')}
-          </h3>
+          <div className="flex items-baseline justify-between">
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-display">
+              Rp {displayRevenue.toLocaleString('id-ID')}
+            </h3>
+            <Sparkline data={[2100, 2400, 2200, 2900, 3100, 2800, 3400, 3840]} color="#10B981" />
+          </div>
           <div className="flex items-center gap-2 pt-1">
             <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
               <TrendingUp className="w-3 h-3" />
@@ -104,9 +136,12 @@ export function KpiCardsSection() {
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-2xl sm:text-3xl font-black text-white font-display">
-            {data.totalOrders} Pesanan
-          </h3>
+          <div className="flex items-baseline justify-between">
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-display">
+              {data.totalOrders} Pesanan
+            </h3>
+            <Sparkline data={[85, 92, 110, 105, 128, 134, 142]} color="#38BDF8" />
+          </div>
           <div className="flex items-center gap-2 pt-1">
             <span className="text-[11px] font-bold text-slate-300">
               Rata-rata Rp {data.averageOrderValue.toLocaleString('id-ID')}/cup
@@ -129,9 +164,12 @@ export function KpiCardsSection() {
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-2xl sm:text-3xl font-black text-white font-display">
-            Rp {data.wasteCost.toLocaleString('id-ID')}
-          </h3>
+          <div className="flex items-baseline justify-between">
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-display">
+              Rp {data.wasteCost.toLocaleString('id-ID')}
+            </h3>
+            <Sparkline data={[120, 95, 75, 80, 60, 52, 48]} color="#F43F5E" />
+          </div>
           <div className="flex items-center gap-2 pt-1">
             <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
               {data.wastePercentage}% Waste
@@ -155,9 +193,12 @@ export function KpiCardsSection() {
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-xl sm:text-2xl font-black text-emerald-400 font-display flex items-center gap-2">
-            <span>PAS (BALANCE)</span>
-          </h3>
+          <div className="flex items-baseline justify-between">
+            <h3 className="text-xl sm:text-2xl font-black text-emerald-400 font-display flex items-center gap-2">
+              <span>PAS (BALANCE)</span>
+            </h3>
+            <Sparkline data={[0, 0, 0, 0, 0, 0, 0]} color="#10B981" />
+          </div>
           <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-400">
             <span>100% Shift Tercatat &bull; 0 Kasir Minus</span>
           </div>
