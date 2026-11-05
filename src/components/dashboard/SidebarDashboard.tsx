@@ -14,7 +14,10 @@ import {
   ShieldCheck,
   UserCheck,
   Sparkles,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
+import { soundEffects } from '@/lib/audio-effects';
 
 export type DashboardTab =
   | 'ANALYTICS'
@@ -37,6 +40,22 @@ export function SidebarDashboard({
   ordersCount = 0,
   productsCount = 0,
 }: SidebarDashboardProps) {
+  const [isMuted, setIsMuted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMuted(soundEffects.getIsMuted());
+  }, []);
+
+  const handleTabClick = (tab: DashboardTab) => {
+    soundEffects.playClick();
+    setActiveTab(tab);
+  };
+
+  const handleToggleSound = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const muted = soundEffects.toggleMute();
+    setIsMuted(muted);
+  };
   const navItems: {
     id: DashboardTab;
     label: string;
@@ -132,7 +151,7 @@ export function SidebarDashboard({
             <button
               key={item.id}
               type="button"
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => handleTabClick(item.id)}
               className={`btn-kilat w-full text-left p-2.5 rounded-2xl flex items-center gap-3 transition-all duration-200 cursor-pointer relative overflow-hidden group ${
                 isActive
                   ? 'bg-[#00B14F] text-white shadow-lg shadow-[#00B14F]/30 font-bold scale-[1.01]'
@@ -212,7 +231,21 @@ export function SidebarDashboard({
               </div>
             </div>
           </div>
-          <ShieldCheck className="w-4 h-4 text-[#00E565]/80 shrink-0" />
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={handleToggleSound}
+              className="p-1 rounded-lg hover:bg-white/10 text-white/50 hover:text-white transition-colors cursor-pointer"
+              title={isMuted ? 'Aktifkan Suara Audio' : 'Bisukan Suara Audio'}
+            >
+              {isMuted ? (
+                <VolumeX className="w-3.5 h-3.5 text-rose-400" />
+              ) : (
+                <Volume2 className="w-3.5 h-3.5 text-[#00E565]" />
+              )}
+            </button>
+            <ShieldCheck className="w-4 h-4 text-[#00E565]/80 shrink-0" />
+          </div>
         </div>
       </div>
     </aside>
